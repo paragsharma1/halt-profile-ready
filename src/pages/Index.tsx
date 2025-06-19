@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
 import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy } from 'lucide-react';
 
 const Index = () => {
@@ -31,7 +32,7 @@ const Index = () => {
       subtitle: "(Filter: Vestas - Overview)",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
-      status: "completed"
+      hasSubmittedFeedback: true
     },
     {
       id: 2,
@@ -39,7 +40,7 @@ const Index = () => {
       subtitle: "(Filter: Vestas - JPN_MS)",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
-      status: "in-progress"
+      hasSubmittedFeedback: false
     },
     {
       id: 3,
@@ -47,7 +48,7 @@ const Index = () => {
       subtitle: "(Filter: Vestas - Overview)",
       query: "linux4",
       feedback: "Save time",
-      status: "completed"
+      hasSubmittedFeedback: true
     },
     {
       id: 4,
@@ -55,7 +56,7 @@ const Index = () => {
       subtitle: "",
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
-      status: "pending"
+      hasSubmittedFeedback: false
     },
     {
       id: 5,
@@ -63,17 +64,18 @@ const Index = () => {
       subtitle: "",
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
-      status: "completed"
+      hasSubmittedFeedback: true
     }
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800';
-      case 'in-progress': return 'bg-blue-100 text-blue-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+  const getStatusColor = (hasSubmittedFeedback: boolean) => {
+    return hasSubmittedFeedback 
+      ? 'bg-green-100 text-green-800' 
+      : 'bg-orange-100 text-orange-800';
+  };
+
+  const getStatusText = (hasSubmittedFeedback: boolean) => {
+    return hasSubmittedFeedback ? 'Complete' : 'Incomplete';
   };
 
   const filteredSprints = sprintData.filter(sprint =>
@@ -324,10 +326,34 @@ const Index = () => {
                             )}
                           </div>
                           <div className="text-sm text-gray-700">{sprint.query}</div>
-                          <div className="text-sm text-gray-700">{sprint.feedback}</div>
+                          <div className="text-sm text-gray-700">
+                            {sprint.hasSubmittedFeedback ? (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="cursor-help border-b border-dotted border-gray-400">
+                                    {sprint.feedback}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>Feedback submitted: "{sprint.feedback}"</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            ) : (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="cursor-help text-gray-400">
+                                    No feedback yet
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>Complete the sprint to submit feedback</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            )}
+                          </div>
                           <div>
-                            <Badge className={`${getStatusColor(sprint.status)} border-0`}>
-                              {sprint.status.replace('-', ' ')}
+                            <Badge className={`${getStatusColor(sprint.hasSubmittedFeedback)} border-0`}>
+                              {getStatusText(sprint.hasSubmittedFeedback)}
                             </Badge>
                           </div>
                         </div>
