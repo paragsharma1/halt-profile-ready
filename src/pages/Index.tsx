@@ -82,6 +82,11 @@ const Index = () => {
     sprint.query.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Calculate completion rate based on feedback submission
+  const completedSprints = sprintData.filter(sprint => sprint.hasSubmittedFeedback).length;
+  const totalSprints = sprintData.length;
+  const completionRate = Math.round((completedSprints / totalSprints) * 100);
+
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -131,8 +136,8 @@ const Index = () => {
                 </div>
                 <div>
                   <p className="text-xs text-green-100">Completed</p>
-                  <p className="text-2xl font-bold">28</p>
-                  <p className="text-xs text-green-100">89% success rate</p>
+                  <p className="text-2xl font-bold">{completedSprints}</p>
+                  <p className="text-xs text-green-100">{completionRate}% completion rate</p>
                 </div>
               </div>
             </Card>
