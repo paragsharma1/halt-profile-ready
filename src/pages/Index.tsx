@@ -15,13 +15,13 @@ const Index = () => {
 
   // Sample data for charts
   const performanceData = [
-    { month: '2024-12', myPoints: 45, teamAverage: 52 },
-    { month: '2025-01', myPoints: 38, teamAverage: 48 },
-    { month: '2025-02', myPoints: 65, teamAverage: 55 },
-    { month: '2025-03', myPoints: 72, teamAverage: 58 },
-    { month: '2025-04', myPoints: 58, teamAverage: 62 },
-    { month: '2025-05', myPoints: 89, teamAverage: 71 },
-    { month: '2025-06', myPoints: 94, teamAverage: 68 },
+    { month: '2024-12', myPoints: 8, teamAverage: 12 },
+    { month: '2025-01', myPoints: 6, teamAverage: 10 },
+    { month: '2025-02', myPoints: 14, teamAverage: 11 },
+    { month: '2025-03', myPoints: 16, teamAverage: 13 },
+    { month: '2025-04', myPoints: 11, teamAverage: 14 },
+    { month: '2025-05', myPoints: 18, teamAverage: 15 },
+    { month: '2025-06', myPoints: 15, teamAverage: 14 },
   ];
 
   const sprintData = [
@@ -123,8 +123,8 @@ const Index = () => {
                 </div>
                 <div>
                   <p className="text-xs text-blue-100">This Month</p>
-                  <p className="text-2xl font-bold">94</p>
-                  <p className="text-xs text-blue-100">+12 from last month</p>
+                  <p className="text-2xl font-bold">15</p>
+                  <p className="text-xs text-blue-100">+3 from last month</p>
                 </div>
               </div>
             </Card>
@@ -149,7 +149,7 @@ const Index = () => {
                 </div>
                 <div>
                   <p className="text-xs text-purple-100">Streak</p>
-                  <p className="text-2xl font-bold">7</p>
+                  <p className="text-2xl font-bold">4</p>
                   <p className="text-xs text-purple-100">days in a row</p>
                 </div>
               </div>
