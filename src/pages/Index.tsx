@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -101,48 +100,6 @@ const Index = () => {
                   <p className="text-sm text-blue-600">Ready to power up? 👋</p>
                 </div>
               </div>
-            </div>
-            
-            {/* Right side - Enhanced Stats */}
-            <div className="flex items-center space-x-4">
-              <Card className="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Target className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-blue-100">This Month</p>
-                    <p className="text-2xl font-bold">94</p>
-                    <p className="text-xs text-blue-100">+12 from last month</p>
-                  </div>
-                </div>
-              </Card>
-              
-              <Card className="p-4 bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Trophy className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-green-100">Completed</p>
-                    <p className="text-2xl font-bold">28</p>
-                    <p className="text-xs text-green-100">89% success rate</p>
-                  </div>
-                </div>
-              </Card>
-              
-              <Card className="p-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Star className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-purple-100">Streak</p>
-                    <p className="text-2xl font-bold">7</p>
-                    <p className="text-xs text-purple-100">days in a row</p>
-                  </div>
-                </div>
-              </Card>
             </div>
           </div>
         </div>
