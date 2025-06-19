@@ -7,7 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award } from 'lucide-react';
+import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy } from 'lucide-react';
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -86,20 +86,63 @@ const Index = () => {
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-blue-600">halt</h1>
-            </div>
-            <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Left side - Brand and Welcome */}
+            <div className="flex items-center space-x-8">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                halt
+              </h1>
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold">P</span>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg">P</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Welcome Back, parag</p>
-                  <p className="text-xs text-gray-500">👋</p>
+                  <p className="text-lg font-semibold text-gray-900">Welcome Back, parag</p>
+                  <p className="text-sm text-blue-600">Ready to power up? 👋</p>
                 </div>
               </div>
+            </div>
+            
+            {/* Right side - Enhanced Stats */}
+            <div className="flex items-center space-x-4">
+              <Card className="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Target className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-blue-100">This Month</p>
+                    <p className="text-2xl font-bold">94</p>
+                    <p className="text-xs text-blue-100">+12 from last month</p>
+                  </div>
+                </div>
+              </Card>
+              
+              <Card className="p-4 bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Trophy className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-green-100">Completed</p>
+                    <p className="text-2xl font-bold">28</p>
+                    <p className="text-xs text-green-100">89% success rate</p>
+                  </div>
+                </div>
+              </Card>
+              
+              <Card className="p-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Star className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-purple-100">Streak</p>
+                    <p className="text-2xl font-bold">7</p>
+                    <p className="text-xs text-purple-100">days in a row</p>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
         </div>
@@ -109,52 +152,53 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Progress Card */}
           <div className="lg:col-span-1">
-            <Card className="bg-gradient-to-br from-blue-600 to-blue-700 text-white border-0 shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-xl font-bold">Power Up Your Learning!</CardTitle>
-                <p className="text-blue-100 text-sm">
-                  Stay ahead of risks and make confident decisions. Dive into your expert content today.
+            <Card className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white border-0 shadow-xl overflow-hidden relative">
+              {/* Decorative background pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-4 right-4">
+                  <Zap className="h-24 w-24 rotate-12" />
+                </div>
+                <div className="absolute bottom-4 left-4">
+                  <BookOpen className="h-16 w-16 -rotate-12" />
+                </div>
+              </div>
+              
+              <CardHeader className="relative z-10">
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <TrendingUp className="h-5 w-5" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Power Up Your Learning!</CardTitle>
+                </div>
+                <p className="text-blue-100 text-sm leading-relaxed">
+                  Stay ahead of risks and make confident decisions. Dive into your expert content and accelerate your growth journey.
                 </p>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-3">
+              
+              <CardContent className="space-y-6 relative z-10">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Progress</span>
-                    <span className="text-sm font-bold">5 Sprints per Month</span>
+                    <span className="text-sm font-medium">Monthly Progress</span>
+                    <span className="text-sm font-bold bg-white/20 px-2 py-1 rounded-full">5 Sprints Goal</span>
                   </div>
-                  <Progress value={75} className="h-2 bg-blue-500" />
+                  <div className="space-y-2">
+                    <Progress value={75} className="h-3 bg-blue-500" />
+                    <div className="flex justify-between text-xs text-blue-100">
+                      <span>3 of 5 completed</span>
+                      <span>75% there!</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-sm font-medium">Ready to start powering up?</p>
-                  <p className="text-xs text-blue-100">Your first sprint awaits!</p>
+                
+                <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Clock className="h-4 w-4 text-blue-200" />
+                    <p className="text-sm font-medium text-blue-100">Next Sprint Ready</p>
+                  </div>
+                  <p className="text-xs text-blue-200">Your personalized content awaits!</p>
                 </div>
-                <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 font-semibold">
-                  Start Learning
-                </Button>
               </CardContent>
             </Card>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <Card className="p-4 hover:shadow-lg transition-shadow">
-                <div className="flex items-center space-x-2">
-                  <Target className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <p className="text-xs text-gray-500">This Month</p>
-                    <p className="text-lg font-bold text-gray-900">94</p>
-                  </div>
-                </div>
-              </Card>
-              <Card className="p-4 hover:shadow-lg transition-shadow">
-                <div className="flex items-center space-x-2">
-                  <Award className="h-5 w-5 text-green-600" />
-                  <div>
-                    <p className="text-xs text-gray-500">Completed</p>
-                    <p className="text-lg font-bold text-gray-900">28</p>
-                  </div>
-                </div>
-              </Card>
-            </div>
           </div>
 
           {/* Right Column - Main Content */}
