@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown } from 'lucide-react';
+import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown, Edit3, Plus, Minus, Check, X } from 'lucide-react';
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,6 +17,8 @@ const Index = () => {
   const [userGoal, setUserGoal] = useState<number | null>(null);
   const [sprintFilter, setSprintFilter] = useState('current-month');
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
+  const [isEditingGoal, setIsEditingGoal] = useState(false);
+  const [tempGoal, setTempGoal] = useState<number>(6);
 
   // Sample data for charts
   const performanceData = [
@@ -26,7 +28,7 @@ const Index = () => {
     { month: '2025-03', myPoints: 16, teamAverage: 13 },
     { month: '2025-04', myPoints: 11, teamAverage: 14 },
     { month: '2025-05', myPoints: 18, teamAverage: 15 },
-    { month: '2025-06', myPoints: 15, teamAverage: 14 },
+    { month: '2025-06', myPoints: 3, teamAverage: 4 },
   ];
 
   const sprintData = [
@@ -104,14 +106,13 @@ const Index = () => {
     return matchesSearch;
   });
 
-  const completedSprints = sprintData.filter(sprint => sprint.hasSubmittedFeedback).length;
-  const totalSprints = sprintData.length;
-  const completionRate = Math.round((completedSprints / totalSprints) * 100);
+  const currentMonthSprints = sprintData.filter(sprint => sprint.month === '2025-06').length;
+  const completedCurrentMonth = sprintData.filter(sprint => sprint.month === '2025-06' && sprint.hasSubmittedFeedback).length;
+  const currentMonthCompletionRate = currentMonthSprints > 0 ? Math.round((completedCurrentMonth / currentMonthSprints) * 100) : 0;
 
   const organizationalGoal = 5;
   const currentGoal = userGoal || organizationalGoal;
-  const currentSprints = 3;
-  const progressPercentage = Math.min((currentSprints / currentGoal) * 100, 100);
+  const progressPercentage = Math.min((currentMonthSprints / currentGoal) * 100, 100);
 
   const getProgressMessage = () => {
     if (progressPercentage >= 75) return "Excellent progress! You're almost there! 🚀";
@@ -126,8 +127,32 @@ const Index = () => {
 
   const initiateTeamsSearch = (title: string) => {
     copyToClipboard(title);
-    // This would typically open Teams with the copied title
     console.log(`Initiating Teams search with: ${title}`);
+  };
+
+  const handleGoalEdit = () => {
+    setIsEditingGoal(true);
+    setTempGoal(userGoal || organizationalGoal + 1);
+  };
+
+  const handleGoalSave = () => {
+    if (tempGoal > organizationalGoal) {
+      setUserGoal(tempGoal);
+    }
+    setIsEditingGoal(false);
+  };
+
+  const handleGoalCancel = () => {
+    setIsEditingGoal(false);
+    setTempGoal(userGoal || organizationalGoal + 1);
+  };
+
+  const incrementGoal = () => {
+    setTempGoal(prev => prev + 1);
+  };
+
+  const decrementGoal = () => {
+    setTempGoal(prev => Math.max(organizationalGoal + 1, prev - 1));
   };
 
   return (
@@ -189,8 +214,8 @@ const Index = () => {
                   </div>
                   <div>
                     <p className="text-xs text-blue-100">This Month</p>
-                    <p className="text-2xl font-bold">15</p>
-                    <p className="text-xs text-blue-100">+3 from last month</p>
+                    <p className="text-2xl font-bold">{currentMonthSprints}</p>
+                    <p className="text-xs text-blue-100">sprints started</p>
                   </div>
                 </div>
                 <Tooltip>
@@ -198,7 +223,7 @@ const Index = () => {
                     <Info className="h-4 w-4 text-blue-200 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Total sprints completed this month</p>
+                    <p>Total number of learning sprints you've started this month</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -212,8 +237,8 @@ const Index = () => {
                   </div>
                   <div>
                     <p className="text-xs text-green-100">Completed</p>
-                    <p className="text-2xl font-bold">{completedSprints}</p>
-                    <p className="text-xs text-green-100">{completionRate}% completion rate</p>
+                    <p className="text-2xl font-bold">{completedCurrentMonth}</p>
+                    <p className="text-xs text-green-100">{currentMonthCompletionRate}% this month</p>
                   </div>
                 </div>
                 <Tooltip>
@@ -221,7 +246,7 @@ const Index = () => {
                     <Info className="h-4 w-4 text-green-200 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Sprints with feedback submitted</p>
+                    <p>Sprints completed with feedback submitted this month</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -314,17 +339,74 @@ const Index = () => {
                       <span className="text-sm font-bold bg-white/20 px-2 py-1 rounded-full">{organizationalGoal} Sprints</span>
                     </div>
                     
-                    {userGoal && (
+                    {userGoal && !isEditingGoal && (
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium">My Goal</span>
-                        <span className="text-sm font-bold bg-green-500/30 px-2 py-1 rounded-full">{userGoal} Sprints</span>
+                        <span className="text-sm font-medium">Your Goal</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm font-bold bg-green-500/30 px-2 py-1 rounded-full">{userGoal} Sprints</span>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={handleGoalEdit}
+                            className="text-white hover:bg-white/20 h-6 w-6 p-0"
+                          >
+                            <Edit3 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {isEditingGoal && (
+                      <div className="space-y-3">
+                        <span className="text-sm font-medium">Set Your Goal</span>
+                        <div className="flex items-center space-x-2">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={decrementGoal}
+                            className="text-white hover:bg-white/20 h-8 w-8 p-0"
+                            disabled={tempGoal <= organizationalGoal + 1}
+                          >
+                            <Minus className="h-4 w-4" />
+                          </Button>
+                          <div className="bg-white/20 rounded-lg px-3 py-1 min-w-[60px] text-center">
+                            <span className="text-lg font-bold">{tempGoal}</span>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={incrementGoal}
+                            className="text-white hover:bg-white/20 h-8 w-8 p-0"
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button
+                            size="sm"
+                            onClick={handleGoalSave}
+                            className="bg-green-500 hover:bg-green-600 text-white flex-1"
+                          >
+                            <Check className="h-4 w-4 mr-1" />
+                            Save
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={handleGoalCancel}
+                            className="text-white hover:bg-white/20 flex-1"
+                          >
+                            <X className="h-4 w-4 mr-1" />
+                            Cancel
+                          </Button>
+                        </div>
                       </div>
                     )}
                     
                     <div className="space-y-2">
                       <Progress value={progressPercentage} className="h-3 bg-blue-500" />
                       <div className="flex justify-between text-xs text-blue-100">
-                        <span>{currentSprints} of {currentGoal} completed</span>
+                        <span>{currentMonthSprints} of {currentGoal} completed</span>
                         <span>{Math.round(progressPercentage)}% there!</span>
                       </div>
                     </div>
@@ -333,24 +415,14 @@ const Index = () => {
                       <p className="text-sm text-blue-100">{getProgressMessage()}</p>
                     </div>
                     
-                    {!userGoal && (
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Set Personal Goal (min {organizationalGoal + 1})</label>
-                        <div className="flex space-x-2">
-                          <Input
-                            type="number"
-                            min={organizationalGoal + 1}
-                            placeholder={`${organizationalGoal + 1}`}
-                            className="bg-white/20 border-white/30 text-white placeholder-blue-200"
-                            onChange={(e) => {
-                              const value = parseInt(e.target.value);
-                              if (value > organizationalGoal) {
-                                setUserGoal(value);
-                              }
-                            }}
-                          />
-                        </div>
-                      </div>
+                    {!userGoal && !isEditingGoal && (
+                      <Button
+                        onClick={handleGoalEdit}
+                        className="w-full bg-white/20 hover:bg-white/30 text-white border-0 flex items-center space-x-2"
+                      >
+                        <Edit3 className="h-4 w-4" />
+                        <span>Set Your Goal</span>
+                      </Button>
                     )}
                   </div>
                 </CardContent>
