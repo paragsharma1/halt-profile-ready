@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,8 +26,8 @@ const Index = () => {
     { month: '2025-02', myPoints: 14, teamAverage: 11 },
     { month: '2025-03', myPoints: 16, teamAverage: 13 },
     { month: '2025-04', myPoints: 11, teamAverage: 14 },
-    { month: '2025-05', myPoints: 18, teamAverage: 15 },
-    { month: '2025-06', myPoints: 3, teamAverage: 4 },
+    { month: '2025-05', myPoints: 5, teamAverage: 15 },
+    { month: '2025-06', myPoints: 8, teamAverage: 4 },
   ];
 
   const sprintData = [
@@ -57,7 +56,7 @@ const Index = () => {
       query: "linux4",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-05'
+      month: '2025-06'
     },
     {
       id: 4,
@@ -73,6 +72,51 @@ const Index = () => {
       title: "Offshore weather and environmental conditions",
       subtitle: "",
       query: "Planning for difficult weather conditions",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
+    {
+      id: 6,
+      title: "Safety Equipment Maintenance Guide",
+      subtitle: "",
+      query: "Safety protocols",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
+    {
+      id: 7,
+      title: "Emergency Response Training",
+      subtitle: "",
+      query: "Emergency procedures",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: false,
+      month: '2025-06'
+    },
+    {
+      id: 8,
+      title: "Risk Assessment Documentation",
+      subtitle: "",
+      query: "Risk management",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
+    {
+      id: 9,
+      title: "Previous Month Sprint 1",
+      subtitle: "",
+      query: "Historical data",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-05'
+    },
+    {
+      id: 10,
+      title: "Previous Month Sprint 2",
+      subtitle: "",
+      query: "Historical analysis",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
       month: '2025-05'
@@ -216,6 +260,7 @@ const Index = () => {
                     <p className="text-xs text-blue-100">This Month</p>
                     <p className="text-2xl font-bold">{currentMonthSprints}</p>
                     <p className="text-xs text-blue-100">sprints started</p>
+                    <p className="text-xs text-blue-100">+ 3 from last month</p>
                   </div>
                 </div>
                 <Tooltip>
