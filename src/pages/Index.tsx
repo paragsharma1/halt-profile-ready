@@ -208,7 +208,7 @@ const Index = () => {
             <div className="flex items-center justify-between h-20">
               {/* Left side - Brand and Welcome */}
               <div className="flex items-center space-x-8">
-                <img src="/images/halt-logo.png" alt="halt" className="h-8" />
+                <div className="text-2xl font-bold text-blue-900">h'alt®</div>
                 <div className="flex items-center space-x-3">
                   <div className="relative">
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
@@ -218,22 +218,23 @@ const Index = () => {
                       <circle
                         cx="24"
                         cy="24"
-                        r="22"
+                        r="20"
                         stroke="#e5e7eb"
-                        strokeWidth="2"
+                        strokeWidth="3"
                         fill="none"
-                        className="opacity-20"
+                        className="opacity-30"
                       />
                       <circle
                         cx="24"
                         cy="24"
-                        r="22"
-                        stroke="#3b82f6"
-                        strokeWidth="2"
+                        r="20"
+                        stroke="#10b981"
+                        strokeWidth="3"
                         fill="none"
-                        strokeDasharray={`${2 * Math.PI * 22}`}
-                        strokeDashoffset={`${2 * Math.PI * 22 * (1 - progressPercentage / 100)}`}
-                        className="transition-all duration-300"
+                        strokeDasharray={`${2 * Math.PI * 20}`}
+                        strokeDashoffset={`${2 * Math.PI * 20 * (1 - progressPercentage / 100)}`}
+                        className="transition-all duration-500 drop-shadow-sm"
+                        strokeLinecap="round"
                       />
                     </svg>
                   </div>
