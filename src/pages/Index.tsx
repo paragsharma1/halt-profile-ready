@@ -34,7 +34,7 @@ const Index = () => {
     {
       id: 1,
       title: "Test Content - Wind Turbine Blade Replacement",
-      subtitle: "(Filter: Vestas - Overview)",
+      subtitle: "",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: true,
@@ -43,7 +43,7 @@ const Index = () => {
     {
       id: 2,
       title: "Test Content - Wind Turbine Blade Replacement",
-      subtitle: "(Filter: Vestas - JPN_MS)",
+      subtitle: "",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: false,
@@ -52,7 +52,7 @@ const Index = () => {
     {
       id: 3,
       title: "Test Content - Wind Turbine Blade Replacement",
-      subtitle: "(Filter: Vestas - Overview)",
+      subtitle: "",
       query: "linux4",
       feedback: "Save time",
       hasSubmittedFeedback: true,
