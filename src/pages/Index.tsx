@@ -214,25 +214,25 @@ const Index = () => {
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
                       <span className="text-white font-bold text-lg">P</span>
                     </div>
-                    <svg className="absolute inset-0 w-12 h-12 transform -rotate-90">
+                    <svg className="absolute -inset-2 w-16 h-16 transform -rotate-90">
                       <circle
-                        cx="24"
-                        cy="24"
-                        r="20"
+                        cx="32"
+                        cy="32"
+                        r="28"
                         stroke="#e5e7eb"
-                        strokeWidth="3"
+                        strokeWidth="4"
                         fill="none"
                         className="opacity-30"
                       />
                       <circle
-                        cx="24"
-                        cy="24"
-                        r="20"
-                        stroke="#10b981"
-                        strokeWidth="3"
+                        cx="32"
+                        cy="32"
+                        r="28"
+                        stroke="#1e40af"
+                        strokeWidth="4"
                         fill="none"
-                        strokeDasharray={`${2 * Math.PI * 20}`}
-                        strokeDashoffset={`${2 * Math.PI * 20 * (1 - progressPercentage / 100)}`}
+                        strokeDasharray={`${2 * Math.PI * 28}`}
+                        strokeDashoffset={`${2 * Math.PI * 28 * (1 - progressPercentage / 100)}`}
                         className="transition-all duration-500 drop-shadow-sm"
                         strokeLinecap="round"
                       />
