@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,12 +7,16 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy } from 'lucide-react';
+import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown } from 'lucide-react';
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
+  const [userGoal, setUserGoal] = useState<number | null>(null);
+  const [sprintFilter, setSprintFilter] = useState('current-month');
+  const [contentView, setContentView] = useState<'my' | 'team'>('my');
 
   // Sample data for charts
   const performanceData = [
@@ -31,7 +36,8 @@ const Index = () => {
       subtitle: "(Filter: Vestas - Overview)",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
-      hasSubmittedFeedback: true
+      hasSubmittedFeedback: true,
+      month: '2025-06'
     },
     {
       id: 2,
@@ -39,7 +45,8 @@ const Index = () => {
       subtitle: "(Filter: Vestas - JPN_MS)",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
-      hasSubmittedFeedback: false
+      hasSubmittedFeedback: false,
+      month: '2025-06'
     },
     {
       id: 3,
@@ -47,7 +54,8 @@ const Index = () => {
       subtitle: "(Filter: Vestas - Overview)",
       query: "linux4",
       feedback: "Save time",
-      hasSubmittedFeedback: true
+      hasSubmittedFeedback: true,
+      month: '2025-05'
     },
     {
       id: 4,
@@ -55,7 +63,8 @@ const Index = () => {
       subtitle: "",
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
-      hasSubmittedFeedback: false
+      hasSubmittedFeedback: false,
+      month: '2025-06'
     },
     {
       id: 5,
@@ -63,29 +72,63 @@ const Index = () => {
       subtitle: "",
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
-      hasSubmittedFeedback: true
+      hasSubmittedFeedback: true,
+      month: '2025-05'
     }
   ];
 
-  const getStatusColor = (hasSubmittedFeedback: boolean) => {
-    return hasSubmittedFeedback 
-      ? 'bg-green-100 text-green-800' 
-      : 'bg-orange-100 text-orange-800';
+  const topContent = [
+    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: 95 },
+    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88 },
+    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82 },
+    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79 }
+  ];
+
+  const getStatusBadge = (hasSubmittedFeedback: boolean) => {
+    if (hasSubmittedFeedback) {
+      return <Badge className="bg-green-100 text-green-800 border-0">Complete</Badge>;
+    } else {
+      return <Badge className="bg-orange-100 text-orange-800 border-0">Please attend huddle</Badge>;
+    }
   };
 
-  const getStatusText = (hasSubmittedFeedback: boolean) => {
-    return hasSubmittedFeedback ? 'Complete' : 'Incomplete';
-  };
+  const filteredSprints = sprintData.filter(sprint => {
+    const matchesSearch = sprint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         sprint.query.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    if (sprintFilter === 'current-month') {
+      return matchesSearch && sprint.month === '2025-06';
+    } else if (sprintFilter === 'last-month') {
+      return matchesSearch && sprint.month === '2025-05';
+    }
+    return matchesSearch;
+  });
 
-  const filteredSprints = sprintData.filter(sprint =>
-    sprint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    sprint.query.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Calculate completion rate based on feedback submission
   const completedSprints = sprintData.filter(sprint => sprint.hasSubmittedFeedback).length;
   const totalSprints = sprintData.length;
   const completionRate = Math.round((completedSprints / totalSprints) * 100);
+
+  const organizationalGoal = 5;
+  const currentGoal = userGoal || organizationalGoal;
+  const currentSprints = 3;
+  const progressPercentage = Math.min((currentSprints / currentGoal) * 100, 100);
+
+  const getProgressMessage = () => {
+    if (progressPercentage >= 75) return "Excellent progress! You're almost there! 🚀";
+    if (progressPercentage >= 50) return "Great work! Keep pushing forward! 💪";
+    if (progressPercentage >= 25) return "Good start! You're building momentum! 📈";
+    return "Let's get started on your learning journey! 🌟";
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  const initiateTeamsSearch = (title: string) => {
+    copyToClipboard(title);
+    // This would typically open Teams with the copied title
+    console.log(`Initiating Teams search with: ${title}`);
+  };
 
   return (
     <TooltipProvider>
@@ -96,12 +139,34 @@ const Index = () => {
             <div className="flex items-center justify-between h-20">
               {/* Left side - Brand and Welcome */}
               <div className="flex items-center space-x-8">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  halt
-                </h1>
+                <img src="/images/halt-logo.png" alt="halt" className="h-8" />
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">P</span>
+                  <div className="relative">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-white font-bold text-lg">P</span>
+                    </div>
+                    <svg className="absolute inset-0 w-12 h-12 transform -rotate-90">
+                      <circle
+                        cx="24"
+                        cy="24"
+                        r="22"
+                        stroke="#e5e7eb"
+                        strokeWidth="2"
+                        fill="none"
+                        className="opacity-20"
+                      />
+                      <circle
+                        cx="24"
+                        cy="24"
+                        r="22"
+                        stroke="#3b82f6"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeDasharray={`${2 * Math.PI * 22}`}
+                        strokeDashoffset={`${2 * Math.PI * 22 * (1 - progressPercentage / 100)}`}
+                        className="transition-all duration-300"
+                      />
+                    </svg>
                   </div>
                   <div>
                     <p className="text-lg font-semibold text-gray-900">Welcome Back, parag</p>
@@ -115,43 +180,103 @@ const Index = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Data Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <Card className="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-white/20 rounded-lg">
-                  <Target className="h-6 w-6" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Target className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-blue-100">This Month</p>
+                    <p className="text-2xl font-bold">15</p>
+                    <p className="text-xs text-blue-100">+3 from last month</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-blue-100">This Month</p>
-                  <p className="text-2xl font-bold">15</p>
-                  <p className="text-xs text-blue-100">+3 from last month</p>
-                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-blue-200 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Total sprints completed this month</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </Card>
             
             <Card className="p-4 bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-white/20 rounded-lg">
-                  <Trophy className="h-6 w-6" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Trophy className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-green-100">Completed</p>
+                    <p className="text-2xl font-bold">{completedSprints}</p>
+                    <p className="text-xs text-green-100">{completionRate}% completion rate</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-green-100">Completed</p>
-                  <p className="text-2xl font-bold">{completedSprints}</p>
-                  <p className="text-xs text-green-100">{completionRate}% completion rate</p>
-                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-green-200 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Sprints with feedback submitted</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </Card>
             
             <Card className="p-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-white/20 rounded-lg">
-                  <Star className="h-6 w-6" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Star className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-purple-100">Streak</p>
+                    <p className="text-2xl font-bold">4</p>
+                    <p className="text-xs text-purple-100">days in a row</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-purple-100">Streak</p>
-                  <p className="text-2xl font-bold">4</p>
-                  <p className="text-xs text-purple-100">days in a row</p>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-purple-200 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Consecutive days with sprint activity</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </Card>
+
+            <Card className="p-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Crown className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-amber-100">Top Learner</p>
+                    <p className="text-lg font-bold">Sarah Chen</p>
+                    <p className="text-xs text-amber-100">Last Month</p>
+                  </div>
                 </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-amber-100 hover:text-amber-50 hover:bg-amber-500/20 h-8 w-8 p-0"
+                      onClick={() => console.log('Opening Teams to contact Sarah Chen')}
+                    >
+                      <MessageSquare className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Reach out to Sarah to celebrate their win!</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </Card>
           </div>
@@ -185,16 +310,48 @@ const Index = () => {
                 <CardContent className="space-y-6 relative z-10">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Monthly Progress</span>
-                      <span className="text-sm font-bold bg-white/20 px-2 py-1 rounded-full">5 Sprints Goal</span>
+                      <span className="text-sm font-medium">Organizational Goal</span>
+                      <span className="text-sm font-bold bg-white/20 px-2 py-1 rounded-full">{organizationalGoal} Sprints</span>
                     </div>
+                    
+                    {userGoal && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">My Goal</span>
+                        <span className="text-sm font-bold bg-green-500/30 px-2 py-1 rounded-full">{userGoal} Sprints</span>
+                      </div>
+                    )}
+                    
                     <div className="space-y-2">
-                      <Progress value={75} className="h-3 bg-blue-500" />
+                      <Progress value={progressPercentage} className="h-3 bg-blue-500" />
                       <div className="flex justify-between text-xs text-blue-100">
-                        <span>3 of 5 completed</span>
-                        <span>75% there!</span>
+                        <span>{currentSprints} of {currentGoal} completed</span>
+                        <span>{Math.round(progressPercentage)}% there!</span>
                       </div>
                     </div>
+                    
+                    <div className="bg-white/10 rounded-lg p-3">
+                      <p className="text-sm text-blue-100">{getProgressMessage()}</p>
+                    </div>
+                    
+                    {!userGoal && (
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Set Personal Goal (min {organizationalGoal + 1})</label>
+                        <div className="flex space-x-2">
+                          <Input
+                            type="number"
+                            min={organizationalGoal + 1}
+                            placeholder={`${organizationalGoal + 1}`}
+                            className="bg-white/20 border-white/30 text-white placeholder-blue-200"
+                            onChange={(e) => {
+                              const value = parseInt(e.target.value);
+                              if (value > organizationalGoal) {
+                                setUserGoal(value);
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -279,10 +436,16 @@ const Index = () => {
                               className="pl-10"
                             />
                           </div>
-                          <Button variant="outline" size="sm">
-                            <Filter className="h-4 w-4 mr-2" />
-                            Status
-                          </Button>
+                          <Select value={sprintFilter} onValueChange={setSprintFilter}>
+                            <SelectTrigger className="w-40">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="all">All</SelectItem>
+                              <SelectItem value="current-month">Current Month</SelectItem>
+                              <SelectItem value="last-month">Last Month</SelectItem>
+                            </SelectContent>
+                          </Select>
                           <div className="flex border rounded-md">
                             <Button
                               variant={viewMode === 'list' ? 'default' : 'ghost'}
@@ -337,22 +500,11 @@ const Index = () => {
                                   </TooltipContent>
                                 </Tooltip>
                               ) : (
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <span className="cursor-help text-gray-400">
-                                      No feedback yet
-                                    </span>
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p>Complete the sprint to submit feedback</p>
-                                  </TooltipContent>
-                                </Tooltip>
+                                <span className="text-gray-400">No feedback</span>
                               )}
                             </div>
                             <div>
-                              <Badge className={`${getStatusColor(sprint.hasSubmittedFeedback)} border-0`}>
-                                {getStatusText(sprint.hasSubmittedFeedback)}
-                              </Badge>
+                              {getStatusBadge(sprint.hasSubmittedFeedback)}
                             </div>
                           </div>
                         ))}
@@ -364,17 +516,71 @@ const Index = () => {
                 <TabsContent value="content" className="space-y-6">
                   <Card className="shadow-lg">
                     <CardHeader>
-                      <CardTitle className="text-lg font-semibold text-gray-900">Top Content</CardTitle>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg font-semibold text-gray-900">Top Content</CardTitle>
+                        <div className="flex space-x-2">
+                          <Button
+                            variant={contentView === 'my' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => setContentView('my')}
+                          >
+                            My Top Content
+                          </Button>
+                          <Button
+                            variant={contentView === 'team' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => setContentView('team')}
+                          >
+                            Team Top Content
+                          </Button>
+                        </div>
+                      </div>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {sprintData.slice(0, 4).map((item) => (
+                        {topContent.map((item) => (
                           <Card key={item.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
-                            <h3 className="font-medium text-gray-900 mb-2">{item.title}</h3>
-                            <p className="text-sm text-gray-600 mb-2">{item.query}</p>
-                            <Badge className={`${getStatusColor(item.hasSubmittedFeedback)} border-0 text-xs`}>
-                              {item.feedback}
-                            </Badge>
+                            <div className="flex justify-between items-start mb-2">
+                              <h3 className="font-medium text-gray-900 flex-1">{item.title}</h3>
+                              <div className="flex space-x-1 ml-2">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      className="h-8 w-8 p-0"
+                                      onClick={() => copyToClipboard(item.title)}
+                                    >
+                                      <Copy className="h-4 w-4" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Copy title</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      className="h-8 w-8 p-0"
+                                      onClick={() => initiateTeamsSearch(item.title)}
+                                    >
+                                      <MessageSquare className="h-4 w-4" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Copy and New Search in Teams</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <Badge className={`${item.feedback === 'Save time' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'} border-0 text-xs`}>
+                                {item.feedback}
+                              </Badge>
+                              <span className="text-xs text-gray-500">{item.popularity}% popular</span>
+                            </div>
                           </Card>
                         ))}
                       </div>
