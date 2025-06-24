@@ -251,22 +251,22 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Data Metrics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Target className="h-6 w-6" />
+                  <div className="p-2 bg-blue-50 rounded-lg">
+                    <Target className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-100">This Month</p>
-                    <p className="text-2xl font-bold">{currentMonthSprints}</p>
-                    <p className="text-xs text-blue-100">sprints started</p>
-                    <p className="text-xs text-blue-100">+ 3 from last month</p>
+                    <p className="text-xs text-blue-600">This Month</p>
+                    <p className="text-2xl font-bold text-blue-800">{currentMonthSprints}</p>
+                    <p className="text-xs text-blue-500">sprints started</p>
+                    <p className="text-xs text-blue-500">+ 3 from last month</p>
                   </div>
                 </div>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-blue-200 cursor-help" />
+                    <Info className="h-4 w-4 text-blue-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Total number of learning sprints you've started this month</p>
@@ -275,21 +275,21 @@ const Index = () => {
               </div>
             </Card>
             
-            <Card className="p-4 bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Trophy className="h-6 w-6" />
+                  <div className="p-2 bg-blue-50 rounded-lg">
+                    <Trophy className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-green-100">Completed</p>
-                    <p className="text-2xl font-bold">{completedCurrentMonth}</p>
-                    <p className="text-xs text-green-100">{currentMonthCompletionRate}% this month</p>
+                    <p className="text-xs text-blue-600">Completed</p>
+                    <p className="text-2xl font-bold text-blue-800">{completedCurrentMonth}</p>
+                    <p className="text-xs text-blue-500">{currentMonthCompletionRate}% this month</p>
                   </div>
                 </div>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-green-200 cursor-help" />
+                    <Info className="h-4 w-4 text-blue-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Sprints completed with feedback submitted this month</p>
@@ -298,21 +298,21 @@ const Index = () => {
               </div>
             </Card>
             
-            <Card className="p-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Star className="h-6 w-6" />
+                  <div className="p-2 bg-blue-50 rounded-lg">
+                    <Star className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-purple-100">Streak</p>
-                    <p className="text-2xl font-bold">4</p>
-                    <p className="text-xs text-purple-100">days in a row</p>
+                    <p className="text-xs text-blue-600">Streak</p>
+                    <p className="text-2xl font-bold text-blue-800">4</p>
+                    <p className="text-xs text-blue-500">days in a row</p>
                   </div>
                 </div>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-purple-200 cursor-help" />
+                    <Info className="h-4 w-4 text-blue-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Consecutive days with sprint activity</p>
@@ -321,16 +321,16 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="p-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Crown className="h-6 w-6" />
+                  <div className="p-2 bg-blue-50 rounded-lg">
+                    <Crown className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-amber-100">Top Learner</p>
-                    <p className="text-lg font-bold">Sarah Chen</p>
-                    <p className="text-xs text-amber-100">Last Month</p>
+                    <p className="text-xs text-blue-600">Top Learner</p>
+                    <p className="text-lg font-bold text-blue-800">Sarah Chen</p>
+                    <p className="text-xs text-blue-500">Last Month</p>
                   </div>
                 </div>
                 <Tooltip>
@@ -338,7 +338,7 @@ const Index = () => {
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="text-amber-100 hover:text-amber-50 hover:bg-amber-500/20 h-8 w-8 p-0"
+                      className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-8 w-8 p-0"
                       onClick={() => console.log('Opening Teams to contact Sarah Chen')}
                     >
                       <MessageSquare className="h-4 w-4" />
