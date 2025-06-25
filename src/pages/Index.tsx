@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -152,28 +151,8 @@ const Index = () => {
   const completedCurrentMonth = sprintData.filter(sprint => sprint.month === '2025-06' && sprint.hasSubmittedFeedback).length;
   const currentMonthCompletionRate = currentMonthSprints > 0 ? Math.round((completedCurrentMonth / currentMonthSprints) * 100) : 0;
 
-  const organizationalGoal = 5;
-  const progressPercentage = (currentMonthSprints / organizationalGoal) * 100;
-  const displayProgressPercentage = Math.min(progressPercentage, 100); // Cap visual progress at 100%
-
-  const getProgressMessage = () => {
-    if (progressPercentage >= 200) return "🏆 LEGENDARY! You're absolutely crushing it! You've achieved 200%+ of the goal! 🚀✨";
-    if (progressPercentage >= 150) return "🌟 OUTSTANDING! You've exceeded expectations by 150%+! You're an inspiration! 💪🔥";
-    if (progressPercentage >= 120) return "🎉 AMAZING! You've surpassed the organizational goal by 20%+! Incredible work! 🏅";
-    if (progressPercentage >= 100) return "🎊 CONGRATULATIONS! You've achieved 100% of the organizational goal! Well done! 🏆";
-    if (progressPercentage >= 75) return "Excellent progress! You're almost there! 🚀";
-    if (progressPercentage >= 50) return "Great work! Keep pushing forward! 💪";
-    if (progressPercentage >= 25) return "Good start! You're building momentum! 📈";
-    return "Let's get started on your learning journey! 🌟";
-  };
-
-  const getProgressStatus = () => {
-    if (progressPercentage >= 100) {
-      const overachievement = Math.round(progressPercentage - 100);
-      return `Goal achieved! +${overachievement}% above target`;
-    }
-    return `${Math.round(displayProgressPercentage)}% there!`;
-  };
+  const sprintGoal = 5;
+  const progressPercentage = (currentMonthSprints / sprintGoal) * 100;
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -213,33 +192,15 @@ const Index = () => {
                         cx="32"
                         cy="32"
                         r="28"
-                        stroke={progressPercentage >= 100 ? "#10b981" : "#1e40af"}
+                        stroke="#1e40af"
                         strokeWidth="4"
                         fill="none"
                         strokeDasharray={`${2 * Math.PI * 28}`}
-                        strokeDashoffset={`${2 * Math.PI * 28 * (1 - displayProgressPercentage / 100)}`}
+                        strokeDashoffset={`${2 * Math.PI * 28 * (1 - Math.min(progressPercentage, 100) / 100)}`}
                         className="transition-all duration-500 drop-shadow-sm"
                         strokeLinecap="round"
                       />
-                      {progressPercentage >= 100 && (
-                        <circle
-                          cx="32"
-                          cy="32"
-                          r="24"
-                          stroke="#fbbf24"
-                          strokeWidth="2"
-                          fill="none"
-                          strokeDasharray="4 4"
-                          className="animate-spin"
-                          style={{ animationDuration: '3s' }}
-                        />
-                      )}
                     </svg>
-                    {progressPercentage >= 100 && (
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <Trophy className="h-4 w-4 text-yellow-500" />
-                      </div>
-                    )}
                   </div>
                   <div>
                     <p className="text-lg font-semibold text-gray-900">Welcome Back, parag</p>
@@ -254,7 +215,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Data Metrics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
@@ -278,7 +239,7 @@ const Index = () => {
               </div>
             </Card>
             
-            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
@@ -301,7 +262,7 @@ const Index = () => {
               </div>
             </Card>
             
-            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
@@ -324,7 +285,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
@@ -359,15 +320,11 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Progress Card */}
             <div className="lg:col-span-1">
-              <Card className={`${progressPercentage >= 100 ? 'bg-gradient-to-br from-green-600 via-green-700 to-green-800' : 'bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800'} text-white border-0 shadow-xl overflow-hidden relative`}>
+              <Card className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white border-0 shadow-xl overflow-hidden relative">
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-4 right-4">
-                    {progressPercentage >= 100 ? (
-                      <Trophy className="h-24 w-24 rotate-12" />
-                    ) : (
-                      <Zap className="h-24 w-24 rotate-12" />
-                    )}
+                    <Zap className="h-24 w-24 rotate-12" />
                   </div>
                   <div className="absolute bottom-4 left-4">
                     <BookOpen className="h-16 w-16 -rotate-12" />
@@ -377,55 +334,34 @@ const Index = () => {
                 <CardHeader className="relative z-10">
                   <div className="flex items-center space-x-2 mb-2">
                     <div className="p-2 bg-white/20 rounded-lg">
-                      {progressPercentage >= 100 ? (
-                        <Trophy className="h-5 w-5" />
-                      ) : (
-                        <TrendingUp className="h-5 w-5" />
-                      )}
+                      <TrendingUp className="h-5 w-5" />
                     </div>
-                    <CardTitle className="text-xl font-bold">
-                      {progressPercentage >= 100 ? 'Goal Achieved!' : 'Power Up Your Learning!'}
-                    </CardTitle>
+                    <CardTitle className="text-xl font-bold">Power Up Your Learning!</CardTitle>
                   </div>
-                  <p className={`${progressPercentage >= 100 ? 'text-green-100' : 'text-blue-100'} text-sm leading-relaxed`}>
-                    {progressPercentage >= 100 ? 
-                      'Congratulations! You\'ve exceeded the organizational goal. Your dedication to learning is inspiring!' :
-                      'Stay ahead of risks and make confident decisions. Dive into your expert content and accelerate your growth journey.'
-                    }
+                  <p className="text-blue-100 text-sm leading-relaxed">
+                    Stay ahead of risks and make confident decisions. Dive into your expert content today.
                   </p>
                 </CardHeader>
                 
                 <CardContent className="space-y-6 relative z-10">
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Organizational Goal</span>
-                      <span className="text-sm font-bold bg-white/20 px-2 py-1 rounded-full">{organizationalGoal} Sprints</span>
-                    </div>
-                    
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-xs">
                         <span>Your Progress</span>
-                        <span className="font-bold">{currentMonthSprints} / {organizationalGoal} sprints</span>
+                        <span className="font-bold">{currentMonthSprints} / {sprintGoal} sprints</span>
                       </div>
                       <Progress 
-                        value={displayProgressPercentage} 
-                        className={`h-3 ${progressPercentage >= 100 ? 'bg-green-500' : 'bg-blue-500'}`} 
+                        value={Math.min(progressPercentage, 100)} 
+                        className="h-3 bg-blue-500" 
                       />
-                      <div className="flex justify-between text-xs">
-                        <span className={progressPercentage >= 100 ? 'text-green-100' : 'text-blue-100'}>
-                          {getProgressStatus()}
-                        </span>
-                        {progressPercentage >= 100 && (
-                          <span className="text-yellow-200 font-bold">
-                            {Math.round(progressPercentage)}% Total!
-                          </span>
-                        )}
-                      </div>
                     </div>
                     
-                    <div className={`${progressPercentage >= 100 ? 'bg-green-600/30 border border-green-400/20' : 'bg-white/10'} rounded-lg p-3`}>
-                      <p className={`text-sm ${progressPercentage >= 100 ? 'text-green-100' : 'text-blue-100'}`}>
-                        {getProgressMessage()}
+                    <div className="bg-white/10 rounded-lg p-3">
+                      <p className="text-sm text-blue-100">
+                        Ready to start powering up?
+                      </p>
+                      <p className="text-sm text-blue-100 mt-1">
+                        Your first sprint awaits!
                       </p>
                     </div>
                   </div>
