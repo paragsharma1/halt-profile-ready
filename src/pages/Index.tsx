@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -153,6 +154,8 @@ const Index = () => {
 
   const sprintGoal = 5;
   const progressPercentage = (currentMonthSprints / sprintGoal) * 100;
+  const exceedsGoal = currentMonthSprints > sprintGoal;
+  const exceedancePercentage = exceedsGoal ? Math.round(((currentMonthSprints - sprintGoal) / sprintGoal) * 100) : 0;
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -354,15 +357,42 @@ const Index = () => {
                         value={Math.min(progressPercentage, 100)} 
                         className="h-3 bg-blue-500" 
                       />
+                      {exceedsGoal && (
+                        <div className="text-xs text-blue-100 text-center">
+                          <span className="font-bold">+{exceedancePercentage}%</span> above organizational goal!
+                        </div>
+                      )}
                     </div>
                     
                     <div className="bg-white/10 rounded-lg p-3">
-                      <p className="text-sm text-blue-100">
-                        Ready to start powering up?
-                      </p>
-                      <p className="text-sm text-blue-100 mt-1">
-                        Your first sprint awaits!
-                      </p>
+                      {currentMonthSprints === 0 ? (
+                        <>
+                          <p className="text-sm text-blue-100">
+                            Ready to start powering up?
+                          </p>
+                          <p className="text-sm text-blue-100 mt-1">
+                            Your first sprint awaits!
+                          </p>
+                        </>
+                      ) : exceedsGoal ? (
+                        <>
+                          <p className="text-sm text-blue-100">
+                            🎉 Outstanding work! You've exceeded the organizational goal!
+                          </p>
+                          <p className="text-sm text-blue-100 mt-1">
+                            Keep up the fantastic learning momentum!
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-sm text-blue-100">
+                            Great progress! Keep going to reach your goal.
+                          </p>
+                          <p className="text-sm text-blue-100 mt-1">
+                            {sprintGoal - currentMonthSprints} more sprint{sprintGoal - currentMonthSprints !== 1 ? 's' : ''} to go!
+                          </p>
+                        </>
+                      )}
                     </div>
                   </div>
                 </CardContent>
