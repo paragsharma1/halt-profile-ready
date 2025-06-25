@@ -353,6 +353,9 @@ const Index = () => {
                         <span>Your Progress</span>
                         <span className="font-bold">{currentMonthSprints} / {sprintGoal} sprints</span>
                       </div>
+                      <div className="flex items-center justify-between text-xs">
+                        <span>Organisational Goal - {sprintGoal} Sprint</span>
+                      </div>
                       <Progress 
                         value={Math.min(progressPercentage, 100)} 
                         className="h-3 bg-blue-500" 
