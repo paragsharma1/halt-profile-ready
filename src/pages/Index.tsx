@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown, Edit3, Plus, Minus, Check, X } from 'lucide-react';
+import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown } from 'lucide-react';
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,8 +16,6 @@ const Index = () => {
   const [userGoal, setUserGoal] = useState<number | null>(null);
   const [sprintFilter, setSprintFilter] = useState('current-month');
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
-  const [isEditingGoal, setIsEditingGoal] = useState(false);
-  const [tempGoal, setTempGoal] = useState<number>(6);
 
   // Sample data for charts
   const performanceData = [
@@ -174,31 +172,6 @@ const Index = () => {
     console.log(`Initiating Teams search with: ${title}`);
   };
 
-  const handleGoalEdit = () => {
-    setIsEditingGoal(true);
-    setTempGoal(userGoal || organizationalGoal + 1);
-  };
-
-  const handleGoalSave = () => {
-    if (tempGoal > organizationalGoal) {
-      setUserGoal(tempGoal);
-    }
-    setIsEditingGoal(false);
-  };
-
-  const handleGoalCancel = () => {
-    setIsEditingGoal(false);
-    setTempGoal(userGoal || organizationalGoal + 1);
-  };
-
-  const incrementGoal = () => {
-    setTempGoal(prev => prev + 1);
-  };
-
-  const decrementGoal = () => {
-    setTempGoal(prev => Math.max(organizationalGoal + 1, prev - 1));
-  };
-
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -251,7 +224,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Data Metrics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg">
@@ -275,7 +248,7 @@ const Index = () => {
               </div>
             </Card>
             
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg">
@@ -298,7 +271,7 @@ const Index = () => {
               </div>
             </Card>
             
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg">
@@ -321,15 +294,16 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-lg">
                     <Crown className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">Top Learner</p>
+                    <p className="text-xs text-blue-600">Top Performer</p>
                     <p className="text-lg font-bold text-blue-800">Sarah Chen</p>
+                    <p className="text-xs text-blue-500">from Aberdeen Site</p>
                     <p className="text-xs text-blue-500">Last Month</p>
                   </div>
                 </div>
@@ -385,67 +359,10 @@ const Index = () => {
                       <span className="text-sm font-bold bg-white/20 px-2 py-1 rounded-full">{organizationalGoal} Sprints</span>
                     </div>
                     
-                    {userGoal && !isEditingGoal && (
+                    {userGoal && (
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium">Your Goal</span>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm font-bold bg-green-500/30 px-2 py-1 rounded-full">{userGoal} Sprints</span>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={handleGoalEdit}
-                            className="text-white hover:bg-white/20 h-6 w-6 p-0"
-                          >
-                            <Edit3 className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-
-                    {isEditingGoal && (
-                      <div className="space-y-3">
-                        <span className="text-sm font-medium">Set Your Goal</span>
-                        <div className="flex items-center space-x-2">
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={decrementGoal}
-                            className="text-white hover:bg-white/20 h-8 w-8 p-0"
-                            disabled={tempGoal <= organizationalGoal + 1}
-                          >
-                            <Minus className="h-4 w-4" />
-                          </Button>
-                          <div className="bg-white/20 rounded-lg px-3 py-1 min-w-[60px] text-center">
-                            <span className="text-lg font-bold">{tempGoal}</span>
-                          </div>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={incrementGoal}
-                            className="text-white hover:bg-white/20 h-8 w-8 p-0"
-                          >
-                            <Plus className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        <div className="flex space-x-2">
-                          <Button
-                            size="sm"
-                            onClick={handleGoalSave}
-                            className="bg-green-500 hover:bg-green-600 text-white flex-1"
-                          >
-                            <Check className="h-4 w-4 mr-1" />
-                            Save
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={handleGoalCancel}
-                            className="text-white hover:bg-white/20 flex-1"
-                          >
-                            <X className="h-4 w-4 mr-1" />
-                            Cancel
-                          </Button>
-                        </div>
+                        <span className="text-sm font-bold bg-green-500/30 px-2 py-1 rounded-full">{userGoal} Sprints</span>
                       </div>
                     )}
                     
@@ -460,16 +377,6 @@ const Index = () => {
                     <div className="bg-white/10 rounded-lg p-3">
                       <p className="text-sm text-blue-100">{getProgressMessage()}</p>
                     </div>
-                    
-                    {!userGoal && !isEditingGoal && (
-                      <Button
-                        onClick={handleGoalEdit}
-                        className="w-full bg-white/20 hover:bg-white/30 text-white border-0 flex items-center space-x-2"
-                      >
-                        <Edit3 className="h-4 w-4" />
-                        <span>Set Your Goal</span>
-                      </Button>
-                    )}
                   </div>
                 </CardContent>
               </Card>
