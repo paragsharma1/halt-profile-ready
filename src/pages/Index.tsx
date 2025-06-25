@@ -347,14 +347,19 @@ const Index = () => {
                 </CardHeader>
                 
                 <CardContent className="space-y-6 relative z-10">
+                  {/* Organizational Goal Banner */}
+                  <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-medium text-sm">Organisational Goal</span>
+                      <span className="text-white font-bold text-sm">5 Sprints</span>
+                    </div>
+                  </div>
+
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-xs">
                         <span>Your Progress</span>
                         <span className="font-bold">{currentMonthSprints} / {sprintGoal} sprints</span>
-                      </div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span>Organisational Goal - {sprintGoal} Sprint</span>
                       </div>
                       <Progress 
                         value={Math.min(progressPercentage, 100)} 
@@ -380,7 +385,7 @@ const Index = () => {
                       ) : exceedsGoal ? (
                         <>
                           <p className="text-sm text-blue-100">
-                            🎉 Outstanding work! You've exceeded the organizational goal!
+                            🎉 Outstanding work! You've exceeded the organizational goal by {exceedancePercentage}%!
                           </p>
                           <p className="text-sm text-blue-100 mt-1">
                             Keep up the fantastic learning momentum!
