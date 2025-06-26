@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -153,7 +154,8 @@ const OnboardingVariant = () => {
                   {/* Organizational Goal Banner */}
                   <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
                     <div className="flex items-center justify-between">
-                      <span className="text-white font-medium text-sm">Organisational Goal - 5 Sprint</span>
+                      <span className="text-white font-medium text-sm">Organisational Goal</span>
+                      <span className="text-white font-medium text-sm">5 Sprints</span>
                     </div>
                   </div>
 
