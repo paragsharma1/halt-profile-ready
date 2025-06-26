@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Progress from "./pages/Progress";
 import MySprints from "./pages/MySprints";
 import TopContent from "./pages/TopContent";
+import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/progress" element={<Progress />} />
           <Route path="/sprints" element={<MySprints />} />
           <Route path="/content" element={<TopContent />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
