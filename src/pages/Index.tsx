@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -126,6 +125,12 @@ const Index = () => {
     { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88 },
     { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82 },
     { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79 }
+  ];
+
+  // Top performers data - can have multiple performers
+  const topPerformers = [
+    { name: "Sarah Chen", location: "Aberdeen Site" },
+    { name: "Mike Johnson", location: "North Sea Platform" }
   ];
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
@@ -295,9 +300,18 @@ const Index = () => {
                     <Crown className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">Top Performer</p>
-                    <p className="text-lg font-bold text-blue-800">Sarah Chen</p>
-                    <p className="text-xs text-blue-500">from Aberdeen Site</p>
+                    <p className="text-xs text-blue-600">Top Performer{topPerformers.length > 1 ? 's' : ''}</p>
+                    {topPerformers.length === 1 ? (
+                      <>
+                        <p className="text-lg font-bold text-blue-800">{topPerformers[0].name}</p>
+                        <p className="text-xs text-blue-500">from {topPerformers[0].location}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-lg font-bold text-blue-800">{topPerformers.length} Winners</p>
+                        <p className="text-xs text-blue-500">Multiple top performers</p>
+                      </>
+                    )}
                     <p className="text-xs text-blue-500">Last Month</p>
                   </div>
                 </div>
@@ -307,13 +321,13 @@ const Index = () => {
                       size="sm"
                       variant="ghost"
                       className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-8 w-8 p-0 border border-blue-200"
-                      onClick={() => console.log('Opening Teams to contact Sarah Chen')}
+                      onClick={() => console.log(`Opening Teams to contact ${topPerformers.length === 1 ? topPerformers[0].name : 'top performers'}`)}
                     >
                       <MessageSquare className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Reach out to Sarah to celebrate their win!</p>
+                    <p>Reach out to {topPerformers.length === 1 ? topPerformers[0].name : 'the top performers'} to celebrate their win!</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
