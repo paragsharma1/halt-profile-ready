@@ -10,6 +10,7 @@ import MySprints from "./pages/MySprints";
 import TopContent from "./pages/TopContent";
 import Onboarding from "./pages/Onboarding";
 import OnboardingVariant from "./pages/OnboardingVariant";
+import NegativeProgress from "./pages/NegativeProgress";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/content" element={<TopContent />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/onboarding-variant" element={<OnboardingVariant />} />
+          <Route path="/negative-progress" element={<NegativeProgress />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
