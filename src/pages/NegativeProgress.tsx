@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { TrendingDown, Target, Award, CheckCircle2 } from 'lucide-react';
+import { TrendingUp, Target, Award, CheckCircle2, Flame } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const NegativeProgress = () => {
@@ -9,7 +9,7 @@ const NegativeProgress = () => {
   const currentMonthSprints = 8;
   const completedCurrentMonth = 3;
   const currentMonthCompletionRate = 38;
-  const teamAverage = 9.2;
+  const currentStreak = 2;
   
   // Multiple top performers for carousel (same as main page)
   const topPerformers = [
@@ -63,7 +63,7 @@ const NegativeProgress = () => {
                   </Tooltip>
                 </div>
                 <div className="p-3 bg-blue-50 rounded-full">
-                  <TrendingDown className="h-6 w-6 text-red-600" />
+                  <TrendingUp className="h-6 w-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
@@ -92,36 +92,36 @@ const NegativeProgress = () => {
                   </Tooltip>
                 </div>
                 <div className="p-3 bg-green-50 rounded-full">
-                  <TrendingDown className="h-6 w-6 text-red-600" />
+                  <TrendingUp className="h-6 w-6 text-green-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Team Average Card */}
+          {/* Streak Card */}
           <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Team Average</CardTitle>
-              <Target className="h-4 w-4 text-purple-600" />
+              <CardTitle className="text-sm font-medium text-gray-600">Current Streak</CardTitle>
+              <Flame className="h-4 w-4 text-red-500" />
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-purple-600">Team Performance</p>
-                  <p className="text-2xl font-bold text-purple-800">{teamAverage}</p>
+                  <p className="text-xs text-red-600">Days Active</p>
+                  <p className="text-2xl font-bold text-red-800">{currentStreak}</p>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <p className="text-xs text-red-500 cursor-help border-b border-dotted border-red-400">
-                        - 2.3 from last month
+                        - 6 from last month
                       </p>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Team average decreased by 2.3 sprints compared to last month (11.5 last month)</p>
+                      <p>Your streak dropped by 6 days compared to last month's peak (8 days last month)</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <div className="p-3 bg-purple-50 rounded-full">
-                  <TrendingDown className="h-6 w-6 text-red-600" />
+                <div className="p-3 bg-red-50 rounded-full">
+                  <TrendingUp className="h-6 w-6 text-red-600" />
                 </div>
               </div>
             </CardContent>
