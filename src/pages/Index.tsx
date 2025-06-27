@@ -244,8 +244,16 @@ const Index = () => {
                   <div>
                     <p className="text-xs text-blue-600">This Month</p>
                     <p className="text-2xl font-bold text-blue-800">{currentMonthSprints}</p>
-                    <p className="text-xs text-blue-500">sprints started</p>
-                    <p className="text-xs text-blue-500">+ 3 from last month</p>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <p className="text-xs text-blue-500 cursor-help border-b border-dotted border-blue-400">
+                          + 3 from last month
+                        </p>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>You started 3 more sprints this month compared to last month</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
                 <Tooltip>
@@ -268,7 +276,16 @@ const Index = () => {
                   <div>
                     <p className="text-xs text-blue-600">Completed</p>
                     <p className="text-2xl font-bold text-blue-800">{completedCurrentMonth}</p>
-                    <p className="text-xs text-blue-500">{currentMonthCompletionRate}% this month</p>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <p className="text-xs text-blue-500 cursor-help border-b border-dotted border-blue-400">
+                          {currentMonthCompletionRate}% this month
+                        </p>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{currentMonthCompletionRate}% of your sprints this month have been completed with feedback</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
                 <Tooltip>
