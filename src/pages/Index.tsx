@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,7 @@ const Index = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [sprintFilter, setSprintFilter] = useState('current-month');
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
+  const [currentPerformerIndex, setCurrentPerformerIndex] = useState(0);
 
   // Sample data for charts
   const performanceData = [
@@ -130,8 +131,19 @@ const Index = () => {
   // Top performers data - can have multiple performers
   const topPerformers = [
     { name: "Sarah Chen", location: "Aberdeen Site" },
-    { name: "Mike Johnson", location: "North Sea Platform" }
+    { name: "Mike Johnson", location: "North Sea Platform" },
+    { name: "Alex Rodriguez", location: "Offshore Platform B" }
   ];
+
+  // Cycle through top performers every 3 seconds when there are multiple
+  useEffect(() => {
+    if (topPerformers.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentPerformerIndex((prev) => (prev + 1) % topPerformers.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [topPerformers.length]);
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
     if (hasSubmittedFeedback) {
@@ -299,20 +311,25 @@ const Index = () => {
                   <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
                     <Crown className="h-6 w-6 text-blue-600" />
                   </div>
-                  <div>
+                  <div className="min-h-[60px] flex flex-col justify-center">
                     <p className="text-xs text-blue-600">Top Performer{topPerformers.length > 1 ? 's' : ''}</p>
-                    {topPerformers.length === 1 ? (
-                      <>
-                        <p className="text-lg font-bold text-blue-800">{topPerformers[0].name}</p>
-                        <p className="text-xs text-blue-500">from {topPerformers[0].location}</p>
-                      </>
-                    ) : (
-                      <>
-                        <p className="text-lg font-bold text-blue-800">{topPerformers.length} Winners</p>
-                        <p className="text-xs text-blue-500">Multiple top performers</p>
-                      </>
-                    )}
+                    <div className="transition-all duration-500 ease-in-out">
+                      <p className="text-lg font-bold text-blue-800">{topPerformers[currentPerformerIndex].name}</p>
+                      <p className="text-xs text-blue-500">from {topPerformers[currentPerformerIndex].location}</p>
+                    </div>
                     <p className="text-xs text-blue-500">Last Month</p>
+                    {topPerformers.length > 1 && (
+                      <div className="flex space-x-1 mt-1">
+                        {topPerformers.map((_, index) => (
+                          <div
+                            key={index}
+                            className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                              index === currentPerformerIndex ? 'bg-blue-600' : 'bg-blue-200'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <Tooltip>
@@ -321,13 +338,13 @@ const Index = () => {
                       size="sm"
                       variant="ghost"
                       className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-8 w-8 p-0 border border-blue-200"
-                      onClick={() => console.log(`Opening Teams to contact ${topPerformers.length === 1 ? topPerformers[0].name : 'top performers'}`)}
+                      onClick={() => console.log(`Opening Teams to contact ${topPerformers[currentPerformerIndex].name}`)}
                     >
                       <MessageSquare className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Reach out to {topPerformers.length === 1 ? topPerformers[0].name : 'the top performers'} to celebrate their win!</p>
+                    <p>Reach out to {topPerformers[currentPerformerIndex].name} to celebrate their win!</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
