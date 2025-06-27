@@ -5,12 +5,13 @@ import { TrendingDown, Target, Award, CheckCircle2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const NegativeProgress = () => {
-  // Sample data showing negative trends
+  // Sample data showing negative trends compared to main page
   const currentMonthSprints = 8;
   const completedCurrentMonth = 3;
   const currentMonthCompletionRate = 38;
+  const teamAverage = 9.2;
   
-  // Multiple top performers for carousel
+  // Multiple top performers for carousel (same as main page)
   const topPerformers = [
     { name: 'Sarah Chen', sprints: 12, avatar: '👩‍💼' },
     { name: 'Alex Rodriguez', sprints: 12, avatar: '👨‍💻' },
@@ -33,13 +34,13 @@ const NegativeProgress = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Negative Performance Dashboard</h1>
-            <p className="text-gray-600 mt-2">Example showing declining metrics compared to last month</p>
+            <h1 className="text-3xl font-bold text-gray-900">Sprint Dashboard</h1>
+            <p className="text-gray-600 mt-2">Track your development progress and performance</p>
           </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Current Sprints Card - Negative trend */}
+          {/* Current Sprints Card */}
           <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">Current Sprints</CardTitle>
@@ -48,36 +49,27 @@ const NegativeProgress = () => {
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <div>
-                    <p className="text-xs text-blue-600">This Month</p>
-                    <p className="text-2xl font-bold text-blue-800">{currentMonthSprints}</p>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <p className="text-xs text-red-500 cursor-help border-b border-dotted border-red-400">
-                          - 5 from last month
-                        </p>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>You started 5 fewer sprints this month compared to last month</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </div>
+                  <p className="text-xs text-blue-600">This Month</p>
+                  <p className="text-2xl font-bold text-blue-800">{currentMonthSprints}</p>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <p className="text-xs text-red-500 cursor-help border-b border-dotted border-red-400">
+                        - 5 from last month
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>You started 5 fewer sprints this month compared to last month (13 last month)</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="p-3 bg-red-50 rounded-full cursor-help">
-                      <TrendingDown className="h-6 w-6 text-red-600" />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Declining trend - fewer sprints started this month</p>
-                  </TooltipContent>
-                </Tooltip>
+                <div className="p-3 bg-blue-50 rounded-full">
+                  <TrendingDown className="h-6 w-6 text-red-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Completed Sprints Card - Negative trend */}
+          {/* Completed Sprints Card */}
           <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">Completed Sprints</CardTitle>
@@ -86,36 +78,27 @@ const NegativeProgress = () => {
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <div>
-                    <p className="text-xs text-blue-600">Completed</p>
-                    <p className="text-2xl font-bold text-blue-800">{completedCurrentMonth}</p>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <p className="text-xs text-red-500 cursor-help border-b border-dotted border-red-400">
-                          {currentMonthCompletionRate}% this month
-                        </p>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{currentMonthCompletionRate}% of your sprints this month have been completed with feedback (down from 71% last month)</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </div>
+                  <p className="text-xs text-blue-600">Completed</p>
+                  <p className="text-2xl font-bold text-blue-800">{completedCurrentMonth}</p>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <p className="text-xs text-red-500 cursor-help border-b border-dotted border-red-400">
+                        {currentMonthCompletionRate}% this month
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{currentMonthCompletionRate}% of your sprints this month have been completed with feedback (down from 71% last month)</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="p-3 bg-red-50 rounded-full cursor-help">
-                      <TrendingDown className="h-6 w-6 text-red-600" />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Completion rate decreased by 33% compared to last month</p>
-                  </TooltipContent>
-                </Tooltip>
+                <div className="p-3 bg-green-50 rounded-full">
+                  <TrendingDown className="h-6 w-6 text-red-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Team Average Card - Negative trend */}
+          {/* Team Average Card */}
           <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">Team Average</CardTitle>
@@ -125,7 +108,7 @@ const NegativeProgress = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs text-purple-600">Team Performance</p>
-                  <p className="text-2xl font-bold text-purple-800">9.2</p>
+                  <p className="text-2xl font-bold text-purple-800">{teamAverage}</p>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <p className="text-xs text-red-500 cursor-help border-b border-dotted border-red-400">
@@ -133,25 +116,18 @@ const NegativeProgress = () => {
                       </p>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Team average decreased by 2.3 sprints compared to last month</p>
+                      <p>Team average decreased by 2.3 sprints compared to last month (11.5 last month)</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="p-3 bg-red-50 rounded-full cursor-help">
-                      <TrendingDown className="h-6 w-6 text-red-600" />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Team performance is declining this month</p>
-                  </TooltipContent>
-                </Tooltip>
+                <div className="p-3 bg-purple-50 rounded-full">
+                  <TrendingDown className="h-6 w-6 text-red-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Top Performer Card - Cycling through multiple winners */}
+          {/* Top Performer Card */}
           <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
@@ -188,37 +164,7 @@ const NegativeProgress = () => {
               )}
             </CardContent>
           </Card>
-
         </div>
-
-        {/* Additional info section */}
-        <Card className="bg-white shadow-lg mb-6">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <TrendingDown className="h-5 w-5 text-red-600" />
-              Performance Analysis
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center p-4 bg-red-50 rounded-lg">
-                <h3 className="font-semibold text-red-800 mb-2">Sprint Starts</h3>
-                <p className="text-2xl font-bold text-red-600">-38%</p>
-                <p className="text-sm text-red-600">vs last month</p>
-              </div>
-              <div className="text-center p-4 bg-orange-50 rounded-lg">
-                <h3 className="font-semibold text-orange-800 mb-2">Completion Rate</h3>
-                <p className="text-2xl font-bold text-orange-600">-33%</p>
-                <p className="text-sm text-orange-600">vs last month</p>
-              </div>
-              <div className="text-center p-4 bg-red-50 rounded-lg">
-                <h3 className="font-semibold text-red-800 mb-2">Team Average</h3>
-                <p className="text-2xl font-bold text-red-600">-20%</p>
-                <p className="text-sm text-red-600">vs last month</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
