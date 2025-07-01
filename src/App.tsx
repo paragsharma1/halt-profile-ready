@@ -10,6 +10,7 @@ import MySprints from "./pages/MySprints";
 import TopContent from "./pages/TopContent";
 import Onboarding from "./pages/Onboarding";
 import OnboardingVariant from "./pages/OnboardingVariant";
+import OnboardingWithGuide from "./pages/OnboardingWithGuide";
 import NegativeProgress from "./pages/NegativeProgress";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/content" element={<TopContent />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/onboarding-variant" element={<OnboardingVariant />} />
+          <Route path="/onboarding-with-guide" element={<OnboardingWithGuide />} />
           <Route path="/negative-progress" element={<NegativeProgress />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
