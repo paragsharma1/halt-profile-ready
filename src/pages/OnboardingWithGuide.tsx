@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, MessageCircle, Activity, Search, ThumbsUp, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, MessageCircle, Activity, Search, ThumbsUp } from 'lucide-react';
 
 const OnboardingWithGuide = () => {
   const sprintGoal = 5;
@@ -14,32 +15,37 @@ const OnboardingWithGuide = () => {
     {
       number: 1,
       title: "Respond to prompt",
-      description: "Start by answering questions to personalize your learning experience",
+      description: "Start by answering questions to personalize your decision making experience",
       icon: MessageCircle,
       color: "bg-blue-500"
     },
     {
       number: 2,
       title: "Specify your activity",
-      description: "Choose your learning focus area and set your sprint goals",
+      description: "Choose your focus area",
       icon: Activity,
       color: "bg-green-500"
     },
     {
       number: 3,
       title: "Do a search",
-      description: "Explore relevant content tailored to your expertise level",
+      description: "Explore relevant sprints tailored to your search criteria",
       icon: Search,
       color: "bg-purple-500"
     },
     {
       number: 4,
-      title: "Consume content & Provide feedback",
+      title: "Consume content & provide feedback",
       description: "Engage with materials and share insights to enhance your journey",
       icon: ThumbsUp,
       color: "bg-orange-500"
     }
   ];
+
+  const handleStartJourney = () => {
+    // This would initiate the chatbot search functionality
+    console.log("Starting journey - initiating chatbot search");
+  };
 
   return (
     <TooltipProvider>
@@ -182,10 +188,10 @@ const OnboardingWithGuide = () => {
                 </CardHeader>
                 
                 <CardContent className="space-y-6 relative z-10">
-                  {/* Organizational Goal Banner */}
+                  {/* Target Banner */}
                   <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
                     <div className="flex items-center justify-between">
-                      <span className="text-white font-medium text-sm">Organisational Goal</span>
+                      <span className="text-white font-medium text-sm">Target</span>
                       <span className="text-white font-medium text-sm">5 Sprints</span>
                     </div>
                   </div>
@@ -258,10 +264,10 @@ const OnboardingWithGuide = () => {
                           <BookOpen className="h-5 w-5 mr-2" />
                           Getting Started Guide
                         </h3>
-                        <p className="text-blue-700 text-sm mb-6">Follow these simple steps to begin your learning journey:</p>
+                        <p className="text-blue-700 text-sm mb-6">Follow these simple steps to begin your journey:</p>
                         
                         <div className="space-y-4">
-                          {guideSteps.map((step, index) => {
+                          {guideSteps.map((step) => {
                             const IconComponent = step.icon;
                             return (
                               <div key={step.number} className="flex items-start space-x-4">
@@ -275,9 +281,6 @@ const OnboardingWithGuide = () => {
                                   </div>
                                   <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
                                 </div>
-                                {index < guideSteps.length - 1 && (
-                                  <ArrowRight className="h-4 w-4 text-gray-400 flex-shrink-0 mt-2" />
-                                )}
                               </div>
                             );
                           })}
@@ -288,6 +291,16 @@ const OnboardingWithGuide = () => {
                           <p className="text-sm text-blue-700 mt-1">
                             Complete your first sprint to unlock performance tracking and see how you compare with your team!
                           </p>
+                        </div>
+
+                        {/* CTA Button */}
+                        <div className="mt-6">
+                          <Button 
+                            onClick={handleStartJourney}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                          >
+                            Start Your Journey
+                          </Button>
                         </div>
                       </div>
                     </CardContent>
