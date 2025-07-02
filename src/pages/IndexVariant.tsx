@@ -9,16 +9,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown } from 'lucide-react';
+import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown, Users } from 'lucide-react';
 
-const Index = () => {
+const IndexVariant = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [sprintFilter, setSprintFilter] = useState('current-month');
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
   const [currentPerformerIndex, setCurrentPerformerIndex] = useState(0);
 
-  // Sample data for charts
+  // Sample data - same as original but with different styling approach
   const performanceData = [
     { month: '2024-12', myPoints: 8, teamAverage: 12 },
     { month: '2025-01', myPoints: 6, teamAverage: 10 },
@@ -102,24 +102,6 @@ const Index = () => {
       hasSubmittedFeedback: true,
       month: '2025-06'
     },
-    {
-      id: 9,
-      title: "Previous Month Sprint 1",
-      subtitle: "",
-      query: "Historical data",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-05'
-    },
-    {
-      id: 10,
-      title: "Previous Month Sprint 2",
-      subtitle: "",
-      query: "Historical analysis",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: true,
-      month: '2025-05'
-    }
   ];
 
   const topContent = [
@@ -129,14 +111,12 @@ const Index = () => {
     { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79 }
   ];
 
-  // Top performers data - can have multiple performers
   const topPerformers = [
     { name: "Sarah Chen", location: "Aberdeen Site" },
     { name: "Mike Johnson", location: "North Sea Platform" },
     { name: "Alex Rodriguez", location: "Offshore Platform B" }
   ];
 
-  // Cycle through top performers every 3 seconds when there are multiple
   useEffect(() => {
     if (topPerformers.length > 1) {
       const interval = setInterval(() => {
@@ -186,37 +166,36 @@ const Index = () => {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-        {/* Header */}
-        <div className="bg-white shadow-sm border-b">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
+        {/* Header - Alternative styling */}
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               {/* Left side - Brand only */}
               <div className="flex items-center">
-                <div className="text-2xl font-bold text-blue-900">h'alt®</div>
+                <div className="text-2xl font-bold text-white">h'alt®</div>
               </div>
               
               {/* Right side - Welcome and Profile */}
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">P</span>
+                  <div className="w-12 h-12 bg-gradient-to-r from-white to-purple-100 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-purple-600 font-bold text-lg">P</span>
                   </div>
                   <svg className="absolute -inset-2 w-16 h-16 transform -rotate-90">
                     <circle
                       cx="32"
                       cy="32"
                       r="28"
-                      stroke="#e5e7eb"
+                      stroke="rgba(255,255,255,0.3)"
                       strokeWidth="4"
                       fill="none"
-                      className="opacity-30"
                     />
                     <circle
                       cx="32"
                       cy="32"
                       r="28"
-                      stroke="#1e40af"
+                      stroke="white"
                       strokeWidth="4"
                       fill="none"
                       strokeDasharray={`${2 * Math.PI * 28}`}
@@ -227,8 +206,8 @@ const Index = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold text-gray-900">Welcome Back, parag</p>
-                  <p className="text-sm text-blue-600">Ready to power up? 👋</p>
+                  <p className="text-lg font-semibold text-white">Welcome Back, parag</p>
+                  <p className="text-sm text-purple-200">Ready to power up? 👋</p>
                 </div>
               </div>
             </div>
@@ -236,20 +215,20 @@ const Index = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Data Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+          {/* Data Metrics Cards - Alternative Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <Card className="p-4 bg-white border-2 border-purple-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <Target className="h-6 w-6 text-blue-600" />
+                  <div className="p-2 bg-purple-50 rounded-lg border border-purple-100">
+                    <Target className="h-6 w-6 text-purple-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">This Month</p>
-                    <p className="text-2xl font-bold text-blue-800">{currentMonthSprints}</p>
+                    <p className="text-xs text-purple-600">This Month</p>
+                    <p className="text-2xl font-bold text-purple-800">{currentMonthSprints}</p>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <p className="text-xs text-blue-500 cursor-help border-b border-dotted border-blue-400">
+                        <p className="text-xs text-purple-500 cursor-help border-b border-dotted border-purple-400">
                           + 3 from last month
                         </p>
                       </TooltipTrigger>
@@ -259,129 +238,67 @@ const Index = () => {
                     </Tooltip>
                   </div>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-blue-400 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Total number of learning sprints you've started this month</p>
-                  </TooltipContent>
-                </Tooltip>
               </div>
             </Card>
             
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-green-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <Trophy className="h-6 w-6 text-blue-600" />
+                  <div className="p-2 bg-green-50 rounded-lg border border-green-100">
+                    <Trophy className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">Completed</p>
-                    <p className="text-2xl font-bold text-blue-800">{completedCurrentMonth}</p>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <p className="text-xs text-blue-500 cursor-help border-b border-dotted border-blue-400">
-                          {currentMonthCompletionRate}% this month
-                        </p>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{currentMonthCompletionRate}% of your sprints this month have been completed with feedback</p>
-                      </TooltipContent>
-                    </Tooltip>
+                    <p className="text-xs text-green-600">Completed</p>
+                    <p className="text-2xl font-bold text-green-800">{completedCurrentMonth}</p>
+                    <p className="text-xs text-green-500">{currentMonthCompletionRate}% this month</p>
                   </div>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-blue-400 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Sprints completed with feedback submitted this month</p>
-                  </TooltipContent>
-                </Tooltip>
               </div>
             </Card>
             
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-orange-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <Star className="h-6 w-6 text-blue-600" />
+                  <div className="p-2 bg-orange-50 rounded-lg border border-orange-100">
+                    <Star className="h-6 w-6 text-orange-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">Streak</p>
-                    <p className="text-2xl font-bold text-blue-800">4</p>
-                    <p className="text-xs text-blue-500">days in a row</p>
+                    <p className="text-xs text-orange-600">Streak</p>
+                    <p className="text-2xl font-bold text-orange-800">4</p>
+                    <p className="text-xs text-orange-500">days in a row</p>
                   </div>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-blue-400 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Consecutive days with sprint activity</p>
-                  </TooltipContent>
-                </Tooltip>
               </div>
             </Card>
 
-            <Card className="p-4 bg-white border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="p-4 bg-white border-2 border-indigo-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <Crown className="h-6 w-6 text-blue-600" />
+                  <div className="p-2 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <Users className="h-6 w-6 text-indigo-600" />
                   </div>
                   <div className="min-h-[60px] flex flex-col justify-center">
-                    <p className="text-xs text-blue-600">Top Performer{topPerformers.length > 1 ? 's' : ''}</p>
+                    <p className="text-xs text-indigo-600">Team Leader</p>
                     <div className="transition-all duration-500 ease-in-out">
-                      <p className="text-lg font-bold text-blue-800">{topPerformers[currentPerformerIndex].name}</p>
-                      <p className="text-xs text-blue-500">from {topPerformers[currentPerformerIndex].location}</p>
+                      <p className="text-lg font-bold text-indigo-800">{topPerformers[currentPerformerIndex].name}</p>
+                      <p className="text-xs text-indigo-500">from {topPerformers[currentPerformerIndex].location}</p>
                     </div>
-                    <p className="text-xs text-blue-500">Last Month</p>
-                    {topPerformers.length > 1 && (
-                      <div className="flex space-x-1 mt-1">
-                        {topPerformers.map((_, index) => (
-                          <div
-                            key={index}
-                            className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                              index === currentPerformerIndex ? 'bg-blue-600' : 'bg-blue-200'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    )}
                   </div>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-8 w-8 p-0 border border-blue-200"
-                      onClick={() => console.log(`Opening Teams to contact ${topPerformers[currentPerformerIndex].name}`)}
-                    >
-                      <MessageSquare className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Reach out to {topPerformers[currentPerformerIndex].name} to celebrate their win!</p>
-                  </TooltipContent>
-                </Tooltip>
               </div>
             </Card>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Progress Card */}
+            {/* Left Column - Progress Card with variant styling */}
             <div className="lg:col-span-1">
-              <Card className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white border-0 shadow-xl overflow-hidden relative">
-                {/* Decorative background pattern */}
+              <Card className="bg-gradient-to-br from-purple-600 via-indigo-700 to-purple-800 text-white border-0 shadow-xl overflow-hidden relative">
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-4 right-4">
-                    <Zap className="h-24 w-24 rotate-12" />
+                    <Target className="h-24 w-24 rotate-12" />
                   </div>
                   <div className="absolute bottom-4 left-4">
-                    <BookOpen className="h-16 w-16 -rotate-12" />
+                    <Award className="h-16 w-16 -rotate-12" />
                   </div>
                 </div>
                 
@@ -390,16 +307,15 @@ const Index = () => {
                     <div className="p-2 bg-white/20 rounded-lg">
                       <TrendingUp className="h-5 w-5" />
                     </div>
-                    <CardTitle className="text-xl font-bold">Power Up Your Learning!</CardTitle>
+                    <CardTitle className="text-xl font-bold">Achieve Your Target!</CardTitle>
                   </div>
-                  <p className="text-blue-100 text-sm leading-relaxed">
-                    Stay ahead of risks and make confident decisions. Dive into your expert content today.
+                  <p className="text-purple-100 text-sm leading-relaxed">
+                    Excellence in decision-making starts with continuous learning. Reach your sprint target today.
                   </p>
                 </CardHeader>
                 
                 <CardContent className="space-y-6 relative z-10">
-                  {/* Target Banner */}
-                  <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
+                  <div className="bg-purple-500 rounded-lg p-3 border border-purple-400">
                     <div className="flex items-center justify-between">
                       <span className="text-white font-medium text-sm">Target</span>
                       <span className="text-white font-bold text-sm">5 Sprints</span>
@@ -414,10 +330,10 @@ const Index = () => {
                       </div>
                       <Progress 
                         value={Math.min(progressPercentage, 100)} 
-                        className="h-3 bg-blue-500" 
+                        className="h-3 bg-purple-500" 
                       />
                       {exceedsGoal && (
-                        <div className="text-xs text-blue-100 text-center">
+                        <div className="text-xs text-purple-100 text-center">
                           <span className="font-bold">+{exceedancePercentage}%</span> above target!
                         </div>
                       )}
@@ -426,29 +342,29 @@ const Index = () => {
                     <div className="bg-white/10 rounded-lg p-3">
                       {currentMonthSprints === 0 ? (
                         <>
-                          <p className="text-sm text-blue-100">
-                            Ready to start powering up?
+                          <p className="text-sm text-purple-100">
+                            Ready to begin your journey?
                           </p>
-                          <p className="text-sm text-blue-100 mt-1">
-                            Your first sprint awaits!
+                          <p className="text-sm text-purple-100 mt-1">
+                            Your first achievement awaits!
                           </p>
                         </>
                       ) : exceedsGoal ? (
                         <>
-                          <p className="text-sm text-blue-100">
-                            🎉 Outstanding work! You've exceeded the target by {exceedancePercentage}%!
+                          <p className="text-sm text-purple-100">
+                            🎉 Exceptional performance! You've surpassed your target by {exceedancePercentage}%!
                           </p>
-                          <p className="text-sm text-blue-100 mt-1">
-                            Keep up the fantastic learning momentum!
+                          <p className="text-sm text-purple-100 mt-1">
+                            Continue this outstanding momentum!
                           </p>
                         </>
                       ) : (
                         <>
-                          <p className="text-sm text-blue-100">
-                            Great progress! Keep going to reach your target.
+                          <p className="text-sm text-purple-100">
+                            Excellent progress! You're on track to achieve your target.
                           </p>
-                          <p className="text-sm text-blue-100 mt-1">
-                            {sprintGoal - currentMonthSprints} more sprint{sprintGoal - currentMonthSprints !== 1 ? 's' : ''} to go!
+                          <p className="text-sm text-purple-100 mt-1">
+                            {sprintGoal - currentMonthSprints} more sprint{sprintGoal - currentMonthSprints !== 1 ? 's' : ''} to reach your goal!
                           </p>
                         </>
                       )}
@@ -460,7 +376,6 @@ const Index = () => {
 
             {/* Right Column - Main Content */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Tabs Navigation */}
               <Tabs defaultValue="progress" className="w-full">
                 <TabsList className="grid w-full grid-cols-3 bg-white border shadow-sm">
                   <TabsTrigger value="progress" className="flex items-center space-x-2">
@@ -478,10 +393,11 @@ const Index = () => {
                 </TabsList>
 
                 <TabsContent value="progress" className="space-y-6">
-                  <Card className="shadow-lg">
+                  <Card className="shadow-lg border-2 border-purple-100">
                     <CardHeader>
-                      <CardTitle className="text-lg font-semibold text-gray-900">
-                        My Performance vs. My Team Average
+                      <CardTitle className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+                        <TrendingUp className="h-5 w-5 text-purple-600" />
+                        <span>My Performance vs. My Team Average</span>
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -502,18 +418,18 @@ const Index = () => {
                           <Line 
                             type="monotone" 
                             dataKey="myPoints" 
-                            stroke="#3b82f6" 
+                            stroke="#7c3aed" 
                             strokeWidth={3}
-                            dot={{ fill: '#3b82f6', strokeWidth: 2, r: 6 }}
+                            dot={{ fill: '#7c3aed', strokeWidth: 2, r: 6 }}
                             name="My Sprints"
                           />
                           <Line 
                             type="monotone" 
                             dataKey="teamAverage" 
-                            stroke="#60a5fa" 
+                            stroke="#a855f7" 
                             strokeWidth={3}
                             strokeDasharray="5 5"
-                            dot={{ fill: '#60a5fa', strokeWidth: 2, r: 6 }}
+                            dot={{ fill: '#a855f7', strokeWidth: 2, r: 6 }}
                             name="Team Sprints"
                           />
                         </LineChart>
@@ -523,7 +439,7 @@ const Index = () => {
                 </TabsContent>
 
                 <TabsContent value="sprints" className="space-y-6">
-                  <Card className="shadow-lg">
+                  <Card className="shadow-lg border-2 border-purple-100">
                     <CardHeader>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                         <CardTitle className="text-lg font-semibold text-gray-900">My Sprints</CardTitle>
@@ -579,7 +495,7 @@ const Index = () => {
                         {filteredSprints.map((sprint) => (
                           <div 
                             key={sprint.id} 
-                            className="grid grid-cols-4 gap-4 items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                            className="grid grid-cols-4 gap-4 items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors border border-purple-100"
                           >
                             <div>
                               <p className="font-medium text-gray-900">{sprint.title}</p>
@@ -615,7 +531,7 @@ const Index = () => {
                 </TabsContent>
 
                 <TabsContent value="content" className="space-y-6">
-                  <Card className="shadow-lg">
+                  <Card className="shadow-lg border-2 border-purple-100">
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <CardTitle className="text-lg font-semibold text-gray-900">Top Content</CardTitle>
@@ -640,7 +556,7 @@ const Index = () => {
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {topContent.map((item) => (
-                          <Card key={item.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
+                          <Card key={item.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-purple-500 bg-purple-50">
                             <div className="flex justify-between items-start mb-2">
                               <h3 className="font-medium text-gray-900 flex-1">{item.title}</h3>
                               <div className="flex space-x-1 ml-2">
@@ -677,7 +593,7 @@ const Index = () => {
                               </div>
                             </div>
                             <div className="flex justify-between items-center">
-                              <Badge className={`${item.feedback === 'Save time' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'} border-0 text-xs`}>
+                              <Badge className={`${item.feedback === 'Save time' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'} border-0 text-xs`}>
                                 {item.feedback}
                               </Badge>
                               <span className="text-xs text-gray-500">{item.popularity}% popular</span>
@@ -697,4 +613,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default IndexVariant;

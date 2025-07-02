@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import IndexVariant from "./pages/IndexVariant";
 import Progress from "./pages/Progress";
 import MySprints from "./pages/MySprints";
 import TopContent from "./pages/TopContent";
@@ -24,6 +25,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/index-variant" element={<IndexVariant />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/sprints" element={<MySprints />} />
           <Route path="/content" element={<TopContent />} />
