@@ -24,21 +24,83 @@ const OnboardingWithGuide = () => {
       title: "Specify your activity",
       description: "Choose your focus area",
       icon: Activity,
-      color: "bg-green-500"
+      color: "bg-blue-600"
     },
     {
       number: 3,
       title: "Do a search",
       description: "Explore relevant sprints tailored to your search criteria",
       icon: Search,
-      color: "bg-purple-500"
+      color: "bg-blue-700"
     },
     {
       number: 4,
       title: "Consume content & provide feedback",
       description: "Engage with materials and share insights to enhance your journey",
       icon: ThumbsUp,
-      color: "bg-orange-500"
+      color: "bg-blue-800"
+    }
+  ];
+
+  const sprintsGuideSteps = [
+    {
+      number: 1,
+      title: "Browse available sprints",
+      description: "Explore the sprint library based on your interests and goals",
+      icon: Search,
+      color: "bg-blue-500"
+    },
+    {
+      number: 2,
+      title: "Start a sprint",
+      description: "Select and begin your first learning sprint",
+      icon: Target,
+      color: "bg-blue-600"
+    },
+    {
+      number: 3,
+      title: "Track progress",
+      description: "Monitor your completion and engagement levels",
+      icon: TrendingUp,
+      color: "bg-blue-700"
+    },
+    {
+      number: 4,
+      title: "Review & reflect",
+      description: "Complete feedback and unlock insights from your learning",
+      icon: ThumbsUp,
+      color: "bg-blue-800"
+    }
+  ];
+
+  const contentGuideSteps = [
+    {
+      number: 1,
+      title: "Explore curated content",
+      description: "Discover top-rated content tailored to your industry and role",
+      icon: BookOpen,
+      color: "bg-blue-500"
+    },
+    {
+      number: 2,
+      title: "Engage with materials",
+      description: "Read, watch, and interact with high-quality learning resources",
+      icon: Activity,
+      color: "bg-blue-600"
+    },
+    {
+      number: 3,
+      title: "Rate and review",
+      description: "Share your feedback to help improve content recommendations",
+      icon: Star,
+      color: "bg-blue-700"
+    },
+    {
+      number: 4,
+      title: "Share insights",
+      description: "Collaborate with your team by sharing key learnings and insights",
+      icon: MessageCircle,
+      color: "bg-blue-800"
     }
   ];
 
@@ -313,13 +375,59 @@ const OnboardingWithGuide = () => {
                       <CardTitle className="text-lg font-semibold text-gray-900">My Sprints</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+                      <div className="flex items-center justify-center h-32 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 mb-6">
                         <div className="text-center">
                           <div className="p-4 bg-blue-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                             <Clock className="h-8 w-8 text-blue-500" />
                           </div>
                           <p className="text-gray-700 font-medium">No sprints yet</p>
                           <p className="text-gray-500 text-sm">Your learning journey begins with your first sprint</p>
+                        </div>
+                      </div>
+
+                      {/* Sprint Management Guide */}
+                      <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
+                        <h3 className="text-lg font-semibold text-blue-900 mb-4 flex items-center">
+                          <Clock className="h-5 w-5 mr-2" />
+                          Sprint Management Guide
+                        </h3>
+                        <p className="text-blue-700 text-sm mb-6">Master your learning sprints with these steps:</p>
+                        
+                        <div className="space-y-4">
+                          {sprintsGuideSteps.map((step) => {
+                            const IconComponent = step.icon;
+                            return (
+                              <div key={step.number} className="flex items-start space-x-4">
+                                <div className={`${step.color} text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0`}>
+                                  <span className="text-sm font-bold">{step.number}</span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center space-x-2 mb-1">
+                                    <IconComponent className="h-4 w-4 text-gray-600" />
+                                    <h4 className="font-medium text-gray-900">{step.title}</h4>
+                                  </div>
+                                  <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <div className="mt-6 p-4 bg-white rounded-lg border border-blue-200">
+                          <p className="text-sm text-blue-800 font-medium">🎯 Sprint Tip</p>
+                          <p className="text-sm text-blue-700 mt-1">
+                            Set aside dedicated time for each sprint to maximize your learning and retention!
+                          </p>
+                        </div>
+
+                        {/* CTA Button */}
+                        <div className="mt-6">
+                          <Button 
+                            onClick={handleStartJourney}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                          >
+                            Browse Available Sprints
+                          </Button>
                         </div>
                       </div>
                     </CardContent>
@@ -332,13 +440,59 @@ const OnboardingWithGuide = () => {
                       <CardTitle className="text-lg font-semibold text-gray-900">Top Content</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+                      <div className="flex items-center justify-center h-32 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 mb-6">
                         <div className="text-center">
                           <div className="p-4 bg-yellow-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                             <Award className="h-8 w-8 text-yellow-500" />
                           </div>
                           <p className="text-gray-700 font-medium">Content coming soon</p>
                           <p className="text-gray-500 text-sm">Top content will appear as you and your team engage</p>
+                        </div>
+                      </div>
+
+                      {/* Content Discovery Guide */}
+                      <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
+                        <h3 className="text-lg font-semibold text-blue-900 mb-4 flex items-center">
+                          <Award className="h-5 w-5 mr-2" />
+                          Content Discovery Guide
+                        </h3>
+                        <p className="text-blue-700 text-sm mb-6">Maximize your learning with premium content:</p>
+                        
+                        <div className="space-y-4">
+                          {contentGuideSteps.map((step) => {
+                            const IconComponent = step.icon;
+                            return (
+                              <div key={step.number} className="flex items-start space-x-4">
+                                <div className={`${step.color} text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0`}>
+                                  <span className="text-sm font-bold">{step.number}</span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center space-x-2 mb-1">
+                                    <IconComponent className="h-4 w-4 text-gray-600" />
+                                    <h4 className="font-medium text-gray-900">{step.title}</h4>
+                                  </div>
+                                  <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <div className="mt-6 p-4 bg-white rounded-lg border border-blue-200">
+                          <p className="text-sm text-blue-800 font-medium">⭐ Content Tip</p>
+                          <p className="text-sm text-blue-700 mt-1">
+                            Highly-rated content appears here based on team engagement and feedback scores!
+                          </p>
+                        </div>
+
+                        {/* CTA Button */}
+                        <div className="mt-6">
+                          <Button 
+                            onClick={handleStartJourney}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                          >
+                            Explore Premium Content
+                          </Button>
                         </div>
                       </div>
                     </CardContent>
