@@ -42,67 +42,6 @@ const OnboardingWithGuide = () => {
     }
   ];
 
-  const sprintsGuideSteps = [
-    {
-      number: 1,
-      title: "View sprint title",
-      description: "See the title of each content item/sprint you've accessed",
-      icon: BookOpen,
-      color: "bg-blue-500"
-    },
-    {
-      number: 2,
-      title: "Review your query",
-      description: "Check the search query that was used to retrieve each sprint",
-      icon: Search,
-      color: "bg-blue-600"
-    },
-    {
-      number: 3,
-      title: "Check your feedback",
-      description: "View any feedback you've provided for completed sprints",
-      icon: ThumbsUp,
-      color: "bg-blue-700"
-    },
-    {
-      number: 4,
-      title: "Monitor status",
-      description: "Track whether sprint is Complete or 'Please attend huddle'",
-      icon: Target,
-      color: "bg-blue-800"
-    }
-  ];
-
-  const contentGuideSteps = [
-    {
-      number: 1,
-      title: "Explore curated content",
-      description: "Discover top-rated content tailored to your industry and role",
-      icon: BookOpen,
-      color: "bg-blue-500"
-    },
-    {
-      number: 2,
-      title: "Engage with materials",
-      description: "Read, watch, and interact with high-quality learning resources",
-      icon: Activity,
-      color: "bg-blue-600"
-    },
-    {
-      number: 3,
-      title: "Rate and review",
-      description: "Share your feedback to help improve content recommendations",
-      icon: Star,
-      color: "bg-blue-700"
-    },
-    {
-      number: 4,
-      title: "Share insights",
-      description: "Collaborate with your team by sharing key learnings and insights",
-      icon: MessageCircle,
-      color: "bg-blue-800"
-    }
-  ];
 
   const handleStartJourney = () => {
     // This would initiate the chatbot search functionality
@@ -385,16 +324,16 @@ const OnboardingWithGuide = () => {
                         </div>
                       </div>
 
-                      {/* Sprint Management Guide */}
+                      {/* Getting Started Guide */}
                       <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
                         <h3 className="text-lg font-semibold text-blue-900 mb-4 flex items-center">
-                          <Clock className="h-5 w-5 mr-2" />
-                          Sprint Management Guide
+                          <BookOpen className="h-5 w-5 mr-2" />
+                          Getting Started Guide
                         </h3>
-                        <p className="text-blue-700 text-sm mb-6">View and manage your sprint history:</p>
+                        <p className="text-blue-700 text-sm mb-6">Follow these simple steps to begin your journey:</p>
                         
                         <div className="space-y-4">
-                          {sprintsGuideSteps.map((step) => {
+                          {guideSteps.map((step) => {
                             const IconComponent = step.icon;
                             return (
                               <div key={step.number} className="flex items-start space-x-4">
@@ -414,9 +353,9 @@ const OnboardingWithGuide = () => {
                         </div>
 
                         <div className="mt-6 p-4 bg-white rounded-lg border border-blue-200">
-                          <p className="text-sm text-blue-800 font-medium">🎯 Sprint Tip</p>
+                          <p className="text-sm text-blue-800 font-medium">💡 Pro Tip</p>
                           <p className="text-sm text-blue-700 mt-1">
-                            Set aside dedicated time for each sprint to maximize your learning and retention!
+                            Complete your first sprint to unlock performance tracking and see how you compare with your team!
                           </p>
                         </div>
 
@@ -426,7 +365,7 @@ const OnboardingWithGuide = () => {
                             onClick={handleStartJourney}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
                           >
-                            Browse Available Sprints
+                            Start Your Journey
                           </Button>
                         </div>
                       </div>
@@ -450,16 +389,16 @@ const OnboardingWithGuide = () => {
                         </div>
                       </div>
 
-                      {/* Content Discovery Guide */}
+                      {/* Getting Started Guide */}
                       <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
                         <h3 className="text-lg font-semibold text-blue-900 mb-4 flex items-center">
-                          <Award className="h-5 w-5 mr-2" />
-                          Content Discovery Guide
+                          <BookOpen className="h-5 w-5 mr-2" />
+                          Getting Started Guide
                         </h3>
-                        <p className="text-blue-700 text-sm mb-6">Maximize your learning with premium content:</p>
+                        <p className="text-blue-700 text-sm mb-6">Follow these simple steps to begin your journey:</p>
                         
                         <div className="space-y-4">
-                          {contentGuideSteps.map((step) => {
+                          {guideSteps.map((step) => {
                             const IconComponent = step.icon;
                             return (
                               <div key={step.number} className="flex items-start space-x-4">
@@ -479,9 +418,9 @@ const OnboardingWithGuide = () => {
                         </div>
 
                         <div className="mt-6 p-4 bg-white rounded-lg border border-blue-200">
-                          <p className="text-sm text-blue-800 font-medium">⭐ Content Tip</p>
+                          <p className="text-sm text-blue-800 font-medium">💡 Pro Tip</p>
                           <p className="text-sm text-blue-700 mt-1">
-                            Highly-rated content appears here based on team engagement and feedback scores!
+                            Complete your first sprint to unlock performance tracking and see how you compare with your team!
                           </p>
                         </div>
 
@@ -491,7 +430,7 @@ const OnboardingWithGuide = () => {
                             onClick={handleStartJourney}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
                           >
-                            Explore Premium Content
+                            Start Your Journey
                           </Button>
                         </div>
                       </div>
