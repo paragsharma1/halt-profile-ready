@@ -45,30 +45,30 @@ const OnboardingWithGuide = () => {
   const sprintsGuideSteps = [
     {
       number: 1,
-      title: "Browse available sprints",
-      description: "Explore the sprint library based on your interests and goals",
-      icon: Search,
+      title: "View sprint title",
+      description: "See the title of each content item/sprint you've accessed",
+      icon: BookOpen,
       color: "bg-blue-500"
     },
     {
       number: 2,
-      title: "Start a sprint",
-      description: "Select and begin your first learning sprint",
-      icon: Target,
+      title: "Review your query",
+      description: "Check the search query that was used to retrieve each sprint",
+      icon: Search,
       color: "bg-blue-600"
     },
     {
       number: 3,
-      title: "Track progress",
-      description: "Monitor your completion and engagement levels",
-      icon: TrendingUp,
+      title: "Check your feedback",
+      description: "View any feedback you've provided for completed sprints",
+      icon: ThumbsUp,
       color: "bg-blue-700"
     },
     {
       number: 4,
-      title: "Review & reflect",
-      description: "Complete feedback and unlock insights from your learning",
-      icon: ThumbsUp,
+      title: "Monitor status",
+      description: "Track whether sprint is Complete or 'Please attend huddle'",
+      icon: Target,
       color: "bg-blue-800"
     }
   ];
@@ -391,7 +391,7 @@ const OnboardingWithGuide = () => {
                           <Clock className="h-5 w-5 mr-2" />
                           Sprint Management Guide
                         </h3>
-                        <p className="text-blue-700 text-sm mb-6">Master your learning sprints with these steps:</p>
+                        <p className="text-blue-700 text-sm mb-6">View and manage your sprint history:</p>
                         
                         <div className="space-y-4">
                           {sprintsGuideSteps.map((step) => {
