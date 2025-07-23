@@ -14,12 +14,12 @@ const Progress = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-8">
+    <div className="min-h-screen bg-background p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Progress Dashboard</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-8">Progress Dashboard</h1>
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-900">
+            <CardTitle className="text-lg font-semibold text-foreground">
               My Performance vs. My Team Average
             </CardTitle>
           </CardHeader>

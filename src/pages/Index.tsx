@@ -148,9 +148,9 @@ const Index = () => {
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
     if (hasSubmittedFeedback) {
-      return <Badge className="bg-green-100 text-green-800 border-0">Complete</Badge>;
+      return <Badge variant="secondary">Complete</Badge>;
     } else {
-      return <Badge className="bg-orange-100 text-orange-800 border-0">Please attend huddle</Badge>;
+      return <Badge variant="outline">Please attend huddle</Badge>;
     }
   };
 
@@ -186,7 +186,7 @@ const Index = () => {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="min-h-screen bg-background">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -570,7 +570,7 @@ const Index = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="grid grid-cols-4 gap-4 text-sm font-medium text-gray-500 border-b pb-2">
+                        <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
                           <div>Title</div>
                           <div>Your Query</div>
                           <div>Your Feedback</div>
@@ -579,20 +579,20 @@ const Index = () => {
                         {filteredSprints.map((sprint) => (
                           <div 
                             key={sprint.id} 
-                            className="grid grid-cols-4 gap-4 items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                            className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
                           >
                             <div>
-                              <p className="font-medium text-gray-900">{sprint.title}</p>
+                              <p className="font-medium text-foreground">{sprint.title}</p>
                               {sprint.subtitle && (
-                                <p className="text-sm text-gray-500">{sprint.subtitle}</p>
+                                <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
                               )}
                             </div>
-                            <div className="text-sm text-gray-700">{sprint.query}</div>
-                            <div className="text-sm text-gray-700">
+                            <div className="text-sm text-foreground">{sprint.query}</div>
+                            <div className="text-sm text-foreground">
                               {sprint.hasSubmittedFeedback ? (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
-                                    <span className="cursor-help border-b border-dotted border-gray-400">
+                                    <span className="cursor-help border-b border-dotted border-muted-foreground">
                                       {sprint.feedback}
                                     </span>
                                   </TooltipTrigger>
@@ -601,7 +601,7 @@ const Index = () => {
                                   </TooltipContent>
                                 </Tooltip>
                               ) : (
-                                <span className="text-gray-400">No feedback</span>
+                                <span className="text-muted-foreground">No feedback</span>
                               )}
                             </div>
                             <div>

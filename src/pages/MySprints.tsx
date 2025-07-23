@@ -108,9 +108,9 @@ const MySprints = () => {
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
     if (hasSubmittedFeedback) {
-      return <Badge className="bg-green-100 text-green-800 border-0">Complete</Badge>;
+      return <Badge variant="secondary">Complete</Badge>;
     } else {
-      return <Badge className="bg-orange-100 text-orange-800 border-0">Please attend huddle</Badge>;
+      return <Badge variant="outline">Please attend huddle</Badge>;
     }
   };
 
@@ -128,16 +128,16 @@ const MySprints = () => {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-8">
+      <div className="min-h-screen bg-background p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">My Sprints</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-8">My Sprints</h1>
           <Card className="shadow-lg">
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                <CardTitle className="text-lg font-semibold text-gray-900">Sprint Overview</CardTitle>
+                <CardTitle className="text-lg font-semibold text-foreground">Sprint Overview</CardTitle>
                 <div className="flex items-center space-x-2">
                   <div className="relative flex-1 sm:w-64">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       placeholder="Search Sprints"
                       value={searchTerm}
@@ -178,7 +178,7 @@ const MySprints = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="grid grid-cols-4 gap-4 text-sm font-medium text-gray-500 border-b pb-2">
+                <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
                   <div>Title</div>
                   <div>Your Query</div>
                   <div>Your Feedback</div>
@@ -187,20 +187,20 @@ const MySprints = () => {
                 {filteredSprints.map((sprint) => (
                   <div 
                     key={sprint.id} 
-                    className="grid grid-cols-4 gap-4 items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
                   >
                     <div>
-                      <p className="font-medium text-gray-900">{sprint.title}</p>
+                      <p className="font-medium text-foreground">{sprint.title}</p>
                       {sprint.subtitle && (
-                        <p className="text-sm text-gray-500">{sprint.subtitle}</p>
+                        <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
                       )}
                     </div>
-                    <div className="text-sm text-gray-700">{sprint.query}</div>
-                    <div className="text-sm text-gray-700">
+                    <div className="text-sm text-foreground">{sprint.query}</div>
+                    <div className="text-sm text-foreground">
                       {sprint.hasSubmittedFeedback ? (
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <span className="cursor-help border-b border-dotted border-gray-400">
+                            <span className="cursor-help border-b border-dotted border-muted-foreground">
                               {sprint.feedback}
                             </span>
                           </TooltipTrigger>
@@ -209,7 +209,7 @@ const MySprints = () => {
                           </TooltipContent>
                         </Tooltip>
                       ) : (
-                        <span className="text-gray-400">No feedback</span>
+                        <span className="text-muted-foreground">No feedback</span>
                       )}
                     </div>
                     <div>
