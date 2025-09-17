@@ -23,14 +23,12 @@ const progressVariants = cva(
 
 export interface ProgressProps
   extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
-    VariantProps<typeof progressVariants> {
-  showIcon?: boolean;
-}
+    VariantProps<typeof progressVariants> {}
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ProgressProps
->(({ className, value, variant, showIcon = true, ...props }, ref) => {
+>(({ className, value, variant, ...props }, ref) => {
   const getIcon = () => {
     switch (variant) {
       case "success":
@@ -55,7 +53,7 @@ const Progress = React.forwardRef<
         className={cn(progressVariants({ variant }))}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
-      {showIcon && (value || 0) > 15 && (
+      {(value || 0) > 15 && (
         <div 
           className="absolute top-0 -translate-y-full -translate-x-1/2 mb-1"
           style={{ left: `${value || 0}%` }}
