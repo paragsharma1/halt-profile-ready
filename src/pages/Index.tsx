@@ -415,7 +415,7 @@ const Index = () => {
                       <Progress 
                         value={Math.min(progressPercentage, 100)} 
                         variant={exceedsGoal ? "exceeds" : currentMonthSprints >= sprintGoal ? "success" : "default"}
-                        className="h-3 bg-blue-500" 
+                        className={`h-3 ${exceedsGoal ? 'bg-white/20' : 'bg-blue-500/30'}`} 
                       />
                       {exceedsGoal && (
                         <div className="text-xs text-blue-100 text-center">
