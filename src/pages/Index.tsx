@@ -470,7 +470,7 @@ const Index = () => {
                   </TabsTrigger>
                   <TabsTrigger value="sprints" className="flex items-center space-x-2">
                     <Clock className="h-4 w-4" />
-                    <span>My Sprints</span>
+                    <span>My Queries</span>
                   </TabsTrigger>
                   <TabsTrigger value="content" className="flex items-center space-x-2">
                     <Award className="h-4 w-4" />
@@ -506,7 +506,7 @@ const Index = () => {
                             stroke="#3b82f6" 
                             strokeWidth={3}
                             dot={{ fill: '#3b82f6', strokeWidth: 2, r: 6 }}
-                            name="My Sprints"
+                            name="My Queries"
                           />
                           <Line 
                             type="monotone" 
@@ -527,7 +527,7 @@ const Index = () => {
                   <Card className="shadow-lg">
                     <CardHeader>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                        <CardTitle className="text-lg font-semibold text-gray-900">My Sprints</CardTitle>
+                        <CardTitle className="text-lg font-semibold text-gray-900">My Queries</CardTitle>
                         <div className="flex items-center space-x-2">
                           <div className="relative flex-1 sm:w-64">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
