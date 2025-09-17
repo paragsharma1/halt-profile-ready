@@ -540,9 +540,9 @@ const FourSprints = () => {
                   <CardContent>
                     <div className="space-y-4">
                       <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
-                        <div>Query</div>
-                        <div>Sprint Title</div>
-                        <div>Feedback</div>
+                        <div>Your Query</div>
+                        <div>You Viewed</div>
+                        <div>Your Feedback</div>
                         <div>Status</div>
                       </div>
                       <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-4">
