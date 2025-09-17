@@ -130,7 +130,7 @@ const MySprints = () => {
     <TooltipProvider>
       <div className="min-h-screen bg-background p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-foreground mb-8">My Queries</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-8">Your Queries</h1>
           <Card className="shadow-lg">
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
