@@ -44,7 +44,7 @@ const Progress = () => {
                   stroke="#3b82f6" 
                   strokeWidth={3}
                   dot={{ fill: '#3b82f6', strokeWidth: 2, r: 6 }}
-                  name="My Sprints"
+                  name="Your Queries"
                 />
                 <Line 
                   type="monotone" 
