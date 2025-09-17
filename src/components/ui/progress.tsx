@@ -46,7 +46,7 @@ const Progress = React.forwardRef<
         className={cn(progressVariants({ variant }))}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
-      {(value || 0) > 15 && (
+      {(value || 0) > 5 && (
         <div 
           className="absolute top-0 -translate-y-full -translate-x-1/2 mb-1"
           style={{ left: `${value || 0}%` }}
