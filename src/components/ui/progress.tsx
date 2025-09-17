@@ -10,8 +10,8 @@ const progressVariants = cva(
     variants: {
       variant: {
         default: "bg-primary",
-        success: "bg-green-500",
-        exceeds: "bg-gradient-to-r from-green-500 to-emerald-500",
+        success: "bg-gradient-to-r from-green-400 to-green-600 shadow-sm",
+        exceeds: "bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 shadow-lg animate-pulse",
       },
     },
     defaultVariants: {
