@@ -22,61 +22,26 @@ const progressVariants = cva(
 
 export interface ProgressProps
   extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
-    VariantProps<typeof progressVariants> {
-  target?: number
-  currentCount?: number
-}
+    VariantProps<typeof progressVariants> {}
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ProgressProps
->(({ className, value, variant, target = 5, currentCount = 0, ...props }, ref) => {
-  const targetProgress = target > 0 ? Math.min((target / Math.max(target, currentCount)) * 100, 100) : 100
-  const milestonePosition = target > 0 ? (target / Math.max(target, currentCount)) * 100 : 100
-  
-  return (
-    <ProgressPrimitive.Root
-      ref={ref}
-      className={cn(
-        "relative h-6 w-full overflow-hidden rounded-full bg-secondary",
-        className
-      )}
-      {...props}
-    >
-      {/* Milestone marker at target */}
-      <div 
-        className="absolute top-0 h-full w-0.5 bg-foreground/60 z-10"
-        style={{ left: `${Math.min(milestonePosition, 100)}%` }}
-      />
-      
-      {/* Target achievement indicator */}
-      {currentCount >= target && (
-        <div 
-          className="absolute top-1 left-0 w-2 h-2 bg-green-500 rounded-full animate-pulse z-20"
-          style={{ left: `${Math.min(milestonePosition - 1, 99)}%` }}
-        />
-      )}
-      
-      <ProgressPrimitive.Indicator
-        className={cn(progressVariants({ variant }))}
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-      />
-      
-      {/* Progress text overlay */}
-      <div className="absolute inset-0 flex items-center justify-center text-xs font-medium text-foreground/80">
-        {currentCount >= target ? (
-          currentCount > target ? (
-            <span className="text-green-600 font-bold">🎯 Target Exceeded! {currentCount}/{target}</span>
-          ) : (
-            <span className="text-green-600 font-bold">🎯 Target Achieved! {currentCount}/{target}</span>
-          )
-        ) : (
-          <span>{currentCount}/{target}</span>
-        )}
-      </div>
-    </ProgressPrimitive.Root>
-  )
-})
+>(({ className, value, variant, ...props }, ref) => (
+  <ProgressPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
+      className
+    )}
+    {...props}
+  >
+    <ProgressPrimitive.Indicator
+      className={cn(progressVariants({ variant }))}
+      style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+    />
+  </ProgressPrimitive.Root>
+))
 Progress.displayName = ProgressPrimitive.Root.displayName
 
 export { Progress }
