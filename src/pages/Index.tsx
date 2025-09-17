@@ -50,24 +50,6 @@ const Index = () => {
     },
     {
       id: 3,
-      title: "Test Content - Wind Turbine Blade Replacement",
-      subtitle: "",
-      query: "linux4",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06'
-    },
-    {
-      id: 4,
-      title: "How to plan and conduct a live evaluation of your ERP",
-      subtitle: "",
-      query: "Planning for difficult weather conditions",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: false,
-      month: '2025-06'
-    },
-    {
-      id: 5,
       title: "Offshore weather and environmental conditions",
       subtitle: "",
       query: "Planning for difficult weather conditions",
@@ -76,7 +58,7 @@ const Index = () => {
       month: '2025-06'
     },
     {
-      id: 6,
+      id: 4,
       title: "Safety Equipment Maintenance Guide",
       subtitle: "",
       query: "Safety protocols",
@@ -84,24 +66,7 @@ const Index = () => {
       hasSubmittedFeedback: true,
       month: '2025-06'
     },
-    {
-      id: 7,
-      title: "Emergency Response Training",
-      subtitle: "",
-      query: "Emergency procedures",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: false,
-      month: '2025-06'
-    },
-    {
-      id: 8,
-      title: "Risk Assessment Documentation",
-      subtitle: "",
-      query: "Risk management",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06'
-    },
+    // Previous month sprints (keeping these for comparison)
     {
       id: 9,
       title: "Previous Month Sprint 1",
