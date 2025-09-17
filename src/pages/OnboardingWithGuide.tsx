@@ -376,7 +376,7 @@ const OnboardingWithGuide = () => {
                 <TabsContent value="content" className="space-y-6">
                   <Card className="shadow-lg">
                     <CardHeader>
-                      <CardTitle className="text-lg font-semibold text-gray-900">Top Content</CardTitle>
+                      
                     </CardHeader>
                     <CardContent>
                       <div className="flex items-center justify-center h-32 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 mb-6">

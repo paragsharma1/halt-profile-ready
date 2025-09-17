@@ -495,7 +495,7 @@ const FourSprints = () => {
                 <Card className="shadow-lg">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                      <CardTitle className="text-lg font-semibold text-gray-900">Your Queries</CardTitle>
+                      
                       <div className="flex items-center space-x-2">
                         <div className="relative flex-1 sm:w-64">
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -589,7 +589,7 @@ const FourSprints = () => {
                 <Card className="shadow-lg">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg font-semibold text-gray-900">Top Content</CardTitle>
+                      
                       <div className="flex space-x-2">
                         <Button
                           variant={contentView === 'my' ? 'default' : 'outline'}
