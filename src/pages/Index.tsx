@@ -8,7 +8,6 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
 import { Search, Filter, Grid, List, TrendingUp, Target, Clock, Award, Zap, BookOpen, Star, Trophy, Info, Copy, MessageSquare, Crown } from 'lucide-react';
 
@@ -400,18 +399,9 @@ const Index = () => {
                 
                 <CardContent className="space-y-6 relative z-10">
                   {/* Target Banner */}
-                  <div className={cn(
-                    "rounded-lg p-3 border transition-all duration-300",
-                    exceedsGoal 
-                      ? "bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 border-orange-300 animate-pulse" 
-                      : currentMonthSprints >= sprintGoal 
-                        ? "bg-gradient-to-r from-green-400 to-green-600 border-green-300" 
-                        : "bg-blue-500 border-blue-400"
-                  )}>
+                  <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
                     <div className="flex items-center justify-between">
-                      <span className="text-white font-medium text-sm">
-                        {exceedsGoal ? "🎉 Target Exceeded!" : currentMonthSprints >= sprintGoal ? "✅ Target Complete!" : "Target"}
-                      </span>
+                      <span className="text-white font-medium text-sm">Target</span>
                       <span className="text-white font-bold text-sm">5 Sprints</span>
                     </div>
                   </div>
@@ -427,16 +417,9 @@ const Index = () => {
                         variant={exceedsGoal ? "exceeds" : currentMonthSprints >= sprintGoal ? "success" : "default"}
                         className="h-3 bg-blue-500" 
                       />
-                      {currentMonthSprints >= sprintGoal && (
-                        <div className={cn(
-                          "text-xs text-center font-bold",
-                          exceedsGoal 
-                            ? "text-orange-200 animate-pulse" 
-                            : "text-green-200"
-                        )}>
-                          {exceedsGoal 
-                            ? `🔥 +${exceedancePercentage}% above target! Outstanding!` 
-                            : "🎯 Target achieved! Great job!"}
+                      {exceedsGoal && (
+                        <div className="text-xs text-blue-100 text-center">
+                          <span className="font-bold">+{exceedancePercentage}%</span> above target!
                         </div>
                       )}
                     </div>
