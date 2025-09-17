@@ -108,9 +108,9 @@ const MySprints = () => {
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
     if (hasSubmittedFeedback) {
-      return <Badge variant="secondary">Complete</Badge>;
+      return <Badge className="bg-green-100 text-green-800 border-green-200">Complete</Badge>;
     } else {
-      return <Badge variant="outline">Please attend huddle</Badge>;
+      return <Badge className="bg-amber-100 text-amber-800 border-amber-200">Please attend huddle</Badge>;
     }
   };
 
@@ -184,39 +184,41 @@ const MySprints = () => {
                   <div>Your Feedback</div>
                   <div>Status</div>
                 </div>
-                {filteredSprints.map((sprint) => (
-                  <div 
-                    key={sprint.id} 
-                    className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="text-sm text-foreground">{sprint.query}</div>
-                    <div>
-                      <p className="font-medium text-foreground">{sprint.title}</p>
-                      {sprint.subtitle && (
-                        <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
-                      )}
+                <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-4">
+                  {filteredSprints.map((sprint) => (
+                    <div 
+                      key={sprint.id} 
+                      className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="text-sm text-foreground">{sprint.query}</div>
+                      <div>
+                        <p className="font-medium text-foreground">{sprint.title}</p>
+                        {sprint.subtitle && (
+                          <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
+                        )}
+                      </div>
+                      <div className="text-sm text-foreground">
+                        {sprint.hasSubmittedFeedback ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span className="cursor-help border-b border-dotted border-muted-foreground">
+                                {sprint.feedback}
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Feedback submitted: "{sprint.feedback}"</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        ) : (
+                          <span className="text-muted-foreground">No feedback</span>
+                        )}
+                      </div>
+                      <div>
+                        {getStatusBadge(sprint.hasSubmittedFeedback)}
+                      </div>
                     </div>
-                    <div className="text-sm text-foreground">
-                      {sprint.hasSubmittedFeedback ? (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <span className="cursor-help border-b border-dotted border-muted-foreground">
-                              {sprint.feedback}
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Feedback submitted: "{sprint.feedback}"</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        <span className="text-muted-foreground">No feedback</span>
-                      )}
-                    </div>
-                    <div>
-                      {getStatusBadge(sprint.hasSubmittedFeedback)}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>
