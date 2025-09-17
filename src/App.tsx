@@ -10,6 +10,7 @@ import MySprints from "./pages/MySprints";
 import TopContent from "./pages/TopContent";
 import OnboardingWithGuide from "./pages/OnboardingWithGuide";
 import FourSprints from "./pages/FourSprints";
+import NoSprintStarted from "./pages/NoSprintStarted";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/content" element={<TopContent />} />
           <Route path="/onboarding-with-guide" element={<OnboardingWithGuide />} />
           <Route path="/four-sprints" element={<FourSprints />} />
+          <Route path="/no-sprint-started" element={<NoSprintStarted />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
