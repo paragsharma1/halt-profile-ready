@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
 import { cva, type VariantProps } from "class-variance-authority"
-import { CheckCircle2, Target, Zap } from "lucide-react"
+import { Zap } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -30,14 +30,7 @@ const Progress = React.forwardRef<
   ProgressProps
 >(({ className, value, variant, ...props }, ref) => {
   const getIcon = () => {
-    switch (variant) {
-      case "success":
-        return <CheckCircle2 className="h-5 w-5 text-white fill-white drop-shadow-sm" />
-      case "exceeds":
-        return <Zap className="h-5 w-5 text-white fill-white drop-shadow-sm" />
-      default:
-        return <Target className="h-5 w-5 text-white fill-white drop-shadow-sm" />
-    }
+    return <Zap className="h-5 w-5 text-white fill-white drop-shadow-sm" />
   }
 
   return (
