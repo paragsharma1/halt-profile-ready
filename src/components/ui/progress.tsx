@@ -32,11 +32,11 @@ const Progress = React.forwardRef<
   const getIcon = () => {
     switch (variant) {
       case "success":
-        return <CheckCircle2 className="h-4 w-4 text-blue-600 fill-blue-600 drop-shadow-sm" />
+        return <CheckCircle2 className="h-4 w-4 text-sky-300 fill-sky-300 drop-shadow-sm" />
       case "exceeds":
-        return <Zap className="h-4 w-4 text-blue-600 fill-blue-600 drop-shadow-sm" />
+        return <Zap className="h-4 w-4 text-sky-300 fill-sky-300 drop-shadow-sm" />
       default:
-        return <Target className="h-4 w-4 text-blue-600 fill-blue-600 drop-shadow-sm" />
+        return <Target className="h-4 w-4 text-sky-300 fill-sky-300 drop-shadow-sm" />
     }
   }
 
