@@ -130,7 +130,7 @@ const MySprints = () => {
     <TooltipProvider>
       <div className="min-h-screen bg-background p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-foreground mb-8">My Sprints</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-8">My Queries</h1>
           <Card className="shadow-lg">
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
@@ -179,8 +179,8 @@ const MySprints = () => {
             <CardContent>
               <div className="space-y-4">
                 <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
-                  <div>Title</div>
                   <div>Your Query</div>
+                  <div>You Viewed</div>
                   <div>Your Feedback</div>
                   <div>Status</div>
                 </div>
@@ -189,13 +189,13 @@ const MySprints = () => {
                     key={sprint.id} 
                     className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
                   >
+                    <div className="text-sm text-foreground">{sprint.query}</div>
                     <div>
                       <p className="font-medium text-foreground">{sprint.title}</p>
                       {sprint.subtitle && (
                         <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
                       )}
                     </div>
-                    <div className="text-sm text-foreground">{sprint.query}</div>
                     <div className="text-sm text-foreground">
                       {sprint.hasSubmittedFeedback ? (
                         <Tooltip>
