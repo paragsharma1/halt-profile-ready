@@ -32,8 +32,8 @@ const Progress = React.forwardRef<
   ProgressProps
 >(({ className, value, variant, exceedsGoal, ...props }, ref) => {
   const getIcon = () => {
-    const iconColor = exceedsGoal ? "text-yellow-300 fill-yellow-300" : "text-white fill-white";
-    return <Zap className={`h-5 w-5 ${iconColor} drop-shadow-sm`} />
+    const iconColor = exceedsGoal ? "text-green-200 fill-green-200" : "text-white fill-white";
+    return <Zap className={`h-4 w-4 ${iconColor} drop-shadow-sm`} />
   }
 
   return (
@@ -51,8 +51,8 @@ const Progress = React.forwardRef<
       />
       {(value || 0) > 1 && (
         <div 
-          className="absolute top-0 -translate-y-full -translate-x-1/2 mb-1"
-          style={{ left: `${value || 0}%` }}
+          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center justify-center"
+          style={{ left: `${Math.min(value || 0, 95)}%` }}
         >
           {getIcon()}
         </div>
