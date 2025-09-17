@@ -50,11 +50,17 @@ const Progress = React.forwardRef<
       {...props}
     >
       <ProgressPrimitive.Indicator
-        className={cn(progressVariants({ variant }), "flex items-center justify-end pr-1")}
+        className={cn(progressVariants({ variant }))}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-      >
-        {(value || 0) > 15 && getIcon()}
-      </ProgressPrimitive.Indicator>
+      />
+      {(value || 0) > 15 && (
+        <div 
+          className="absolute top-0 -translate-y-full -translate-x-1/2 mb-1"
+          style={{ left: `${value || 0}%` }}
+        >
+          {getIcon()}
+        </div>
+      )}
     </ProgressPrimitive.Root>
   )
 })
