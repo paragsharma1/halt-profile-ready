@@ -483,7 +483,7 @@ const Index = () => {
                   <Card className="shadow-lg">
                     <CardHeader>
                       <CardTitle className="text-lg font-semibold text-gray-900">
-                        My Performance vs. My Team Average
+                        Your Performance vs. Team Average
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -507,7 +507,7 @@ const Index = () => {
                             stroke="#3b82f6" 
                             strokeWidth={3}
                             dot={{ fill: '#3b82f6', strokeWidth: 2, r: 6 }}
-                            name="Your Queries"
+                            name="Your Sprints"
                           />
                           <Line 
                             type="monotone" 

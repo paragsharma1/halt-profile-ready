@@ -20,7 +20,7 @@ const Progress = () => {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-foreground">
-              My Performance vs. My Team Average
+              Your Performance vs. Team Average
             </CardTitle>
           </CardHeader>
           <CardContent>
