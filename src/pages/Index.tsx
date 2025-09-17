@@ -66,6 +66,42 @@ const Index = () => {
       hasSubmittedFeedback: true,
       month: '2025-06'
     },
+    {
+      id: 5,
+      title: "Emergency Response Procedures",
+      subtitle: "",
+      query: "Emergency protocols",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
+    {
+      id: 6,
+      title: "Equipment Inspection Checklist",
+      subtitle: "",
+      query: "Inspection procedures",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
+    {
+      id: 7,
+      title: "Risk Assessment Guidelines",
+      subtitle: "",
+      query: "Risk management",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
+    {
+      id: 8,
+      title: "Maintenance Scheduling Best Practices",
+      subtitle: "",
+      query: "Maintenance planning",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06'
+    },
     // Previous month sprints (keeping these for comparison)
     {
       id: 9,
