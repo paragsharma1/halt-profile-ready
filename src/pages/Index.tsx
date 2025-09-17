@@ -415,6 +415,7 @@ const Index = () => {
                       </div>
                       <Progress 
                         value={Math.min(progressPercentage, 100)} 
+                        exceedsGoal={exceedsGoal}
                         className={`h-3 ${exceedsGoal ? 'bg-white/20' : 'bg-blue-500/30'}`} 
                       />
                       {exceedsGoal && (
