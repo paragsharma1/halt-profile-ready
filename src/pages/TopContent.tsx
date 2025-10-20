@@ -5,18 +5,32 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Copy, MessageSquare } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const TopContent = () => {
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
+  const [selectedTeam, setSelectedTeam] = useState<string>('all');
+
+  const teams = [
+    { id: 'team1', name: 'Operations Team' },
+    { id: 'team2', name: 'Safety Team' },
+    { id: 'team3', name: 'Maintenance Team' }
+  ];
 
   const topContent = [
-    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: 95 },
-    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88 },
-    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82 },
-    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79 },
-    { id: 5, title: "Risk Assessment Documentation", feedback: "Save time", popularity: 76 },
-    { id: 6, title: "Safety Equipment Maintenance", feedback: "Improve quality", popularity: 73 }
+    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: 95, teamId: 'team1' },
+    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88, teamId: 'team2' },
+    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82, teamId: 'team1' },
+    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79, teamId: 'team2' },
+    { id: 5, title: "Risk Assessment Documentation", feedback: "Save time", popularity: 76, teamId: 'team3' },
+    { id: 6, title: "Safety Equipment Maintenance", feedback: "Improve quality", popularity: 73, teamId: 'team3' }
   ];
+
+  const filteredContent = contentView === 'my' 
+    ? topContent 
+    : selectedTeam === 'all' 
+      ? topContent 
+      : topContent.filter(item => item.teamId === selectedTeam);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -34,29 +48,46 @@ const TopContent = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Top Content</h1>
           <Card className="shadow-lg">
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-4">
                 <CardTitle className="text-lg font-semibold text-gray-900">Popular Learning Content</CardTitle>
-                <div className="flex space-x-2">
-                  <Button
-                    variant={contentView === 'my' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setContentView('my')}
-                  >
-                    My Top Content
-                  </Button>
-                  <Button
-                    variant={contentView === 'team' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setContentView('team')}
-                  >
-                    Team Top Content
-                  </Button>
+                <div className="flex items-center gap-4">
+                  <div className="flex space-x-2">
+                    <Button
+                      variant={contentView === 'my' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setContentView('my')}
+                    >
+                      My Top Content
+                    </Button>
+                    <Button
+                      variant={contentView === 'team' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setContentView('team')}
+                    >
+                      Team Top Content
+                    </Button>
+                  </div>
+                  {contentView === 'team' && (
+                    <Select value={selectedTeam} onValueChange={setSelectedTeam}>
+                      <SelectTrigger className="w-[200px]">
+                        <SelectValue placeholder="Select team" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Teams</SelectItem>
+                        {teams.map((team) => (
+                          <SelectItem key={team.id} value={team.id}>
+                            {team.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                 </div>
               </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {topContent.map((item) => (
+                {filteredContent.map((item) => (
                   <Card key={item.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-medium text-gray-900 flex-1">{item.title}</h3>
