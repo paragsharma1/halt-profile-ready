@@ -578,7 +578,7 @@ const Index = () => {
                                 strokeWidth={2}
                                 strokeDasharray="5 5"
                                 dot={{ fill: '#60a5fa', strokeWidth: 2, r: 4 }}
-                                name="Engineering Team"
+                                name="Team Alpha"
                               />
                               <Line 
                                 type="monotone" 
@@ -587,7 +587,7 @@ const Index = () => {
                                 strokeWidth={2}
                                 strokeDasharray="3 3"
                                 dot={{ fill: '#93c5fd', strokeWidth: 2, r: 4 }}
-                                name="Product Team"
+                                name="Team Beta"
                               />
                               <Line 
                                 type="monotone" 
@@ -596,7 +596,7 @@ const Index = () => {
                                 strokeWidth={2}
                                 strokeDasharray="8 4"
                                 dot={{ fill: '#1e40af', strokeWidth: 2, r: 4 }}
-                                name="Design Team"
+                                name="Team Gamma"
                               />
                             </>
                           ) : (
