@@ -17,6 +17,7 @@ const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [sprintFilter, setSprintFilter] = useState('current-month');
+  const [teamFilter, setTeamFilter] = useState('all');
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
   const [currentPerformerIndex, setCurrentPerformerIndex] = useState(0);
   const [teamViewMode, setTeamViewMode] = useState<'all' | 'single'>('all');
@@ -47,7 +48,8 @@ const Index = () => {
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team1'
     },
     {
       id: 2,
@@ -56,7 +58,8 @@ const Index = () => {
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: false,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team1'
     },
     {
       id: 3,
@@ -65,7 +68,8 @@ const Index = () => {
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team2'
     },
     {
       id: 4,
@@ -74,7 +78,8 @@ const Index = () => {
       query: "Safety protocols",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team2'
     },
     {
       id: 5,
@@ -83,7 +88,8 @@ const Index = () => {
       query: "Emergency protocols",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team3'
     },
     {
       id: 6,
@@ -92,7 +98,8 @@ const Index = () => {
       query: "Inspection procedures",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team1'
     },
     {
       id: 7,
@@ -101,7 +108,8 @@ const Index = () => {
       query: "Risk management",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team3'
     },
     {
       id: 8,
@@ -110,7 +118,8 @@ const Index = () => {
       query: "Maintenance planning",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'team2'
     },
     // Previous month sprints (keeping these for comparison)
     {
@@ -120,7 +129,8 @@ const Index = () => {
       query: "Historical data",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-05'
+      month: '2025-05',
+      team: 'team1'
     },
     {
       id: 10,
@@ -129,7 +139,8 @@ const Index = () => {
       query: "Historical analysis",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-05'
+      month: '2025-05',
+      team: 'team2'
     }
   ];
 
@@ -169,12 +180,14 @@ const Index = () => {
     const matchesSearch = sprint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          sprint.query.toLowerCase().includes(searchTerm.toLowerCase());
     
+    const matchesTeam = teamFilter === 'all' || sprint.team === teamFilter;
+    
     if (sprintFilter === 'current-month') {
-      return matchesSearch && sprint.month === '2025-06';
+      return matchesSearch && matchesTeam && sprint.month === '2025-06';
     } else if (sprintFilter === 'last-month') {
-      return matchesSearch && sprint.month === '2025-05';
+      return matchesSearch && matchesTeam && sprint.month === '2025-05';
     }
-    return matchesSearch;
+    return matchesSearch && matchesTeam;
   });
 
   const currentMonthSprints = sprintData.filter(sprint => sprint.month === '2025-06').length;
@@ -481,7 +494,7 @@ const Index = () => {
                   </TabsTrigger>
                   <TabsTrigger value="sprints" className="flex items-center space-x-2">
                     <Clock className="h-4 w-4" />
-                    <span>Your Queries</span>
+                    <span>Queries</span>
                   </TabsTrigger>
                   <TabsTrigger value="content" className="flex items-center space-x-2">
                     <Award className="h-4 w-4" />
@@ -617,6 +630,19 @@ const Index = () => {
                               <SelectItem value="all">All</SelectItem>
                               <SelectItem value="current-month">Current Month</SelectItem>
                               <SelectItem value="last-month">Last Month</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Select value={teamFilter} onValueChange={setTeamFilter}>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="All Teams" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="all">All Teams</SelectItem>
+                              {teams.map(team => (
+                                <SelectItem key={team.id} value={team.id}>
+                                  {team.name}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <div className="flex border rounded-md">
