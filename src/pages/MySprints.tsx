@@ -121,15 +121,15 @@ const MySprints = () => {
   const getTeamAggregates = () => {
     return teams.map(teamName => {
       const teamSprints = sprintData.filter(sprint => sprint.team === teamName);
-      const completedQueries = teamSprints.filter(sprint => sprint.hasSubmittedFeedback).length;
       const totalQueries = teamSprints.length;
-      const allComplete = totalQueries > 0 && completedQueries === totalQueries;
+      const completeCount = teamSprints.filter(sprint => sprint.hasSubmittedFeedback).length;
+      const pleaseAttendHuddleCount = teamSprints.filter(sprint => !sprint.hasSubmittedFeedback).length;
       
       return {
         team: teamName,
         totalQueries,
-        completedQueries,
-        status: allComplete ? 'Complete' : 'Please attend huddle'
+        completeCount,
+        pleaseAttendHuddleCount
       };
     });
   };
@@ -171,8 +171,8 @@ const MySprints = () => {
               <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2 mb-4">
                 <div>Team</div>
                 <div>Total Queries</div>
-                <div>Completed Queries</div>
-                <div>Status</div>
+                <div>Complete</div>
+                <div>Please Attend Huddle</div>
               </div>
               <div className="space-y-3">
                 {teamAggregates.map((aggregate) => (
@@ -182,14 +182,8 @@ const MySprints = () => {
                   >
                     <div className="font-medium text-foreground">{aggregate.team}</div>
                     <div className="text-foreground">{aggregate.totalQueries}</div>
-                    <div className="text-foreground">{aggregate.completedQueries}</div>
-                    <div>
-                      {aggregate.status === 'Complete' ? (
-                        <Badge className="bg-green-100 text-green-800 border-green-200">Complete</Badge>
-                      ) : (
-                        <Badge className="bg-amber-100 text-amber-800 border-amber-200">Please attend huddle</Badge>
-                      )}
-                    </div>
+                    <div className="text-foreground">{aggregate.completeCount}</div>
+                    <div className="text-foreground">{aggregate.pleaseAttendHuddleCount}</div>
                   </div>
                 ))}
               </div>
