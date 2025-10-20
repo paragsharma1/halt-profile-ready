@@ -636,27 +636,27 @@ const Index = () => {
 
                 <TabsContent value="sprints" className="space-y-6">
                   {/* Team Aggregate Section */}
-                  <Card className="shadow-lg mb-6">
-                    <CardHeader>
-                      <CardTitle className="text-lg font-semibold text-foreground">Team Aggregate Data</CardTitle>
+                  <Card className="mb-4">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-base font-semibold">Team Aggregate Data</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2 mb-4">
+                    <CardContent className="pt-0">
+                      <div className="grid grid-cols-4 gap-3 text-xs font-medium text-muted-foreground border-b pb-1.5 mb-2">
                         <div>Team</div>
-                        <div>Total Queries</div>
+                        <div>Total</div>
                         <div>Complete</div>
-                        <div>Please Attend Huddle</div>
+                        <div>Huddle</div>
                       </div>
-                      <div className="space-y-3">
+                      <div className="space-y-1.5">
                         {teamAggregates.map((aggregate) => (
                           <div 
                             key={aggregate.team}
-                            className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg"
+                            className="grid grid-cols-4 gap-3 items-center py-2 px-3 bg-muted/20 rounded text-sm"
                           >
-                            <div className="font-medium text-foreground">{aggregate.team}</div>
-                            <div className="text-foreground">{aggregate.totalQueries}</div>
-                            <div className="text-foreground">{aggregate.completeCount}</div>
-                            <div className="text-foreground">{aggregate.pleaseAttendHuddleCount}</div>
+                            <div className="font-medium">{aggregate.team}</div>
+                            <div>{aggregate.totalQueries}</div>
+                            <div>{aggregate.completeCount}</div>
+                            <div>{aggregate.pleaseAttendHuddleCount}</div>
                           </div>
                         ))}
                       </div>
