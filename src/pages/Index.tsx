@@ -22,11 +22,12 @@ const Index = () => {
   const [currentPerformerIndex, setCurrentPerformerIndex] = useState(0);
   const [teamViewMode, setTeamViewMode] = useState<'all' | 'single'>('all');
   const [selectedTeam, setSelectedTeam] = useState<string>('team1');
+  const [contentTeamFilter, setContentTeamFilter] = useState<string>('all');
 
   const teams = [
-    { id: 'team1', name: 'Engineering Team' },
-    { id: 'team2', name: 'Product Team' },
-    { id: 'team3', name: 'Design Team' },
+    { id: 'team1', name: 'Team Alpha' },
+    { id: 'team2', name: 'Team Beta' },
+    { id: 'team3', name: 'Team Gamma' },
   ];
 
   // Sample data for charts
@@ -145,11 +146,19 @@ const Index = () => {
   ];
 
   const topContent = [
-    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: 95 },
-    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88 },
-    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82 },
-    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79 }
+    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: 95, teamId: 'team1' },
+    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88, teamId: 'team2' },
+    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82, teamId: 'team1' },
+    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79, teamId: 'team2' },
+    { id: 5, title: "Risk Assessment Documentation", feedback: "Save time", popularity: 76, teamId: 'team3' },
+    { id: 6, title: "Safety Equipment Maintenance", feedback: "Improve quality", popularity: 73, teamId: 'team3' }
   ];
+
+  const filteredContent = contentView === 'my' 
+    ? topContent 
+    : contentTeamFilter === 'all' 
+      ? topContent 
+      : topContent.filter(item => item.teamId === contentTeamFilter);
 
   // Top performers data - can have multiple performers
   const topPerformers = [
@@ -717,29 +726,45 @@ const Index = () => {
                 <TabsContent value="content" className="space-y-6">
                   <Card className="shadow-lg">
                     <CardHeader>
-                      <div className="flex items-center justify-between">
-                        
-                        <div className="flex space-x-2">
-                          <Button
-                            variant={contentView === 'my' ? 'default' : 'outline'}
-                            size="sm"
-                            onClick={() => setContentView('my')}
-                          >
-                            My Top Content
-                          </Button>
-                          <Button
-                            variant={contentView === 'team' ? 'default' : 'outline'}
-                            size="sm"
-                            onClick={() => setContentView('team')}
-                          >
-                            Team Top Content
-                          </Button>
+                      <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div className="flex items-center gap-4">
+                          <div className="flex space-x-2">
+                            <Button
+                              variant={contentView === 'my' ? 'default' : 'outline'}
+                              size="sm"
+                              onClick={() => setContentView('my')}
+                            >
+                              My Top Content
+                            </Button>
+                            <Button
+                              variant={contentView === 'team' ? 'default' : 'outline'}
+                              size="sm"
+                              onClick={() => setContentView('team')}
+                            >
+                              Team Top Content
+                            </Button>
+                          </div>
+                          {contentView === 'team' && (
+                            <Select value={contentTeamFilter} onValueChange={setContentTeamFilter}>
+                              <SelectTrigger className="w-[200px]">
+                                <SelectValue placeholder="Select team" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="all">All Teams</SelectItem>
+                                {teams.map((team) => (
+                                  <SelectItem key={team.id} value={team.id}>
+                                    {team.name}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {topContent.map((item) => (
+                        {filteredContent.map((item) => (
                           <Card key={item.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
                             <div className="flex justify-between items-start mb-2">
                               <h3 className="font-medium text-gray-900 flex-1">{item.title}</h3>

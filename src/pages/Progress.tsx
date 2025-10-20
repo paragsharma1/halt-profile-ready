@@ -10,9 +10,9 @@ const Progress = () => {
   const [selectedTeam, setSelectedTeam] = useState<string>('team1');
 
   const teams = [
-    { id: 'team1', name: 'Engineering Team' },
-    { id: 'team2', name: 'Product Team' },
-    { id: 'team3', name: 'Design Team' },
+    { id: 'team1', name: 'Team Alpha' },
+    { id: 'team2', name: 'Team Beta' },
+    { id: 'team3', name: 'Team Gamma' },
   ];
 
   const performanceData = [
@@ -95,7 +95,7 @@ const Progress = () => {
                                 strokeWidth={2}
                                 strokeDasharray="5 5"
                                 dot={{ fill: '#60a5fa', strokeWidth: 2, r: 4 }}
-                                name="Engineering Team"
+                                name="Team Alpha"
                               />
                               <Line 
                                 type="monotone" 
@@ -104,7 +104,7 @@ const Progress = () => {
                                 strokeWidth={2}
                                 strokeDasharray="3 3"
                                 dot={{ fill: '#93c5fd', strokeWidth: 2, r: 4 }}
-                                name="Product Team"
+                                name="Team Beta"
                               />
                               <Line 
                                 type="monotone" 
@@ -113,7 +113,7 @@ const Progress = () => {
                                 strokeWidth={2}
                                 strokeDasharray="8 4"
                                 dot={{ fill: '#1e40af', strokeWidth: 2, r: 4 }}
-                                name="Design Team"
+                                name="Team Gamma"
                               />
                   </>
                 ) : (

@@ -12,9 +12,9 @@ const TopContent = () => {
   const [selectedTeam, setSelectedTeam] = useState<string>('all');
 
   const teams = [
-    { id: 'team1', name: 'Operations Team' },
-    { id: 'team2', name: 'Safety Team' },
-    { id: 'team3', name: 'Maintenance Team' }
+    { id: 'team1', name: 'Team Alpha' },
+    { id: 'team2', name: 'Team Beta' },
+    { id: 'team3', name: 'Team Gamma' }
   ];
 
   const topContent = [
