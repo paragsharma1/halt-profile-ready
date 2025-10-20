@@ -88,33 +88,33 @@ const Progress = () => {
                 />
                 {viewMode === 'all' ? (
                   <>
-                    <Line 
-                      type="monotone" 
-                      dataKey="team1Average" 
-                      stroke="#60a5fa" 
-                      strokeWidth={2}
-                      strokeDasharray="5 5"
-                      dot={{ fill: '#60a5fa', strokeWidth: 2, r: 4 }}
-                      name="Engineering Team"
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="team2Average" 
-                      stroke="#34d399" 
-                      strokeWidth={2}
-                      strokeDasharray="5 5"
-                      dot={{ fill: '#34d399', strokeWidth: 2, r: 4 }}
-                      name="Product Team"
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="team3Average" 
-                      stroke="#f59e0b" 
-                      strokeWidth={2}
-                      strokeDasharray="5 5"
-                      dot={{ fill: '#f59e0b', strokeWidth: 2, r: 4 }}
-                      name="Design Team"
-                    />
+                              <Line 
+                                type="monotone" 
+                                dataKey="team1Average" 
+                                stroke="#60a5fa" 
+                                strokeWidth={2}
+                                strokeDasharray="5 5"
+                                dot={{ fill: '#60a5fa', strokeWidth: 2, r: 4 }}
+                                name="Engineering Team"
+                              />
+                              <Line 
+                                type="monotone" 
+                                dataKey="team2Average" 
+                                stroke="#93c5fd" 
+                                strokeWidth={2}
+                                strokeDasharray="3 3"
+                                dot={{ fill: '#93c5fd', strokeWidth: 2, r: 4 }}
+                                name="Product Team"
+                              />
+                              <Line 
+                                type="monotone" 
+                                dataKey="team3Average" 
+                                stroke="#1e40af" 
+                                strokeWidth={2}
+                                strokeDasharray="8 4"
+                                dot={{ fill: '#1e40af', strokeWidth: 2, r: 4 }}
+                                name="Design Team"
+                              />
                   </>
                 ) : (
                   <Line 
