@@ -21,7 +21,8 @@ const MySprints = () => {
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Alpha'
     },
     {
       id: 2,
@@ -30,7 +31,8 @@ const MySprints = () => {
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: false,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Alpha'
     },
     {
       id: 3,
@@ -39,7 +41,8 @@ const MySprints = () => {
       query: "linux4",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Beta'
     },
     {
       id: 4,
@@ -48,7 +51,8 @@ const MySprints = () => {
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
       hasSubmittedFeedback: false,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Beta'
     },
     {
       id: 5,
@@ -57,7 +61,8 @@ const MySprints = () => {
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Gamma'
     },
     {
       id: 6,
@@ -66,7 +71,8 @@ const MySprints = () => {
       query: "Safety protocols",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Gamma'
     },
     {
       id: 7,
@@ -75,7 +81,8 @@ const MySprints = () => {
       query: "Emergency procedures",
       feedback: "Improve quality",
       hasSubmittedFeedback: false,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Alpha'
     },
     {
       id: 8,
@@ -84,7 +91,8 @@ const MySprints = () => {
       query: "Risk management",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-06'
+      month: '2025-06',
+      team: 'Team Beta'
     },
     {
       id: 9,
@@ -93,7 +101,8 @@ const MySprints = () => {
       query: "Historical data",
       feedback: "Save time",
       hasSubmittedFeedback: true,
-      month: '2025-05'
+      month: '2025-05',
+      team: 'Team Alpha'
     },
     {
       id: 10,
@@ -102,9 +111,28 @@ const MySprints = () => {
       query: "Historical analysis",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-05'
+      month: '2025-05',
+      team: 'Team Gamma'
     }
   ];
+
+  const teams = ['Team Alpha', 'Team Beta', 'Team Gamma'];
+  
+  const getTeamAggregates = () => {
+    return teams.map(teamName => {
+      const teamSprints = sprintData.filter(sprint => sprint.team === teamName);
+      const completedQueries = teamSprints.filter(sprint => sprint.hasSubmittedFeedback).length;
+      const totalQueries = teamSprints.length;
+      const allComplete = totalQueries > 0 && completedQueries === totalQueries;
+      
+      return {
+        team: teamName,
+        totalQueries,
+        completedQueries,
+        status: allComplete ? 'Complete' : 'Please attend huddle'
+      };
+    });
+  };
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
     if (hasSubmittedFeedback) {
@@ -126,11 +154,48 @@ const MySprints = () => {
     return matchesSearch;
   });
 
+  const teamAggregates = getTeamAggregates();
+
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background p-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-foreground mb-8">Your Queries</h1>
+          
+          {/* Team Aggregate Section */}
+          <Card className="shadow-lg mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-foreground">Team Aggregate Data</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2 mb-4">
+                <div>Team</div>
+                <div>Total Queries</div>
+                <div>Completed Queries</div>
+                <div>Status</div>
+              </div>
+              <div className="space-y-3">
+                {teamAggregates.map((aggregate) => (
+                  <div 
+                    key={aggregate.team}
+                    className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg"
+                  >
+                    <div className="font-medium text-foreground">{aggregate.team}</div>
+                    <div className="text-foreground">{aggregate.totalQueries}</div>
+                    <div className="text-foreground">{aggregate.completedQueries}</div>
+                    <div>
+                      {aggregate.status === 'Complete' ? (
+                        <Badge className="bg-green-100 text-green-800 border-green-200">Complete</Badge>
+                      ) : (
+                        <Badge className="bg-amber-100 text-amber-800 border-amber-200">Please attend huddle</Badge>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
           <Card className="shadow-lg">
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
