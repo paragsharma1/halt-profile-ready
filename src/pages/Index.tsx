@@ -42,7 +42,11 @@ const Index = () => {
     { month: '2025-06', myPoints: 8, team1Average: 4, team2Average: 7, team3Average: 6 },
   ];
 
+  // Current user (you)
+  const currentUser = 'You';
+
   const sprintData = [
+    // Your queries
     {
       id: 1,
       title: "Test Content - Wind Turbine Blade Replacement",
@@ -52,10 +56,36 @@ const Index = () => {
       hasSubmittedFeedback: true,
       month: '2025-06',
       team: 'team1',
-      member: 'Alice Johnson'
+      member: currentUser,
+      isCurrentUser: true
     },
     {
       id: 2,
+      title: "Equipment Testing Procedures",
+      subtitle: "",
+      query: "Testing protocols",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: false,
+      month: '2025-06',
+      team: 'team2',
+      member: currentUser,
+      isCurrentUser: true
+    },
+    {
+      id: 3,
+      title: "Safety Equipment Maintenance Guide",
+      subtitle: "",
+      query: "Safety protocols",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'team3',
+      member: currentUser,
+      isCurrentUser: true
+    },
+    // Team Alpha members (team1)
+    {
+      id: 4,
       title: "Test Content - Wind Turbine Blade Replacement",
       subtitle: "",
       query: "Wind Turbine Blade Replacement",
@@ -63,29 +93,8 @@ const Index = () => {
       hasSubmittedFeedback: false,
       month: '2025-06',
       team: 'team1',
-      member: 'Bob Smith'
-    },
-    {
-      id: 3,
-      title: "Offshore weather and environmental conditions",
-      subtitle: "",
-      query: "Planning for difficult weather conditions",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'team2',
-      member: 'Carol White'
-    },
-    {
-      id: 4,
-      title: "Safety Equipment Maintenance Guide",
-      subtitle: "",
-      query: "Safety protocols",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'team2',
-      member: 'David Lee'
+      member: 'Bob Smith',
+      isCurrentUser: false
     },
     {
       id: 5,
@@ -95,55 +104,37 @@ const Index = () => {
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'team3',
-      member: 'Eve Martinez'
+      team: 'team1',
+      member: 'Charlie Brown',
+      isCurrentUser: false
     },
+    // Team Beta members (team2)
     {
       id: 6,
-      title: "Equipment Inspection Checklist",
+      title: "Offshore weather and environmental conditions",
       subtitle: "",
-      query: "Inspection procedures",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'team1',
-      member: 'Charlie Brown'
-    },
-    {
-      id: 7,
-      title: "Risk Assessment Guidelines",
-      subtitle: "",
-      query: "Risk management",
+      query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'team3',
-      member: 'Frank Davis'
+      team: 'team2',
+      member: 'Carol White',
+      isCurrentUser: false
+    },
+    {
+      id: 7,
+      title: "Risk Assessment Documentation",
+      subtitle: "",
+      query: "Risk management",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'team2',
+      member: 'David Lee',
+      isCurrentUser: false
     },
     {
       id: 8,
-      title: "Maintenance Scheduling Best Practices",
-      subtitle: "",
-      query: "Maintenance planning",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'team2',
-      member: 'Grace Kim'
-    },
-    {
-      id: 11,
-      title: "Equipment Testing Procedures",
-      subtitle: "",
-      query: "Testing protocols",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'team2',
-      member: 'Henry Zhang'
-    },
-    {
-      id: 12,
       title: "Quality Assurance Checklist",
       subtitle: "",
       query: "Quality control",
@@ -151,10 +142,24 @@ const Index = () => {
       hasSubmittedFeedback: false,
       month: '2025-06',
       team: 'team2',
-      member: 'Isabel Chen'
+      member: 'Grace Kim',
+      isCurrentUser: false
+    },
+    // Team Gamma members (team3)
+    {
+      id: 9,
+      title: "Equipment Inspection Checklist",
+      subtitle: "",
+      query: "Inspection procedures",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'team3',
+      member: 'Eve Martinez',
+      isCurrentUser: false
     },
     {
-      id: 13,
+      id: 10,
       title: "Maintenance Schedule Update",
       subtitle: "",
       query: "Maintenance planning",
@@ -162,30 +167,8 @@ const Index = () => {
       hasSubmittedFeedback: true,
       month: '2025-06',
       team: 'team3',
-      member: 'Grace Anderson'
-    },
-    // Previous month sprints (keeping these for comparison)
-    {
-      id: 9,
-      title: "Previous Month Sprint 1",
-      subtitle: "",
-      query: "Historical data",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-05',
-      team: 'team1',
-      member: 'Alice Johnson'
-    },
-    {
-      id: 10,
-      title: "Previous Month Sprint 2",
-      subtitle: "",
-      query: "Historical analysis",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: true,
-      month: '2025-05',
-      team: 'team2',
-      member: 'Carol White'
+      member: 'Frank Davis',
+      isCurrentUser: false
     }
   ];
 
@@ -249,10 +232,15 @@ const Index = () => {
   const uniqueMembers = Array.from(new Set(sprintData.map(s => s.member))).sort();
 
   const teamMembers = {
-    'team1': ['Alice Johnson', 'Bob Smith', 'Charlie Brown'],
-    'team2': ['Carol White', 'David Lee', 'Grace Kim', 'Henry Zhang', 'Isabel Chen'],
-    'team3': ['Eve Martinez', 'Frank Davis', 'Grace Anderson']
+    'team1': [currentUser, 'Bob Smith', 'Charlie Brown'],
+    'team2': [currentUser, 'Carol White', 'David Lee', 'Grace Kim'],
+    'team3': [currentUser, 'Eve Martinez', 'Frank Davis']
   };
+
+  // Get teams user belongs to
+  const myTeams = Object.keys(teamMembers).filter(teamId => 
+    teamMembers[teamId as keyof typeof teamMembers].includes(currentUser)
+  ).map(teamId => teams.find(t => t.id === teamId)?.name || teamId);
 
   const getTeamAggregates = () => {
     return teams.map(team => {
@@ -304,11 +292,24 @@ const Index = () => {
   const memberStats = getMemberStats();
 
   // Calculate "My Data" (current user's aggregate)
+  const myPersonalData = sprintData.filter(s => s.isCurrentUser);
   const myData = {
-    total: sprintData.length,
-    complete: sprintData.filter(s => s.hasSubmittedFeedback).length,
-    huddle: sprintData.filter(s => !s.hasSubmittedFeedback).length
+    total: myPersonalData.length,
+    complete: myPersonalData.filter(s => s.hasSubmittedFeedback).length,
+    huddle: myPersonalData.filter(s => !s.hasSubmittedFeedback).length
   };
+
+  // Calculate team data for teams I'm in
+  const myTeamsData = myTeams.map(teamName => {
+    const team = teams.find(t => t.name === teamName);
+    const teamSprints = sprintData.filter(s => s.team === team?.id);
+    return {
+      team: teamName,
+      total: teamSprints.length,
+      complete: teamSprints.filter(s => s.hasSubmittedFeedback).length,
+      huddle: teamSprints.filter(s => !s.hasSubmittedFeedback).length
+    };
+  });
 
   const currentMonthSprints = sprintData.filter(sprint => sprint.month === '2025-06').length;
   const completedCurrentMonth = sprintData.filter(sprint => sprint.month === '2025-06' && sprint.hasSubmittedFeedback).length;
@@ -728,92 +729,130 @@ const Index = () => {
                 </TabsContent>
 
                 <TabsContent value="sprints" className="space-y-6">
-                  {/* Team Aggregate Section */}
-                  <div className="mb-4 p-4 bg-muted/20 rounded-lg">
-                    <h3 className="text-sm font-semibold mb-3">Performance Overview</h3>
-                    
-                    {/* My Data Summary */}
-                    <div className="mb-4 p-3 bg-background rounded border border-primary/20">
-                      <div className="text-xs font-semibold text-primary mb-2">My Aggregate Data</div>
-                      <div className="grid grid-cols-3 gap-3 text-xs">
-                        <div>
-                          <div className="text-muted-foreground">Total Queries</div>
-                          <div className="text-lg font-bold">{myData.total}</div>
+                  {/* Performance Overview Section */}
+                  <div className="mb-6 space-y-4">
+                    {/* My Personal Data */}
+                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
+                      <h3 className="text-sm font-semibold text-primary mb-3">My Personal Performance</h3>
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="text-center">
+                          <div className="text-xs text-muted-foreground mb-1">Total Queries</div>
+                          <div className="text-2xl font-bold text-foreground">{myData.total}</div>
                         </div>
-                        <div>
-                          <div className="text-muted-foreground">Complete</div>
-                          <div className="text-lg font-bold text-green-600">{myData.complete}</div>
+                        <div className="text-center">
+                          <div className="text-xs text-muted-foreground mb-1">Complete</div>
+                          <div className="text-2xl font-bold text-green-600">{myData.complete}</div>
                         </div>
-                        <div>
-                          <div className="text-muted-foreground">Pending Huddle</div>
-                          <div className="text-lg font-bold text-amber-600">{myData.huddle}</div>
+                        <div className="text-center">
+                          <div className="text-xs text-muted-foreground mb-1">Pending Huddle</div>
+                          <div className="text-2xl font-bold text-amber-600">{myData.huddle}</div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Team Comparison */}
-                    <div className="text-xs">
-                      <div className="grid grid-cols-5 gap-2 font-medium text-muted-foreground pb-1 border-b mb-1">
-                        <div>Team</div>
-                        <div>Members</div>
-                        <div>Total</div>
-                        <div>Complete</div>
-                        <div>Huddle</div>
-                      </div>
-                      {teamAggregates.map((aggregate) => (
-                        <div key={aggregate.team}>
-                          <div 
-                            className="grid grid-cols-5 gap-2 py-1.5 hover:bg-muted/30 rounded cursor-pointer"
-                            onClick={() => toggleTeamExpansion(aggregate.teamId)}
-                          >
-                            <div className="font-medium flex items-center gap-1">
-                              {expandedTeams.includes(aggregate.teamId) ? (
-                                <ChevronDown className="h-3 w-3" />
-                              ) : (
-                                <ChevronRight className="h-3 w-3" />
-                              )}
-                              {aggregate.team}
-                            </div>
-                            <div>{aggregate.memberCount}</div>
-                            <div>{aggregate.totalQueries}</div>
-                            <div className="text-green-600">{aggregate.completeCount}</div>
-                            <div className="text-amber-600">{aggregate.pleaseAttendHuddleCount}</div>
-                          </div>
-                          
-                          {/* Member Details */}
-                          {expandedTeams.includes(aggregate.teamId) && (
-                            <div className="ml-4 mt-1 mb-2 bg-muted/10 rounded p-2">
-                              <div className="grid grid-cols-4 gap-2 font-medium text-muted-foreground pb-1 text-[10px]">
-                                <div>Member</div>
-                                <div>Total</div>
-                                <div>Complete</div>
-                                <div>Huddle</div>
+                    {/* My Teams Data */}
+                    <div className="p-4 bg-muted/20 rounded-lg">
+                      <h3 className="text-sm font-semibold mb-3">My Teams Performance</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {myTeamsData.map((teamData) => (
+                          <div key={teamData.team} className="p-3 bg-background rounded border">
+                            <div className="font-medium text-sm mb-2">{teamData.team}</div>
+                            <div className="space-y-1 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">Total:</span>
+                                <span className="font-semibold">{teamData.total}</span>
                               </div>
-                              {teamMembers[aggregate.teamId as keyof typeof teamMembers].map(member => {
-                                const stats = memberStats[member] || { total: 0, complete: 0, huddle: 0 };
-                                return (
-                                  <div key={member} className="grid grid-cols-4 gap-2 py-1 text-[10px]">
-                                    <div>{member}</div>
-                                    <div>{stats.total}</div>
-                                    <div className="text-green-600">{stats.complete}</div>
-                                    <div className="text-amber-600">{stats.huddle}</div>
-                                  </div>
-                                );
-                              })}
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">Complete:</span>
+                                <span className="font-semibold text-green-600">{teamData.complete}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">Pending:</span>
+                                <span className="font-semibold text-amber-600">{teamData.huddle}</span>
+                              </div>
                             </div>
-                          )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* All Teams Comparison */}
+                    <div className="p-4 bg-muted/20 rounded-lg">
+                      <h3 className="text-sm font-semibold mb-3">All Teams Overview</h3>
+                      <div className="overflow-x-auto">
+                        <div className="min-w-full">
+                          <div className="grid grid-cols-5 gap-3 text-xs font-medium text-muted-foreground pb-2 border-b mb-2">
+                            <div>Team</div>
+                            <div className="text-center">Members</div>
+                            <div className="text-center">Total</div>
+                            <div className="text-center">Complete</div>
+                            <div className="text-center">Pending</div>
+                          </div>
+                          {teamAggregates.map((aggregate) => (
+                            <div key={aggregate.team}>
+                              <div 
+                                className="grid grid-cols-5 gap-3 py-2 px-2 hover:bg-muted/50 rounded cursor-pointer transition-colors text-sm"
+                                onClick={() => toggleTeamExpansion(aggregate.teamId)}
+                              >
+                                <div className="font-medium flex items-center gap-1">
+                                  {expandedTeams.includes(aggregate.teamId) ? (
+                                    <ChevronDown className="h-3 w-3" />
+                                  ) : (
+                                    <ChevronRight className="h-3 w-3" />
+                                  )}
+                                  {aggregate.team}
+                                  {myTeams.includes(aggregate.team) && (
+                                    <Badge variant="secondary" className="ml-1 text-[10px] px-1 py-0">My Team</Badge>
+                                  )}
+                                </div>
+                                <div className="text-center">{aggregate.memberCount}</div>
+                                <div className="text-center font-semibold">{aggregate.totalQueries}</div>
+                                <div className="text-center font-semibold text-green-600">{aggregate.completeCount}</div>
+                                <div className="text-center font-semibold text-amber-600">{aggregate.pleaseAttendHuddleCount}</div>
+                              </div>
+                              
+                              {/* Member Details */}
+                              {expandedTeams.includes(aggregate.teamId) && (
+                                <div className="ml-6 mt-2 mb-3 p-3 bg-muted/30 rounded border">
+                                  <div className="text-xs font-semibold mb-2">Team Members</div>
+                                  <div className="space-y-2">
+                                    {teamMembers[aggregate.teamId as keyof typeof teamMembers].map(member => {
+                                      const stats = memberStats[member] || { total: 0, complete: 0, huddle: 0 };
+                                      const isMe = member === currentUser;
+                                      return (
+                                        <div 
+                                          key={member} 
+                                          className={`grid grid-cols-4 gap-3 py-2 px-3 rounded text-xs ${
+                                            isMe ? 'bg-primary/10 border border-primary/20' : 'bg-background'
+                                          }`}
+                                        >
+                                          <div className="font-medium flex items-center gap-1">
+                                            {member}
+                                            {isMe && <Badge variant="default" className="ml-1 text-[10px] px-1 py-0">You</Badge>}
+                                          </div>
+                                          <div className="text-center">{stats.total}</div>
+                                          <div className="text-center text-green-600">{stats.complete}</div>
+                                          <div className="text-center text-amber-600">{stats.huddle}</div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
 
-                  <Card className="shadow-lg">
-                    <CardHeader>
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                  <Card className="shadow-lg border">
+                    <CardHeader className="border-b bg-muted/20">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         
-                        <div className="flex items-center space-x-2">
-                          <div className="relative flex-1 sm:w-64">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <div className="flex flex-wrap items-center gap-2">
+                          <div className="relative w-full sm:w-64">
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
                               placeholder="Search Sprints"
                               value={searchTerm}
@@ -825,7 +864,7 @@ const Index = () => {
                             <SelectTrigger className="w-40">
                               <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="bg-background">
                               <SelectItem value="all">All</SelectItem>
                               <SelectItem value="current-month">Current Month</SelectItem>
                               <SelectItem value="last-month">Last Month</SelectItem>
@@ -835,7 +874,7 @@ const Index = () => {
                             <SelectTrigger className="w-[180px]">
                               <SelectValue placeholder="All Teams" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="bg-background">
                               <SelectItem value="all">All Teams</SelectItem>
                               {teams.map(team => (
                                 <SelectItem key={team.id} value={team.id}>
@@ -848,7 +887,7 @@ const Index = () => {
                             <SelectTrigger className="w-44">
                               <SelectValue placeholder="All Members" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="bg-background">
                               <SelectItem value="all">All Members</SelectItem>
                               {uniqueMembers.map(member => (
                                 <SelectItem key={member} value={member}>{member}</SelectItem>
