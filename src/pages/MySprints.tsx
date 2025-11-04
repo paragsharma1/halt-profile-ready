@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Grid, List } from 'lucide-react';
+import { Search, Grid, List, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 
 const MySprints = () => {
@@ -22,7 +22,8 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Alpha'
+      team: 'Team Alpha',
+      member: 'Alice Johnson'
     },
     {
       id: 2,
@@ -32,7 +33,8 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: false,
       month: '2025-06',
-      team: 'Team Alpha'
+      team: 'Team Alpha',
+      member: 'Bob Smith'
     },
     {
       id: 3,
@@ -42,7 +44,8 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Beta'
+      team: 'Team Beta',
+      member: 'Carol White'
     },
     {
       id: 4,
@@ -52,7 +55,8 @@ const MySprints = () => {
       feedback: "Improve quality",
       hasSubmittedFeedback: false,
       month: '2025-06',
-      team: 'Team Beta'
+      team: 'Team Beta',
+      member: 'David Lee'
     },
     {
       id: 5,
@@ -62,7 +66,8 @@ const MySprints = () => {
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Gamma'
+      team: 'Team Gamma',
+      member: 'Eve Martinez'
     },
     {
       id: 6,
@@ -72,7 +77,8 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Gamma'
+      team: 'Team Gamma',
+      member: 'Frank Davis'
     },
     {
       id: 7,
@@ -82,7 +88,8 @@ const MySprints = () => {
       feedback: "Improve quality",
       hasSubmittedFeedback: false,
       month: '2025-06',
-      team: 'Team Alpha'
+      team: 'Team Alpha',
+      member: 'Charlie Brown'
     },
     {
       id: 8,
@@ -92,7 +99,8 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Beta'
+      team: 'Team Beta',
+      member: 'Grace Kim'
     },
     {
       id: 9,
@@ -102,7 +110,8 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-05',
-      team: 'Team Alpha'
+      team: 'Team Alpha',
+      member: 'Alice Johnson'
     },
     {
       id: 10,
@@ -112,9 +121,49 @@ const MySprints = () => {
       feedback: "Improve quality",
       hasSubmittedFeedback: true,
       month: '2025-05',
-      team: 'Team Gamma'
+      team: 'Team Gamma',
+      member: 'Eve Martinez'
+    },
+    {
+      id: 11,
+      title: "Equipment Testing Procedures",
+      subtitle: "",
+      query: "Testing protocols",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'Team Beta',
+      member: 'Henry Zhang'
+    },
+    {
+      id: 12,
+      title: "Quality Assurance Checklist",
+      subtitle: "",
+      query: "Quality control",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: false,
+      month: '2025-06',
+      team: 'Team Beta',
+      member: 'Isabel Chen'
+    },
+    {
+      id: 13,
+      title: "Maintenance Schedule Update",
+      subtitle: "",
+      query: "Maintenance planning",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'Team Gamma',
+      member: 'Grace Anderson'
     }
   ];
+
+  const teamMembers = {
+    'Team Alpha': ['Alice Johnson', 'Bob Smith', 'Charlie Brown'],
+    'Team Beta': ['Carol White', 'David Lee', 'Grace Kim', 'Henry Zhang', 'Isabel Chen'],
+    'Team Gamma': ['Eve Martinez', 'Frank Davis', 'Grace Anderson']
+  };
 
   const teams = ['Team Alpha', 'Team Beta', 'Team Gamma'];
   
@@ -129,9 +178,38 @@ const MySprints = () => {
         team: teamName,
         totalQueries,
         completeCount,
-        pleaseAttendHuddleCount
+        pleaseAttendHuddleCount,
+        memberCount: teamMembers[teamName as keyof typeof teamMembers].length
       };
     });
+  };
+
+  const getMemberStats = () => {
+    const stats: Record<string, { total: number; complete: number; huddle: number; team: string }> = {};
+    
+    sprintData.forEach(sprint => {
+      if (!stats[sprint.member]) {
+        stats[sprint.member] = { total: 0, complete: 0, huddle: 0, team: sprint.team };
+      }
+      stats[sprint.member].total++;
+      if (sprint.hasSubmittedFeedback) {
+        stats[sprint.member].complete++;
+      } else {
+        stats[sprint.member].huddle++;
+      }
+    });
+    
+    return stats;
+  };
+
+  const [expandedTeams, setExpandedTeams] = useState<string[]>([]);
+
+  const toggleTeamExpansion = (teamName: string) => {
+    setExpandedTeams(prev => 
+      prev.includes(teamName) 
+        ? prev.filter(t => t !== teamName)
+        : [...prev, teamName]
+    );
   };
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
@@ -155,6 +233,14 @@ const MySprints = () => {
   });
 
   const teamAggregates = getTeamAggregates();
+  const memberStats = getMemberStats();
+
+  // Calculate "My Data" (current user's aggregate)
+  const myData = {
+    total: sprintData.length,
+    complete: sprintData.filter(s => s.hasSubmittedFeedback).length,
+    huddle: sprintData.filter(s => !s.hasSubmittedFeedback).length
+  };
 
   return (
     <TooltipProvider>
@@ -163,24 +249,79 @@ const MySprints = () => {
           <h1 className="text-3xl font-bold text-foreground mb-8">Your Queries</h1>
           
           {/* Team Aggregate Section */}
-          <div className="mb-4 p-3 bg-muted/20 rounded-lg">
-            <h3 className="text-sm font-semibold mb-2">Team Aggregate Data</h3>
+          <div className="mb-4 p-4 bg-muted/20 rounded-lg">
+            <h3 className="text-sm font-semibold mb-3">Performance Overview</h3>
+            
+            {/* My Data Summary */}
+            <div className="mb-4 p-3 bg-background rounded border border-primary/20">
+              <div className="text-xs font-semibold text-primary mb-2">My Aggregate Data</div>
+              <div className="grid grid-cols-3 gap-3 text-xs">
+                <div>
+                  <div className="text-muted-foreground">Total Queries</div>
+                  <div className="text-lg font-bold">{myData.total}</div>
+                </div>
+                <div>
+                  <div className="text-muted-foreground">Complete</div>
+                  <div className="text-lg font-bold text-green-600">{myData.complete}</div>
+                </div>
+                <div>
+                  <div className="text-muted-foreground">Pending Huddle</div>
+                  <div className="text-lg font-bold text-amber-600">{myData.huddle}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Comparison */}
             <div className="text-xs">
-              <div className="grid grid-cols-4 gap-2 font-medium text-muted-foreground pb-1 border-b">
+              <div className="grid grid-cols-5 gap-2 font-medium text-muted-foreground pb-1 border-b mb-1">
                 <div>Team</div>
+                <div>Members</div>
                 <div>Total</div>
                 <div>Complete</div>
                 <div>Huddle</div>
               </div>
               {teamAggregates.map((aggregate) => (
-                <div 
-                  key={aggregate.team}
-                  className="grid grid-cols-4 gap-2 py-1.5"
-                >
-                  <div className="font-medium">{aggregate.team}</div>
-                  <div>{aggregate.totalQueries}</div>
-                  <div>{aggregate.completeCount}</div>
-                  <div>{aggregate.pleaseAttendHuddleCount}</div>
+                <div key={aggregate.team}>
+                  <div 
+                    className="grid grid-cols-5 gap-2 py-1.5 hover:bg-muted/30 rounded cursor-pointer"
+                    onClick={() => toggleTeamExpansion(aggregate.team)}
+                  >
+                    <div className="font-medium flex items-center gap-1">
+                      {expandedTeams.includes(aggregate.team) ? (
+                        <ChevronDown className="h-3 w-3" />
+                      ) : (
+                        <ChevronRight className="h-3 w-3" />
+                      )}
+                      {aggregate.team}
+                    </div>
+                    <div>{aggregate.memberCount}</div>
+                    <div>{aggregate.totalQueries}</div>
+                    <div className="text-green-600">{aggregate.completeCount}</div>
+                    <div className="text-amber-600">{aggregate.pleaseAttendHuddleCount}</div>
+                  </div>
+                  
+                  {/* Member Details */}
+                  {expandedTeams.includes(aggregate.team) && (
+                    <div className="ml-4 mt-1 mb-2 bg-muted/10 rounded p-2">
+                      <div className="grid grid-cols-4 gap-2 font-medium text-muted-foreground pb-1 text-[10px]">
+                        <div>Member</div>
+                        <div>Total</div>
+                        <div>Complete</div>
+                        <div>Huddle</div>
+                      </div>
+                      {teamMembers[aggregate.team as keyof typeof teamMembers].map(member => {
+                        const stats = memberStats[member] || { total: 0, complete: 0, huddle: 0 };
+                        return (
+                          <div key={member} className="grid grid-cols-4 gap-2 py-1 text-[10px]">
+                            <div>{member}</div>
+                            <div>{stats.total}</div>
+                            <div className="text-green-600">{stats.complete}</div>
+                            <div className="text-amber-600">{stats.huddle}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
