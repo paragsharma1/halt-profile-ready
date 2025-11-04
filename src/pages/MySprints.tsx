@@ -12,6 +12,7 @@ const MySprints = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [sprintFilter, setSprintFilter] = useState('current-month');
+  const [memberFilter, setMemberFilter] = useState('all');
 
   const sprintData = [
     {
@@ -222,15 +223,21 @@ const MySprints = () => {
 
   const filteredSprints = sprintData.filter(sprint => {
     const matchesSearch = sprint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         sprint.query.toLowerCase().includes(searchTerm.toLowerCase());
+                         sprint.query.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         sprint.member.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesMember = memberFilter === 'all' || sprint.member === memberFilter;
     
     if (sprintFilter === 'current-month') {
-      return matchesSearch && sprint.month === '2025-06';
+      return matchesSearch && matchesMember && sprint.month === '2025-06';
     } else if (sprintFilter === 'last-month') {
-      return matchesSearch && sprint.month === '2025-05';
+      return matchesSearch && matchesMember && sprint.month === '2025-05';
     }
-    return matchesSearch;
+    return matchesSearch && matchesMember;
   });
+
+  // Get unique members for filter
+  const uniqueMembers = Array.from(new Set(sprintData.map(s => s.member))).sort();
 
   const teamAggregates = getTeamAggregates();
   const memberStats = getMemberStats();
@@ -351,6 +358,17 @@ const MySprints = () => {
                       <SelectItem value="last-month">Last Month</SelectItem>
                     </SelectContent>
                   </Select>
+                  <Select value={memberFilter} onValueChange={setMemberFilter}>
+                    <SelectTrigger className="w-44">
+                      <SelectValue placeholder="All Members" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Members</SelectItem>
+                      {uniqueMembers.map(member => (
+                        <SelectItem key={member} value={member}>{member}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <div className="flex border rounded-md">
                     <Button
                       variant={viewMode === 'list' ? 'default' : 'ghost'}
@@ -374,23 +392,28 @@ const MySprints = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
-                  <div>Your Query</div>
-                  <div>You Viewed</div>
-                  <div>Your Feedback</div>
+                <div className="grid grid-cols-5 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
+                  <div>Member</div>
+                  <div>Query</div>
+                  <div>Content Viewed</div>
+                  <div>Feedback</div>
                   <div>Status</div>
                 </div>
-                <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-4">
+                <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-3">
                   {filteredSprints.map((sprint) => (
                     <div 
                       key={sprint.id} 
-                      className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                      className="grid grid-cols-5 gap-4 items-start p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
                     >
+                      <div className="flex flex-col gap-1">
+                        <span className="text-sm font-medium text-foreground">{sprint.member}</span>
+                        <Badge variant="outline" className="text-xs w-fit">{sprint.team}</Badge>
+                      </div>
                       <div className="text-sm text-foreground">{sprint.query}</div>
                       <div>
-                        <p className="font-medium text-foreground">{sprint.title}</p>
+                        <p className="text-sm font-medium text-foreground">{sprint.title}</p>
                         {sprint.subtitle && (
-                          <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
+                          <p className="text-xs text-muted-foreground">{sprint.subtitle}</p>
                         )}
                       </div>
                       <div className="text-sm text-foreground">
