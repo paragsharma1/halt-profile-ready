@@ -215,11 +215,9 @@ const Index = () => {
 
   const teamAggregates = getTeamAggregates();
   
-  const totalQueriesAllTeams = teamAggregates.reduce((sum, team) => sum + team.totalQueries, 0);
-  const totalCompletedAllTeams = teamAggregates.reduce((sum, team) => sum + team.completeCount, 0);
-  
-  const currentMonthSprints = totalQueriesAllTeams;
-  const completedCurrentMonth = totalCompletedAllTeams;
+  // Calculate my personal metrics from actual sprint data
+  const currentMonthSprints = sprintData.filter(sprint => sprint.month === '2025-06').length;
+  const completedCurrentMonth = sprintData.filter(sprint => sprint.month === '2025-06' && sprint.hasSubmittedFeedback).length;
   const currentMonthCompletionRate = currentMonthSprints > 0 ? Math.round((completedCurrentMonth / currentMonthSprints) * 100) : 0;
 
   const sprintGoal = 5;
