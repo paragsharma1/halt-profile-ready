@@ -229,12 +229,15 @@ const MySprints = () => {
     
     const matchesMember = memberFilter === 'all' || sprint.member === memberFilter;
     
+    // Only show current user's queries
+    const isMyQuery = sprint.isCurrentUser;
+    
     if (sprintFilter === 'current-month') {
-      return matchesSearch && matchesMember && sprint.month === '2025-06';
+      return matchesSearch && matchesMember && sprint.month === '2025-06' && isMyQuery;
     } else if (sprintFilter === 'last-month') {
-      return matchesSearch && matchesMember && sprint.month === '2025-05';
+      return matchesSearch && matchesMember && sprint.month === '2025-05' && isMyQuery;
     }
-    return matchesSearch && matchesMember;
+    return matchesSearch && matchesMember && isMyQuery;
   });
 
   // Get unique members for filter
@@ -315,74 +318,6 @@ const MySprints = () => {
               </div>
             </div>
 
-            {/* All Teams Comparison */}
-            <div className="p-4 bg-muted/20 rounded-lg">
-              <h3 className="text-sm font-semibold mb-3">All Teams Overview</h3>
-              <div className="overflow-x-auto">
-                <div className="min-w-full">
-                  <div className="grid grid-cols-5 gap-3 text-xs font-medium text-muted-foreground pb-2 border-b mb-2">
-                    <div>Team</div>
-                    <div className="text-center">Members</div>
-                    <div className="text-center">Total</div>
-                    <div className="text-center">Complete</div>
-                    <div className="text-center">Pending</div>
-                  </div>
-                  {teamAggregates.map((aggregate) => (
-                    <div key={aggregate.team}>
-                      <div 
-                        className="grid grid-cols-5 gap-3 py-2 px-2 hover:bg-muted/50 rounded cursor-pointer transition-colors text-sm"
-                        onClick={() => toggleTeamExpansion(aggregate.team)}
-                      >
-                        <div className="font-medium flex items-center gap-1">
-                          {expandedTeams.includes(aggregate.team) ? (
-                            <ChevronDown className="h-3 w-3" />
-                          ) : (
-                            <ChevronRight className="h-3 w-3" />
-                          )}
-                          {aggregate.team}
-                          {myTeams.includes(aggregate.team) && (
-                            <Badge variant="secondary" className="ml-1 text-[10px] px-1 py-0">My Team</Badge>
-                          )}
-                        </div>
-                        <div className="text-center">{aggregate.memberCount}</div>
-                        <div className="text-center font-semibold">{aggregate.totalQueries}</div>
-                        <div className="text-center font-semibold text-green-600">{aggregate.completeCount}</div>
-                        <div className="text-center font-semibold text-amber-600">{aggregate.pleaseAttendHuddleCount}</div>
-                      </div>
-                      
-                      {/* Member Details */}
-                      {expandedTeams.includes(aggregate.team) && (
-                        <div className="ml-6 mt-2 mb-3 p-3 bg-muted/30 rounded border">
-                          <div className="text-xs font-semibold mb-2">Team Members</div>
-                          <div className="space-y-2">
-                            {teamMembers[aggregate.team as keyof typeof teamMembers].map(member => {
-                              const stats = memberStats[member] || { total: 0, complete: 0, huddle: 0 };
-                              const isMe = member === currentUser;
-                              return (
-                                <div 
-                                  key={member} 
-                                  className={`grid grid-cols-4 gap-3 py-2 px-3 rounded text-xs ${
-                                    isMe ? 'bg-primary/10 border border-primary/20' : 'bg-background'
-                                  }`}
-                                >
-                                  <div className="font-medium flex items-center gap-1">
-                                    {member}
-                                    {isMe && <Badge variant="default" className="ml-1 text-[10px] px-1 py-0">You</Badge>}
-                                  </div>
-                                  <div className="text-center">{stats.total}</div>
-                                  <div className="text-center text-green-600">{stats.complete}</div>
-                                  <div className="text-center text-amber-600">{stats.huddle}</div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
 
           <Card className="shadow-lg border">
