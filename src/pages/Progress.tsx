@@ -15,14 +15,15 @@ const Progress = () => {
     { id: 'team3', name: 'Team Gamma' },
   ];
 
+  // Generate random performance data
   const performanceData = [
-    { month: '2024-12', myPoints: 8, team1Average: 12, team2Average: 10, team3Average: 9 },
-    { month: '2025-01', myPoints: 6, team1Average: 10, team2Average: 8, team3Average: 11 },
-    { month: '2025-02', myPoints: 14, team1Average: 11, team2Average: 13, team3Average: 10 },
-    { month: '2025-03', myPoints: 16, team1Average: 13, team2Average: 15, team3Average: 12 },
-    { month: '2025-04', myPoints: 11, team1Average: 14, team2Average: 12, team3Average: 13 },
-    { month: '2025-05', myPoints: 5, team1Average: 15, team2Average: 9, team3Average: 14 },
-    { month: '2025-06', myPoints: 8, team1Average: 4, team2Average: 7, team3Average: 6 },
+    { month: '2024-12', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2025-01', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2025-02', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2025-03', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2025-04', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2025-05', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2025-06', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
   ];
 
   return (
