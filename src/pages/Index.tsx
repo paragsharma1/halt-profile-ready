@@ -581,9 +581,9 @@ const Index = () => {
                           <Line 
                             type="monotone" 
                             dataKey="myPoints" 
-                            stroke="#3b82f6" 
+                            stroke="#2563eb" 
                             strokeWidth={3}
-                            dot={{ fill: '#3b82f6', strokeWidth: 2, r: 6 }}
+                            dot={{ fill: '#2563eb', strokeWidth: 2, r: 6 }}
                             name="Your Sprints"
                           />
                           {teamViewMode === 'all' ? (
@@ -591,40 +591,40 @@ const Index = () => {
                               <Line 
                                 type="monotone" 
                                 dataKey="team1Average" 
-                                stroke="#60a5fa" 
+                                stroke="#16a34a" 
                                 strokeWidth={2}
                                 strokeDasharray="5 5"
-                                dot={{ fill: '#60a5fa', strokeWidth: 2, r: 4 }}
-                                name="Team Alpha"
+                                dot={{ fill: '#16a34a', strokeWidth: 2, r: 4 }}
+                                name="Team Alpha Avg"
                               />
                               <Line 
                                 type="monotone" 
                                 dataKey="team2Average" 
-                                stroke="#93c5fd" 
+                                stroke="#dc2626" 
                                 strokeWidth={2}
                                 strokeDasharray="3 3"
-                                dot={{ fill: '#93c5fd', strokeWidth: 2, r: 4 }}
-                                name="Team Beta"
+                                dot={{ fill: '#dc2626', strokeWidth: 2, r: 4 }}
+                                name="Team Beta Avg"
                               />
                               <Line 
                                 type="monotone" 
                                 dataKey="team3Average" 
-                                stroke="#1e40af" 
+                                stroke="#9333ea" 
                                 strokeWidth={2}
                                 strokeDasharray="8 4"
-                                dot={{ fill: '#1e40af', strokeWidth: 2, r: 4 }}
-                                name="Team Gamma"
+                                dot={{ fill: '#9333ea', strokeWidth: 2, r: 4 }}
+                                name="Team Gamma Avg"
                               />
                             </>
                           ) : (
                             <Line 
                               type="monotone" 
                               dataKey={`${selectedTeam}Average`}
-                              stroke="#60a5fa" 
+                              stroke="#16a34a" 
                               strokeWidth={3}
                               strokeDasharray="5 5"
-                              dot={{ fill: '#60a5fa', strokeWidth: 2, r: 6 }}
-                              name={teams.find(t => t.id === selectedTeam)?.name}
+                              dot={{ fill: '#16a34a', strokeWidth: 2, r: 6 }}
+                              name={`${teams.find(t => t.id === selectedTeam)?.name} Avg`}
                             />
                           )}
                         </LineChart>
