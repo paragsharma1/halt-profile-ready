@@ -5,20 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Grid, List, ChevronDown, ChevronRight } from 'lucide-react';
+import { Search, Grid, List } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 
 const MySprints = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [sprintFilter, setSprintFilter] = useState('current-month');
-  const [memberFilter, setMemberFilter] = useState('all');
 
-  // Current user (you)
-  const currentUser = 'You';
-  
   const sprintData = [
-    // Your queries
     {
       id: 1,
       title: "Test Content - Wind Turbine Blade Replacement",
@@ -27,83 +22,67 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Alpha',
-      member: currentUser,
-      isCurrentUser: true
+      team: 'Team Alpha'
     },
     {
       id: 2,
-      title: "Equipment Testing Procedures",
-      subtitle: "",
-      query: "Testing protocols",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: false,
-      month: '2025-06',
-      team: 'Team Beta',
-      member: currentUser,
-      isCurrentUser: true
-    },
-    {
-      id: 3,
-      title: "Safety Equipment Maintenance Guide",
-      subtitle: "",
-      query: "Safety protocols",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'Team Gamma',
-      member: currentUser,
-      isCurrentUser: true
-    },
-    // Team Alpha members
-    {
-      id: 4,
       title: "Test Content - Wind Turbine Blade Replacement",
       subtitle: "",
       query: "Wind Turbine Blade Replacement",
       feedback: "Save time",
       hasSubmittedFeedback: false,
       month: '2025-06',
-      team: 'Team Alpha',
-      member: 'Bob Smith',
-      isCurrentUser: false
+      team: 'Team Alpha'
     },
     {
-      id: 5,
-      title: "Emergency Response Training",
+      id: 3,
+      title: "Test Content - Wind Turbine Blade Replacement",
       subtitle: "",
-      query: "Emergency procedures",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: false,
-      month: '2025-06',
-      team: 'Team Alpha',
-      member: 'Charlie Brown',
-      isCurrentUser: false
-    },
-    // Team Beta members
-    {
-      id: 6,
-      title: "Offshore weather and environmental conditions",
-      subtitle: "",
-      query: "Planning for difficult weather conditions",
-      feedback: "Improve quality",
+      query: "linux4",
+      feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Beta',
-      member: 'Carol White',
-      isCurrentUser: false
+      team: 'Team Beta'
     },
     {
-      id: 7,
+      id: 4,
       title: "How to plan and conduct a live evaluation of your ERP",
       subtitle: "",
       query: "Planning for difficult weather conditions",
       feedback: "Improve quality",
       hasSubmittedFeedback: false,
       month: '2025-06',
-      team: 'Team Beta',
-      member: 'David Lee',
-      isCurrentUser: false
+      team: 'Team Beta'
+    },
+    {
+      id: 5,
+      title: "Offshore weather and environmental conditions",
+      subtitle: "",
+      query: "Planning for difficult weather conditions",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'Team Gamma'
+    },
+    {
+      id: 6,
+      title: "Safety Equipment Maintenance Guide",
+      subtitle: "",
+      query: "Safety protocols",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-06',
+      team: 'Team Gamma'
+    },
+    {
+      id: 7,
+      title: "Emergency Response Training",
+      subtitle: "",
+      query: "Emergency procedures",
+      feedback: "Improve quality",
+      hasSubmittedFeedback: false,
+      month: '2025-06',
+      team: 'Team Alpha'
     },
     {
       id: 8,
@@ -113,59 +92,29 @@ const MySprints = () => {
       feedback: "Save time",
       hasSubmittedFeedback: true,
       month: '2025-06',
-      team: 'Team Beta',
-      member: 'Grace Kim',
-      isCurrentUser: false
+      team: 'Team Beta'
     },
     {
       id: 9,
-      title: "Quality Assurance Checklist",
+      title: "Previous Month Sprint 1",
       subtitle: "",
-      query: "Quality control",
-      feedback: "Improve quality",
-      hasSubmittedFeedback: false,
-      month: '2025-06',
-      team: 'Team Beta',
-      member: 'Henry Zhang',
-      isCurrentUser: false
+      query: "Historical data",
+      feedback: "Save time",
+      hasSubmittedFeedback: true,
+      month: '2025-05',
+      team: 'Team Alpha'
     },
-    // Team Gamma members
     {
       id: 10,
-      title: "Equipment Inspection Checklist",
+      title: "Previous Month Sprint 2",
       subtitle: "",
-      query: "Inspection procedures",
-      feedback: "Save time",
+      query: "Historical analysis",
+      feedback: "Improve quality",
       hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'Team Gamma',
-      member: 'Eve Martinez',
-      isCurrentUser: false
-    },
-    {
-      id: 11,
-      title: "Maintenance Schedule Update",
-      subtitle: "",
-      query: "Maintenance planning",
-      feedback: "Save time",
-      hasSubmittedFeedback: true,
-      month: '2025-06',
-      team: 'Team Gamma',
-      member: 'Frank Davis',
-      isCurrentUser: false
+      month: '2025-05',
+      team: 'Team Gamma'
     }
   ];
-
-  const teamMembers = {
-    'Team Alpha': [currentUser, 'Bob Smith', 'Charlie Brown'],
-    'Team Beta': [currentUser, 'Carol White', 'David Lee', 'Grace Kim', 'Henry Zhang'],
-    'Team Gamma': [currentUser, 'Eve Martinez', 'Frank Davis']
-  };
-
-  // Get teams user belongs to
-  const myTeams = Object.keys(teamMembers).filter(team => 
-    teamMembers[team as keyof typeof teamMembers].includes(currentUser)
-  );
 
   const teams = ['Team Alpha', 'Team Beta', 'Team Gamma'];
   
@@ -180,38 +129,9 @@ const MySprints = () => {
         team: teamName,
         totalQueries,
         completeCount,
-        pleaseAttendHuddleCount,
-        memberCount: teamMembers[teamName as keyof typeof teamMembers].length
+        pleaseAttendHuddleCount
       };
     });
-  };
-
-  const getMemberStats = () => {
-    const stats: Record<string, { total: number; complete: number; huddle: number; team: string }> = {};
-    
-    sprintData.forEach(sprint => {
-      if (!stats[sprint.member]) {
-        stats[sprint.member] = { total: 0, complete: 0, huddle: 0, team: sprint.team };
-      }
-      stats[sprint.member].total++;
-      if (sprint.hasSubmittedFeedback) {
-        stats[sprint.member].complete++;
-      } else {
-        stats[sprint.member].huddle++;
-      }
-    });
-    
-    return stats;
-  };
-
-  const [expandedTeams, setExpandedTeams] = useState<string[]>([]);
-
-  const toggleTeamExpansion = (teamName: string) => {
-    setExpandedTeams(prev => 
-      prev.includes(teamName) 
-        ? prev.filter(t => t !== teamName)
-        : [...prev, teamName]
-    );
   };
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
@@ -224,46 +144,17 @@ const MySprints = () => {
 
   const filteredSprints = sprintData.filter(sprint => {
     const matchesSearch = sprint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         sprint.query.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         sprint.member.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesMember = memberFilter === 'all' || sprint.member === memberFilter;
-    
-    // Only show current user's queries
-    const isMyQuery = sprint.isCurrentUser;
+                         sprint.query.toLowerCase().includes(searchTerm.toLowerCase());
     
     if (sprintFilter === 'current-month') {
-      return matchesSearch && matchesMember && sprint.month === '2025-06' && isMyQuery;
+      return matchesSearch && sprint.month === '2025-06';
     } else if (sprintFilter === 'last-month') {
-      return matchesSearch && matchesMember && sprint.month === '2025-05' && isMyQuery;
+      return matchesSearch && sprint.month === '2025-05';
     }
-    return matchesSearch && matchesMember && isMyQuery;
+    return matchesSearch;
   });
-
-  // Get unique members for filter
-  const uniqueMembers = Array.from(new Set(sprintData.map(s => s.member))).sort();
 
   const teamAggregates = getTeamAggregates();
-  const memberStats = getMemberStats();
-
-  // Calculate "My Data" (current user's aggregate)
-  const myPersonalData = sprintData.filter(s => s.isCurrentUser);
-  const myData = {
-    total: myPersonalData.length,
-    complete: myPersonalData.filter(s => s.hasSubmittedFeedback).length,
-    huddle: myPersonalData.filter(s => !s.hasSubmittedFeedback).length
-  };
-
-  // Calculate team data for teams I'm in
-  const myTeamsData = myTeams.map(teamName => {
-    const teamSprints = sprintData.filter(s => s.team === teamName);
-    return {
-      team: teamName,
-      total: teamSprints.length,
-      complete: teamSprints.filter(s => s.hasSubmittedFeedback).length,
-      huddle: teamSprints.filter(s => !s.hasSubmittedFeedback).length
-    };
-  });
 
   return (
     <TooltipProvider>
@@ -271,61 +162,36 @@ const MySprints = () => {
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-foreground mb-8">Your Queries</h1>
           
-          {/* Performance Overview Section */}
-          <div className="mb-6 space-y-4">
-            {/* My Personal Data */}
-            <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
-              <h3 className="text-sm font-semibold text-primary mb-3">My Personal Performance</h3>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="text-xs text-muted-foreground mb-1">Total Queries</div>
-                  <div className="text-2xl font-bold text-foreground">{myData.total}</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs text-muted-foreground mb-1">Complete</div>
-                  <div className="text-2xl font-bold text-green-600">{myData.complete}</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs text-muted-foreground mb-1">Pending Huddle</div>
-                  <div className="text-2xl font-bold text-amber-600">{myData.huddle}</div>
-                </div>
+          {/* Team Aggregate Section */}
+          <div className="mb-4 p-3 bg-muted/20 rounded-lg">
+            <h3 className="text-sm font-semibold mb-2">Team Aggregate Data</h3>
+            <div className="text-xs">
+              <div className="grid grid-cols-4 gap-2 font-medium text-muted-foreground pb-1 border-b">
+                <div>Team</div>
+                <div>Total</div>
+                <div>Complete</div>
+                <div>Huddle</div>
               </div>
+              {teamAggregates.map((aggregate) => (
+                <div 
+                  key={aggregate.team}
+                  className="grid grid-cols-4 gap-2 py-1.5"
+                >
+                  <div className="font-medium">{aggregate.team}</div>
+                  <div>{aggregate.totalQueries}</div>
+                  <div>{aggregate.completeCount}</div>
+                  <div>{aggregate.pleaseAttendHuddleCount}</div>
+                </div>
+              ))}
             </div>
-
-            {/* My Teams Data */}
-            <div className="p-4 bg-muted/20 rounded-lg">
-              <h3 className="text-sm font-semibold mb-3">My Teams Performance</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {myTeamsData.map((teamData) => (
-                  <div key={teamData.team} className="p-3 bg-background rounded border">
-                    <div className="font-medium text-sm mb-2">{teamData.team}</div>
-                    <div className="space-y-1 text-xs">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Total:</span>
-                        <span className="font-semibold">{teamData.total}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Complete:</span>
-                        <span className="font-semibold text-green-600">{teamData.complete}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Pending:</span>
-                        <span className="font-semibold text-amber-600">{teamData.huddle}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </div>
 
-          <Card className="shadow-lg border">
-            <CardHeader className="border-b bg-muted/20">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <Card className="shadow-lg">
+            <CardHeader>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                 <CardTitle className="text-lg font-semibold text-foreground">Sprint Overview</CardTitle>
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="relative w-full sm:w-64">
+                <div className="flex items-center space-x-2">
+                  <div className="relative flex-1 sm:w-64">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       placeholder="Search Sprints"
@@ -338,21 +204,10 @@ const MySprints = () => {
                     <SelectTrigger className="w-40">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
+                    <SelectContent>
                       <SelectItem value="all">All</SelectItem>
                       <SelectItem value="current-month">Current Month</SelectItem>
                       <SelectItem value="last-month">Last Month</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select value={memberFilter} onValueChange={setMemberFilter}>
-                    <SelectTrigger className="w-44">
-                      <SelectValue placeholder="All Members" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-background">
-                      <SelectItem value="all">All Members</SelectItem>
-                      {uniqueMembers.map(member => (
-                        <SelectItem key={member} value={member}>{member}</SelectItem>
-                      ))}
                     </SelectContent>
                   </Select>
                   <div className="flex border rounded-md">
@@ -378,28 +233,23 @@ const MySprints = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="grid grid-cols-5 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
-                  <div>Member</div>
-                  <div>Query</div>
-                  <div>Content Viewed</div>
-                  <div>Feedback</div>
+                <div className="grid grid-cols-4 gap-4 text-sm font-medium text-muted-foreground border-b pb-2">
+                  <div>Your Query</div>
+                  <div>You Viewed</div>
+                  <div>Your Feedback</div>
                   <div>Status</div>
                 </div>
-                <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-3">
+                <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-4">
                   {filteredSprints.map((sprint) => (
                     <div 
                       key={sprint.id} 
-                      className="grid grid-cols-5 gap-4 items-start p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                      className="grid grid-cols-4 gap-4 items-center p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
                     >
-                      <div className="flex flex-col gap-1">
-                        <span className="text-sm font-medium text-foreground">{sprint.member}</span>
-                        <Badge variant="outline" className="text-xs w-fit">{sprint.team}</Badge>
-                      </div>
                       <div className="text-sm text-foreground">{sprint.query}</div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">{sprint.title}</p>
+                        <p className="font-medium text-foreground">{sprint.title}</p>
                         {sprint.subtitle && (
-                          <p className="text-xs text-muted-foreground">{sprint.subtitle}</p>
+                          <p className="text-sm text-muted-foreground">{sprint.subtitle}</p>
                         )}
                       </div>
                       <div className="text-sm text-foreground">
