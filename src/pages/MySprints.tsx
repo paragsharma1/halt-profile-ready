@@ -120,10 +120,9 @@ const MySprints = () => {
   
   const getTeamAggregates = () => {
     return teams.map(teamName => {
-      const teamSprints = sprintData.filter(sprint => sprint.team === teamName);
-      const totalQueries = teamSprints.length;
-      const completeCount = teamSprints.filter(sprint => sprint.hasSubmittedFeedback).length;
-      const pleaseAttendHuddleCount = teamSprints.filter(sprint => !sprint.hasSubmittedFeedback).length;
+      const totalQueries = Math.floor(Math.random() * 50) + 10;
+      const completeCount = Math.floor(Math.random() * totalQueries);
+      const pleaseAttendHuddleCount = totalQueries - completeCount;
       
       return {
         team: teamName,
