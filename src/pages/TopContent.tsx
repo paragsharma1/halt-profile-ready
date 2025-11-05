@@ -17,14 +17,14 @@ const TopContent = () => {
     { id: 'team3', name: 'Team Gamma' }
   ];
 
-  // Generate random popularity data
+  // Static popularity data
   const topContent = [
-    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: Math.floor(Math.random() * 30) + 70, teamId: 'team1' },
-    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: Math.floor(Math.random() * 30) + 70, teamId: 'team2' },
-    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: Math.floor(Math.random() * 30) + 70, teamId: 'team1' },
-    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: Math.floor(Math.random() * 30) + 70, teamId: 'team2' },
-    { id: 5, title: "Risk Assessment Documentation", feedback: "Save time", popularity: Math.floor(Math.random() * 30) + 70, teamId: 'team3' },
-    { id: 6, title: "Safety Equipment Maintenance", feedback: "Improve quality", popularity: Math.floor(Math.random() * 30) + 70, teamId: 'team3' }
+    { id: 1, title: "Wind Turbine Maintenance Best Practices", feedback: "Save time", popularity: 95, teamId: 'team1' },
+    { id: 2, title: "Offshore Safety Protocols", feedback: "Improve quality", popularity: 88, teamId: 'team2' },
+    { id: 3, title: "Equipment Troubleshooting Guide", feedback: "Save time", popularity: 82, teamId: 'team1' },
+    { id: 4, title: "Emergency Response Procedures", feedback: "Improve quality", popularity: 79, teamId: 'team2' },
+    { id: 5, title: "Risk Assessment Documentation", feedback: "Save time", popularity: 76, teamId: 'team3' },
+    { id: 6, title: "Safety Equipment Maintenance", feedback: "Improve quality", popularity: 73, teamId: 'team3' }
   ];
 
   const filteredContent = contentView === 'my' 

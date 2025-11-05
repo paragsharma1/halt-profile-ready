@@ -30,15 +30,15 @@ const Index = () => {
     { id: 'team3', name: 'Team Gamma' },
   ];
 
-  // Generate random performance data
+  // Static performance data - My performance vs team averages
   const performanceData = [
-    { month: '2024-12', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
-    { month: '2025-01', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
-    { month: '2025-02', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
-    { month: '2025-03', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
-    { month: '2025-04', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
-    { month: '2025-05', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
-    { month: '2025-06', myPoints: Math.floor(Math.random() * 15) + 5, team1Average: Math.floor(Math.random() * 15) + 5, team2Average: Math.floor(Math.random() * 15) + 5, team3Average: Math.floor(Math.random() * 15) + 5 },
+    { month: '2024-12', myPoints: 5, team1Average: 12, team2Average: 14, team3Average: 10 },
+    { month: '2025-01', myPoints: 7, team1Average: 11, team2Average: 13, team3Average: 9 },
+    { month: '2025-02', myPoints: 6, team1Average: 13, team2Average: 15, team3Average: 11 },
+    { month: '2025-03', myPoints: 8, team1Average: 14, team2Average: 16, team3Average: 10 },
+    { month: '2025-04', myPoints: 9, team1Average: 13, team2Average: 14, team3Average: 12 },
+    { month: '2025-05', myPoints: 8, team1Average: 15, team2Average: 17, team3Average: 13 },
+    { month: '2025-06', myPoints: 8, team1Average: 15, team2Average: 17, team3Average: 13 },
   ];
 
   const sprintData = [
@@ -200,18 +200,17 @@ const Index = () => {
   });
 
   const getTeamAggregates = () => {
-    return teams.map(team => {
-      const totalQueries = Math.floor(Math.random() * 50) + 10;
-      const completeCount = Math.floor(Math.random() * totalQueries);
-      const pleaseAttendHuddleCount = totalQueries - completeCount;
-      
-      return {
-        team: team.name,
-        totalQueries,
-        completeCount,
-        pleaseAttendHuddleCount
-      };
-    });
+    // Static team data with proper distinction
+    const teamData = {
+      'Team Alpha': { totalQueries: 45, completeCount: 38, pleaseAttendHuddleCount: 7 },
+      'Team Beta': { totalQueries: 52, completeCount: 44, pleaseAttendHuddleCount: 8 },
+      'Team Gamma': { totalQueries: 38, completeCount: 30, pleaseAttendHuddleCount: 8 }
+    };
+    
+    return teams.map(team => ({
+      team: team.name,
+      ...teamData[team.name as keyof typeof teamData]
+    }));
   };
 
   const teamAggregates = getTeamAggregates();

@@ -119,18 +119,17 @@ const MySprints = () => {
   const teams = ['Team Alpha', 'Team Beta', 'Team Gamma'];
   
   const getTeamAggregates = () => {
-    return teams.map(teamName => {
-      const totalQueries = Math.floor(Math.random() * 50) + 10;
-      const completeCount = Math.floor(Math.random() * totalQueries);
-      const pleaseAttendHuddleCount = totalQueries - completeCount;
-      
-      return {
-        team: teamName,
-        totalQueries,
-        completeCount,
-        pleaseAttendHuddleCount
-      };
-    });
+    // Static team data with proper distinction
+    const teamData = {
+      'Team Alpha': { totalQueries: 45, completeCount: 38, pleaseAttendHuddleCount: 7 },
+      'Team Beta': { totalQueries: 52, completeCount: 44, pleaseAttendHuddleCount: 8 },
+      'Team Gamma': { totalQueries: 38, completeCount: 30, pleaseAttendHuddleCount: 8 }
+    };
+    
+    return teams.map(teamName => ({
+      team: teamName,
+      ...teamData[teamName as keyof typeof teamData]
+    }));
   };
 
   const getStatusBadge = (hasSubmittedFeedback: boolean) => {
