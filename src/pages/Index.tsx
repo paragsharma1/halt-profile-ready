@@ -383,7 +383,7 @@ const Index = () => {
                     <p className="text-xs text-blue-600">Top Performer{topPerformers.length > 1 ? 's' : ''}</p>
                     <div className="transition-all duration-500 ease-in-out">
                       <p className="text-lg font-bold text-blue-800">{topPerformers[currentPerformerIndex].name}</p>
-                      <p className="text-xs text-blue-500">from {topPerformers[currentPerformerIndex].location}</p>
+                      <p className="text-xs text-blue-500">{topPerformers[currentPerformerIndex].location}</p>
                     </div>
                     <p className="text-xs text-blue-500">Last Month</p>
                     {topPerformers.length > 1 && (
