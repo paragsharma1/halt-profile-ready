@@ -775,9 +775,16 @@ const Index = () => {
                               </div>
                             </div>
                             <div className="flex justify-between items-center">
-                              <Badge className={`${item.feedback === 'Save time' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'} border-0 text-xs`}>
-                                {item.feedback}
-                              </Badge>
+                              <div className="flex gap-2">
+                                <Badge className="bg-blue-100 text-blue-800 border-0 text-xs">
+                                  {item.feedback}
+                                </Badge>
+                                {contentView === 'my' && (
+                                  <Badge variant="outline" className="text-xs">
+                                    {teams.find(t => t.id === item.teamId)?.name}
+                                  </Badge>
+                                )}
+                              </div>
                               <span className="text-xs text-gray-500">{item.popularity}% popular</span>
                             </div>
                           </Card>
