@@ -20,8 +20,6 @@ const Index = () => {
   const [teamFilter, setTeamFilter] = useState('all');
   const [contentView, setContentView] = useState<'my' | 'team'>('my');
   const [currentPerformerIndex, setCurrentPerformerIndex] = useState(0);
-  const [teamViewMode, setTeamViewMode] = useState<'all' | 'single'>('all');
-  const [selectedTeam, setSelectedTeam] = useState<string>('team1');
   const [contentTeamFilter, setContentTeamFilter] = useState<string>('all');
 
   const teams = [
@@ -531,37 +529,9 @@ const Index = () => {
                 <TabsContent value="progress" className="space-y-6">
                   <Card className="shadow-lg">
                     <CardHeader>
-                      <div className="flex items-center justify-between mb-4">
-                        <CardTitle className="text-lg font-semibold text-gray-900">
-                          Your Performance vs. Team Average
-                        </CardTitle>
-                        <div className="flex items-center gap-6">
-                          <RadioGroup value={teamViewMode} onValueChange={(value) => setTeamViewMode(value as 'all' | 'single')} className="flex gap-4">
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="all" id="all-teams" />
-                              <Label htmlFor="all-teams" className="cursor-pointer">All Teams</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="single" id="single-team" />
-                              <Label htmlFor="single-team" className="cursor-pointer">Single Team</Label>
-                            </div>
-                          </RadioGroup>
-                          {teamViewMode === 'single' && (
-                            <Select value={selectedTeam} onValueChange={setSelectedTeam}>
-                              <SelectTrigger className="w-[200px]">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {teams.map(team => (
-                                  <SelectItem key={team.id} value={team.id}>
-                                    {team.name}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          )}
-                        </div>
-                      </div>
+                      <CardTitle className="text-lg font-semibold text-gray-900">
+                        Your Performance vs. Team Average
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ResponsiveContainer width="100%" height={300}>
@@ -586,47 +556,33 @@ const Index = () => {
                             dot={{ fill: '#5D30BF', strokeWidth: 2, r: 6 }}
                             name="Your Sprints"
                           />
-                          {teamViewMode === 'all' ? (
-                            <>
-                              <Line 
-                                type="monotone" 
-                                dataKey="team1Average" 
-                                stroke="#281D73" 
-                                strokeWidth={2}
-                                strokeDasharray="5 5"
-                                dot={{ fill: '#281D73', strokeWidth: 2, r: 4 }}
-                                name="Team Alpha Avg"
-                              />
-                              <Line 
-                                type="monotone" 
-                                dataKey="team2Average" 
-                                stroke="#011640" 
-                                strokeWidth={2}
-                                strokeDasharray="3 3"
-                                dot={{ fill: '#011640', strokeWidth: 2, r: 4 }}
-                                name="Team Beta Avg"
-                              />
-                              <Line 
-                                type="monotone" 
-                                dataKey="team3Average" 
-                                stroke="#0B8AD9" 
-                                strokeWidth={2}
-                                strokeDasharray="8 4"
-                                dot={{ fill: '#0B8AD9', strokeWidth: 2, r: 4 }}
-                                name="Team Gamma Avg"
-                              />
-                            </>
-                          ) : (
-                            <Line 
-                              type="monotone" 
-                              dataKey={`${selectedTeam}Average`}
-                              stroke="#281D73" 
-                              strokeWidth={3}
-                              strokeDasharray="5 5"
-                              dot={{ fill: '#281D73', strokeWidth: 2, r: 6 }}
-                              name={`${teams.find(t => t.id === selectedTeam)?.name} Avg`}
-                            />
-                          )}
+                          <Line 
+                            type="monotone" 
+                            dataKey="team1Average" 
+                            stroke="#281D73" 
+                            strokeWidth={2}
+                            strokeDasharray="5 5"
+                            dot={{ fill: '#281D73', strokeWidth: 2, r: 4 }}
+                            name="Team Alpha Avg"
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="team2Average" 
+                            stroke="#011640" 
+                            strokeWidth={2}
+                            strokeDasharray="3 3"
+                            dot={{ fill: '#011640', strokeWidth: 2, r: 4 }}
+                            name="Team Beta Avg"
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="team3Average" 
+                            stroke="#0B8AD9" 
+                            strokeWidth={2}
+                            strokeDasharray="8 4"
+                            dot={{ fill: '#0B8AD9', strokeWidth: 2, r: 4 }}
+                            name="Team Gamma Avg"
+                          />
                         </LineChart>
                       </ResponsiveContainer>
                     </CardContent>
@@ -634,30 +590,6 @@ const Index = () => {
                 </TabsContent>
 
                 <TabsContent value="sprints" className="space-y-6">
-                  {/* Team Aggregate Section */}
-                  <div className="mb-4 p-3 bg-muted/20 rounded-lg">
-                    <h3 className="text-sm font-semibold mb-2">Team Aggregate Data</h3>
-                    <div className="text-xs">
-                      <div className="grid grid-cols-4 gap-2 font-medium text-muted-foreground pb-1 border-b">
-                        <div>Team</div>
-                        <div>Total</div>
-                        <div>Complete</div>
-                        <div>Huddle</div>
-                      </div>
-                      {teamAggregates.map((aggregate) => (
-                        <div 
-                          key={aggregate.team}
-                          className="grid grid-cols-4 gap-2 py-1.5"
-                        >
-                          <div className="font-medium">{aggregate.team}</div>
-                          <div>{aggregate.totalQueries}</div>
-                          <div>{aggregate.completeCount}</div>
-                          <div>{aggregate.pleaseAttendHuddleCount}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
                   <Card className="shadow-lg">
                     <CardHeader>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
