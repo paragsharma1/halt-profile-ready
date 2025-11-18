@@ -39,6 +39,12 @@ const Index = () => {
     { month: '2025-06', myPoints: 8, team1Average: 15, team2Average: 17, team3Average: 13 },
   ];
 
+  // Calculate combined team average for chart
+  const chartData = performanceData.map(item => ({
+    ...item,
+    teamAverage: Math.round((item.team1Average + item.team2Average + item.team3Average) / 3)
+  }));
+
   const sprintData = [
     {
       id: 1,
@@ -535,7 +541,7 @@ const Index = () => {
                     </CardHeader>
                     <CardContent>
                       <ResponsiveContainer width="100%" height={300}>
-                        <LineChart data={performanceData}>
+                        <LineChart data={chartData}>
                           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                           <XAxis 
                             dataKey="month" 
@@ -558,30 +564,12 @@ const Index = () => {
                           />
                           <Line 
                             type="monotone" 
-                            dataKey="team1Average" 
-                            stroke="#281D73" 
-                            strokeWidth={2}
-                            strokeDasharray="5 5"
-                            dot={{ fill: '#281D73', strokeWidth: 2, r: 4 }}
-                            name="Team Alpha Avg"
-                          />
-                          <Line 
-                            type="monotone" 
-                            dataKey="team2Average" 
-                            stroke="#011640" 
-                            strokeWidth={2}
-                            strokeDasharray="3 3"
-                            dot={{ fill: '#011640', strokeWidth: 2, r: 4 }}
-                            name="Team Beta Avg"
-                          />
-                          <Line 
-                            type="monotone" 
-                            dataKey="team3Average" 
+                            dataKey="teamAverage" 
                             stroke="#0B8AD9" 
                             strokeWidth={2}
-                            strokeDasharray="8 4"
+                            strokeDasharray="5 5"
                             dot={{ fill: '#0B8AD9', strokeWidth: 2, r: 4 }}
-                            name="Team Gamma Avg"
+                            name="Team Average"
                           />
                         </LineChart>
                       </ResponsiveContainer>
