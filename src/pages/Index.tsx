@@ -42,6 +42,8 @@ const Index = () => {
     { month: '2025-06', site1: 16, site2: 18, site3: 14, site4: 18, site5: 17, site6: 21 },
   ];
 
+  const sprintGoal = 5;
+
   const sprintData = [
     {
       id: 1,
@@ -221,7 +223,6 @@ const Index = () => {
   const completedCurrentMonth = sprintData.filter(sprint => sprint.month === '2025-06' && sprint.hasSubmittedFeedback).length;
   const currentMonthCompletionRate = currentMonthSprints > 0 ? Math.round((completedCurrentMonth / currentMonthSprints) * 100) : 0;
 
-  const sprintGoal = 5;
   const progressPercentage = (currentMonthSprints / sprintGoal) * 100;
   const exceedsGoal = currentMonthSprints > sprintGoal;
   const exceedancePercentage = exceedsGoal ? Math.round(((currentMonthSprints - sprintGoal) / sprintGoal) * 100) : 0;
@@ -396,7 +397,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Site Overview Card */}
+            {/* Left Column - Progress Card */}
             <div className="lg:col-span-1">
               <Card className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white border-0 shadow-xl overflow-hidden relative">
                 {/* Decorative background pattern */}
@@ -414,29 +415,70 @@ const Index = () => {
                     <div className="p-2 bg-white/20 rounded-lg">
                       <TrendingUp className="h-5 w-5" />
                     </div>
-                    <CardTitle className="text-xl font-bold">Site Team Overview</CardTitle>
+                    <CardTitle className="text-xl font-bold">Power Up Your Learning!</CardTitle>
                   </div>
                   <p className="text-blue-100 text-sm leading-relaxed">
-                    Monitor all site teams' performance and engagement levels.
+                    Stay ahead of risks and make confident decisions. Dive into your expert content today.
                   </p>
                 </CardHeader>
                 
                 <CardContent className="space-y-6 relative z-10">
-                  <div className="space-y-3">
-                    {['Site 1', 'Site 2', 'Site 3', 'Site 4', 'Site 5', 'Site 6'].map((site, index) => (
-                      <div key={site} className="bg-white/10 rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white font-medium text-sm">{site}</span>
-                          <span className="text-white font-bold text-sm">
-                            {sitePerformanceData[sitePerformanceData.length - 1][`site${index + 1}` as keyof typeof sitePerformanceData[0]]} sprints
-                          </span>
-                        </div>
-                        <Progress 
-                          value={((sitePerformanceData[sitePerformanceData.length - 1][`site${index + 1}` as keyof typeof sitePerformanceData[0]] as number) / 21) * 100}
-                          className="h-2 bg-blue-500/30"
-                        />
+                  {/* Target Banner */}
+                  <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-medium text-sm">Target</span>
+                      <span className="text-white font-bold text-sm">5 Sprints</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-xs">
+                        <span>Your Progress</span>
+                        <span className="font-bold">{currentMonthSprints} / {sprintGoal} sprints</span>
                       </div>
-                    ))}
+                      <Progress 
+                        value={Math.min(progressPercentage, 100)} 
+                        exceedsGoal={exceedsGoal}
+                        className={`h-3 ${exceedsGoal ? 'bg-white/20' : 'bg-blue-500/30'}`} 
+                      />
+                      {exceedsGoal && (
+                        <div className="text-xs text-blue-100 text-center">
+                          <span className="font-bold">+{exceedancePercentage}%</span> above target!
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 rounded-lg p-3">
+                      {currentMonthSprints === 0 ? (
+                        <>
+                          <p className="text-sm text-blue-100">
+                            Ready to start powering up?
+                          </p>
+                          <p className="text-sm text-blue-100 mt-1">
+                            Your first sprint awaits!
+                          </p>
+                        </>
+                      ) : exceedsGoal ? (
+                        <>
+                          <p className="text-sm text-blue-100">
+                            🎉 Outstanding work! You've exceeded the target by {exceedancePercentage}%!
+                          </p>
+                          <p className="text-sm text-blue-100 mt-1">
+                            Keep up the fantastic learning momentum!
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-sm text-blue-100">
+                            Great progress! Keep going to reach your target.
+                          </p>
+                          <p className="text-sm text-blue-100 mt-1">
+                            {sprintGoal - currentMonthSprints} more sprint{sprintGoal - currentMonthSprints !== 1 ? 's' : ''} to go!
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -486,49 +528,49 @@ const Index = () => {
                           <Line 
                             type="monotone" 
                             dataKey="site1" 
-                            stroke="#5D30BF" 
+                            stroke="#1e3a8a" 
                             strokeWidth={2}
-                            dot={{ fill: '#5D30BF', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#1e3a8a', strokeWidth: 2, r: 4 }}
                             name="Site 1"
                           />
                           <Line 
                             type="monotone" 
                             dataKey="site2" 
-                            stroke="#0B8AD9" 
+                            stroke="#2563eb" 
                             strokeWidth={2}
-                            dot={{ fill: '#0B8AD9', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#2563eb', strokeWidth: 2, r: 4 }}
                             name="Site 2"
                           />
                           <Line 
                             type="monotone" 
                             dataKey="site3" 
-                            stroke="#F97316" 
+                            stroke="#3b82f6" 
                             strokeWidth={2}
-                            dot={{ fill: '#F97316', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
                             name="Site 3"
                           />
                           <Line 
                             type="monotone" 
                             dataKey="site4" 
-                            stroke="#10B981" 
+                            stroke="#60a5fa" 
                             strokeWidth={2}
-                            dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#60a5fa', strokeWidth: 2, r: 4 }}
                             name="Site 4"
                           />
                           <Line 
                             type="monotone" 
                             dataKey="site5" 
-                            stroke="#EF4444" 
+                            stroke="#93c5fd" 
                             strokeWidth={2}
-                            dot={{ fill: '#EF4444', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#93c5fd', strokeWidth: 2, r: 4 }}
                             name="Site 5"
                           />
                           <Line 
                             type="monotone" 
                             dataKey="site6" 
-                            stroke="#8B5CF6" 
+                            stroke="#0ea5e9" 
                             strokeWidth={2}
-                            dot={{ fill: '#8B5CF6', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#0ea5e9', strokeWidth: 2, r: 4 }}
                             name="Site 6"
                           />
                         </LineChart>
