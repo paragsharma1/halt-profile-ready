@@ -28,22 +28,19 @@ const Index = () => {
     { id: 'team3', name: 'Team Gamma' },
   ];
 
-  // Static performance data - My performance vs team averages
-  const performanceData = [
-    { month: '2024-12', myPoints: 5, team1Average: 12, team2Average: 14, team3Average: 10 },
-    { month: '2025-01', myPoints: 7, team1Average: 11, team2Average: 13, team3Average: 9 },
-    { month: '2025-02', myPoints: 6, team1Average: 13, team2Average: 15, team3Average: 11 },
-    { month: '2025-03', myPoints: 8, team1Average: 14, team2Average: 16, team3Average: 10 },
-    { month: '2025-04', myPoints: 9, team1Average: 13, team2Average: 14, team3Average: 12 },
-    { month: '2025-05', myPoints: 8, team1Average: 15, team2Average: 17, team3Average: 13 },
-    { month: '2025-06', myPoints: 8, team1Average: 15, team2Average: 17, team3Average: 13 },
-  ];
+  // User role
+  const userRole = 'Manager';
 
-  // Calculate combined team average for chart
-  const chartData = performanceData.map(item => ({
-    ...item,
-    teamAverage: Math.round((item.team1Average + item.team2Average + item.team3Average) / 3)
-  }));
+  // Site teams performance data
+  const sitePerformanceData = [
+    { month: '2024-12', site1: 12, site2: 14, site3: 10, site4: 13, site5: 11, site6: 15 },
+    { month: '2025-01', site1: 11, site2: 13, site3: 9, site4: 14, site5: 12, site6: 16 },
+    { month: '2025-02', site1: 13, site2: 15, site3: 11, site4: 12, site5: 14, site6: 17 },
+    { month: '2025-03', site1: 14, site2: 16, site3: 10, site4: 15, site5: 13, site6: 18 },
+    { month: '2025-04', site1: 13, site2: 14, site3: 12, site4: 16, site5: 15, site6: 19 },
+    { month: '2025-05', site1: 15, site2: 17, site3: 13, site4: 17, site5: 16, site6: 20 },
+    { month: '2025-06', site1: 16, site2: 18, site3: 14, site4: 18, site5: 17, site6: 21 },
+  ];
 
   const sprintData = [
     {
@@ -256,32 +253,14 @@ const Index = () => {
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-lg">P</span>
                   </div>
-                  <svg className="absolute -inset-2 w-16 h-16 transform -rotate-90">
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="#e5e7eb"
-                      strokeWidth="4"
-                      fill="none"
-                      className="opacity-30"
-                    />
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="#1e40af"
-                      strokeWidth="4"
-                      fill="none"
-                      strokeDasharray={`${2 * Math.PI * 28}`}
-                      strokeDashoffset={`${2 * Math.PI * 28 * (1 - Math.min(progressPercentage, 100) / 100)}`}
-                      className="transition-all duration-500 drop-shadow-sm"
-                      strokeLinecap="round"
-                    />
-                  </svg>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold text-gray-900">Welcome Back, parag</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-lg font-semibold text-gray-900">Welcome Back, parag</p>
+                    <Badge className="bg-blue-100 text-blue-800 border-blue-200 text-xs">
+                      {userRole}
+                    </Badge>
+                  </div>
                   <p className="text-sm text-blue-600">Ready to power up? 👋</p>
                 </div>
               </div>
@@ -299,18 +278,9 @@ const Index = () => {
                     <Target className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">This Month</p>
-                    <p className="text-2xl font-bold text-blue-800">{currentMonthSprints}</p>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <p className="text-xs text-blue-500 cursor-help border-b border-dotted border-blue-400">
-                          + 3 from last month
-                        </p>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>You started 3 more sprints this month compared to last month</p>
-                      </TooltipContent>
-                    </Tooltip>
+                    <p className="text-xs text-blue-600">Total Sites</p>
+                    <p className="text-2xl font-bold text-blue-800">6</p>
+                    <p className="text-xs text-blue-500">Active teams</p>
                   </div>
                 </div>
                 <Tooltip>
@@ -318,7 +288,7 @@ const Index = () => {
                     <Info className="h-4 w-4 text-blue-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Total number of learning sprints you've started this month</p>
+                    <p>Number of active site teams under management</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -331,16 +301,16 @@ const Index = () => {
                     <Trophy className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">Completed</p>
-                    <p className="text-2xl font-bold text-blue-800">{completedCurrentMonth}</p>
+                    <p className="text-xs text-blue-600">Avg Performance</p>
+                    <p className="text-2xl font-bold text-blue-800">17</p>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <p className="text-xs text-blue-500 cursor-help border-b border-dotted border-blue-400">
-                          {currentMonthCompletionRate}% this month
+                          +12% from last month
                         </p>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>{currentMonthCompletionRate}% of your sprints this month have been completed with feedback</p>
+                        <p>Average performance across all sites increased by 12%</p>
                       </TooltipContent>
                     </Tooltip>
                   </div>
@@ -350,7 +320,7 @@ const Index = () => {
                     <Info className="h-4 w-4 text-blue-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Sprints completed with feedback submitted this month</p>
+                    <p>Average sprints completed per site this month</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -363,9 +333,9 @@ const Index = () => {
                     <Star className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-600">Streak</p>
-                    <p className="text-2xl font-bold text-blue-800">4</p>
-                    <p className="text-xs text-blue-500">days in a row</p>
+                    <p className="text-xs text-blue-600">Top Site</p>
+                    <p className="text-2xl font-bold text-blue-800">Site 6</p>
+                    <p className="text-xs text-blue-500">21 sprints</p>
                   </div>
                 </div>
                 <Tooltip>
@@ -373,7 +343,7 @@ const Index = () => {
                     <Info className="h-4 w-4 text-blue-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Consecutive days with sprint activity</p>
+                    <p>Best performing site this month</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -426,7 +396,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Progress Card */}
+            {/* Left Column - Site Overview Card */}
             <div className="lg:col-span-1">
               <Card className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white border-0 shadow-xl overflow-hidden relative">
                 {/* Decorative background pattern */}
@@ -444,70 +414,29 @@ const Index = () => {
                     <div className="p-2 bg-white/20 rounded-lg">
                       <TrendingUp className="h-5 w-5" />
                     </div>
-                    <CardTitle className="text-xl font-bold">Power Up Your Learning!</CardTitle>
+                    <CardTitle className="text-xl font-bold">Site Team Overview</CardTitle>
                   </div>
                   <p className="text-blue-100 text-sm leading-relaxed">
-                    Stay ahead of risks and make confident decisions. Dive into your expert content today.
+                    Monitor all site teams' performance and engagement levels.
                   </p>
                 </CardHeader>
                 
                 <CardContent className="space-y-6 relative z-10">
-                  {/* Target Banner */}
-                  <div className="bg-blue-500 rounded-lg p-3 border border-blue-400">
-                    <div className="flex items-center justify-between">
-                      <span className="text-white font-medium text-sm">Target</span>
-                      <span className="text-white font-bold text-sm">5 Sprints</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span>Your Progress</span>
-                        <span className="font-bold">{currentMonthSprints} / {sprintGoal} sprints</span>
-                      </div>
-                      <Progress 
-                        value={Math.min(progressPercentage, 100)} 
-                        exceedsGoal={exceedsGoal}
-                        className={`h-3 ${exceedsGoal ? 'bg-white/20' : 'bg-blue-500/30'}`} 
-                      />
-                      {exceedsGoal && (
-                        <div className="text-xs text-blue-100 text-center">
-                          <span className="font-bold">+{exceedancePercentage}%</span> above target!
+                  <div className="space-y-3">
+                    {['Site 1', 'Site 2', 'Site 3', 'Site 4', 'Site 5', 'Site 6'].map((site, index) => (
+                      <div key={site} className="bg-white/10 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-white font-medium text-sm">{site}</span>
+                          <span className="text-white font-bold text-sm">
+                            {sitePerformanceData[sitePerformanceData.length - 1][`site${index + 1}` as keyof typeof sitePerformanceData[0]]} sprints
+                          </span>
                         </div>
-                      )}
-                    </div>
-                    
-                    <div className="bg-white/10 rounded-lg p-3">
-                      {currentMonthSprints === 0 ? (
-                        <>
-                          <p className="text-sm text-blue-100">
-                            Ready to start powering up?
-                          </p>
-                          <p className="text-sm text-blue-100 mt-1">
-                            Your first sprint awaits!
-                          </p>
-                        </>
-                      ) : exceedsGoal ? (
-                        <>
-                          <p className="text-sm text-blue-100">
-                            🎉 Outstanding work! You've exceeded the target by {exceedancePercentage}%!
-                          </p>
-                          <p className="text-sm text-blue-100 mt-1">
-                            Keep up the fantastic learning momentum!
-                          </p>
-                        </>
-                      ) : (
-                        <>
-                          <p className="text-sm text-blue-100">
-                            Great progress! Keep going to reach your target.
-                          </p>
-                          <p className="text-sm text-blue-100 mt-1">
-                            {sprintGoal - currentMonthSprints} more sprint{sprintGoal - currentMonthSprints !== 1 ? 's' : ''} to go!
-                          </p>
-                        </>
-                      )}
-                    </div>
+                        <Progress 
+                          value={((sitePerformanceData[sitePerformanceData.length - 1][`site${index + 1}` as keyof typeof sitePerformanceData[0]] as number) / 21) * 100}
+                          className="h-2 bg-blue-500/30"
+                        />
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -536,12 +465,12 @@ const Index = () => {
                   <Card className="shadow-lg">
                     <CardHeader>
                       <CardTitle className="text-lg font-semibold text-gray-900">
-                        Your Performance vs. Team Average
+                        Site Team Performance Comparison
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ResponsiveContainer width="100%" height={300}>
-                        <LineChart data={chartData}>
+                        <LineChart data={sitePerformanceData}>
                           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                           <XAxis 
                             dataKey="month" 
@@ -556,20 +485,51 @@ const Index = () => {
                           <Legend />
                           <Line 
                             type="monotone" 
-                            dataKey="myPoints" 
+                            dataKey="site1" 
                             stroke="#5D30BF" 
-                            strokeWidth={3}
-                            dot={{ fill: '#5D30BF', strokeWidth: 2, r: 6 }}
-                            name="Your Sprints"
+                            strokeWidth={2}
+                            dot={{ fill: '#5D30BF', strokeWidth: 2, r: 4 }}
+                            name="Site 1"
                           />
                           <Line 
                             type="monotone" 
-                            dataKey="teamAverage" 
+                            dataKey="site2" 
                             stroke="#0B8AD9" 
                             strokeWidth={2}
-                            strokeDasharray="5 5"
                             dot={{ fill: '#0B8AD9', strokeWidth: 2, r: 4 }}
-                            name="Team Average"
+                            name="Site 2"
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="site3" 
+                            stroke="#F97316" 
+                            strokeWidth={2}
+                            dot={{ fill: '#F97316', strokeWidth: 2, r: 4 }}
+                            name="Site 3"
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="site4" 
+                            stroke="#10B981" 
+                            strokeWidth={2}
+                            dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
+                            name="Site 4"
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="site5" 
+                            stroke="#EF4444" 
+                            strokeWidth={2}
+                            dot={{ fill: '#EF4444', strokeWidth: 2, r: 4 }}
+                            name="Site 5"
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="site6" 
+                            stroke="#8B5CF6" 
+                            strokeWidth={2}
+                            dot={{ fill: '#8B5CF6', strokeWidth: 2, r: 4 }}
+                            name="Site 6"
                           />
                         </LineChart>
                       </ResponsiveContainer>
